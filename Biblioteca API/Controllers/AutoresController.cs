@@ -1,6 +1,15 @@
-﻿namespace Biblioteca_API.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Biblioteca_API.Controllers
 {
-    public class AutoresController
+    [ApiController]
+    [Route("api/autores")]
+    public class AutoresController: ControllerBase
     {
+        [HttpGet]
+        public string Get()
+        {
+            return "autores";
+        }
     }
 }
