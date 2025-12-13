@@ -1,4 +1,5 @@
-﻿using Biblioteca_API.Entidades;
+﻿using Biblioteca_API.Datos;
+using Biblioteca_API.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_API.Controllers
@@ -7,6 +8,13 @@ namespace Biblioteca_API.Controllers
     [Route("api/autores")]
     public class AutoresController: ControllerBase
     {
+        private readonly ApplicationDbContext context;
+
+        public AutoresController(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+
         [HttpGet]
         public IEnumerable<Autor> Get()
         {
@@ -15,6 +23,14 @@ namespace Biblioteca_API.Controllers
                 new Autor{Id = 1,Nombre = "Pablo Neruda"},
                 new Autor{Id = 2, Nombre = "Ernest Hemingway"}
             };
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(Autor autor)
+        {
+            context.Add(autor);
+            await context.SaveChangesAsync();
+            return Ok();
         }
     }
 }
