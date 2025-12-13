@@ -15,6 +15,7 @@ namespace Biblioteca_API.Controllers
             this.context = context;
         }
 
+        // GET: api/autores
         [HttpGet]
         public IEnumerable<Autor> Get()
         {
@@ -25,6 +26,7 @@ namespace Biblioteca_API.Controllers
             };
         }
 
+        // POST: api/autores
         [HttpPost]
         public async Task<ActionResult> Post(Autor autor)
         {
