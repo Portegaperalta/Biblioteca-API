@@ -22,6 +22,20 @@ namespace Biblioteca_API.Controllers
             return await context.Libros.ToListAsync();
         }
 
+        // GET: api/libros/id
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Libro>> Get(int id)
+        {
+            var libro = await context.Libros.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (libro is null)
+            {
+                return NotFound();
+            }
+
+            return libro;
+        }
+
         // POST: api/libros
         [HttpPost]
         public async Task<ActionResult> Post(Libro libro)
