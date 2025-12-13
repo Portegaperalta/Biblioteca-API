@@ -18,7 +18,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/autores
         [HttpGet]
-        [HttpGet("listado-de-autores")]
+        [HttpGet("/listado-de-autores")]
         public async Task<IEnumerable<Autor>> Get()
         {
             return await context.Autores.ToListAsync();
