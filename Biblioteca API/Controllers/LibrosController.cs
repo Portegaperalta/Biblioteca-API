@@ -7,7 +7,7 @@ namespace Biblioteca_API.Controllers
 {
     [ApiController]
     [Route("api/libros")]
-    public class LibrosController: ControllerBase
+    public class LibrosController : ControllerBase
     {
         private readonly ApplicationDbContext context;
         public LibrosController(ApplicationDbContext context)
@@ -41,13 +41,34 @@ namespace Biblioteca_API.Controllers
         public async Task<ActionResult> Post(Libro libro)
         {
             var existeAutor = await context.Autores.AnyAsync(x => x.Id == libro.AutorId);
-            
+
             if (!existeAutor)
             {
                 return BadRequest($"El autor de id: {libro.AutorId} no existe");
             }
 
             context.Add(libro);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
+        // PUT: api/libros/id
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, Libro libro)
+        {
+            if (id != libro.Id)
+            {
+                return BadRequest($"Los ids deben de coincidir");
+            }
+
+            var existeAutor = await context.Autores.AnyAsync(x => x.Id == libro.AutorId);
+
+            if (!existeAutor)
+            {
+                return BadRequest($"El autor de id: {libro.AutorId} no existe");
+            }
+
+            context.Update(libro);
             await context.SaveChangesAsync();
             return Ok();
         }
