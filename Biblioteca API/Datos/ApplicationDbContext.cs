@@ -1,6 +1,14 @@
-﻿namespace Biblioteca_API.Datos
+﻿using Biblioteca_API.Entidades;
+using Microsoft.EntityFrameworkCore;
+
+namespace Biblioteca_API.Datos
 {
-    public class ApplicationDbContext
+    public class ApplicationDbContext: DbContext
     {
+        public ApplicationDbContext(DbContextOptions options) : base (options)
+        {
+        }
+
+        public DbSet<Autor> Autores { get; set; }
     }
 }
