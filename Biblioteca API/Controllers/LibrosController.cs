@@ -21,5 +21,14 @@ namespace Biblioteca_API.Controllers
         {
             return await context.Libros.ToListAsync();
         }
+
+        // POST: api/libros
+        [HttpPost]
+        public async Task<ActionResult> Post(Libro libro)
+        {
+            context.Add(libro);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
