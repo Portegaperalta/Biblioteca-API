@@ -45,5 +45,19 @@ namespace Biblioteca_API.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        // PUT: api/autores/id
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, Autor autor)
+        {
+            if (id != autor.Id)
+            {
+                return BadRequest("Los ids deben de coincidir");
+            }
+
+            context.Update(autor);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
