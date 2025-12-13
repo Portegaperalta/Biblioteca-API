@@ -59,5 +59,19 @@ namespace Biblioteca_API.Controllers
             await context.SaveChangesAsync();
             return Ok();
         }
+
+        // DELETE: api/autores/id
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var registrosBorrados = await context.Autores.Where(x => x.Id == id).ExecuteDeleteAsync();
+            
+            if (registrosBorrados == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 }
