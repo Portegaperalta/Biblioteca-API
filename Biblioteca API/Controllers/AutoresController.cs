@@ -39,6 +39,13 @@ namespace Biblioteca_API.Controllers
             return autor;
         }
 
+        // GET: api/autores/primerAutor
+        [HttpGet("primerAutor")]
+        public async Task<Autor> GetPrimerAutor()
+        {
+            return await context.Autores.FirstAsync();
+        }
+
         // POST: api/autores
         [HttpPost]
         public async Task<ActionResult> Post(Autor autor)
