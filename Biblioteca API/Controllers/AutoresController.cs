@@ -58,7 +58,7 @@ namespace Biblioteca_API.Controllers
 
         // PUT: api/autores/id
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put([FromQuery] int id, [FromBody] Autor autor)
+        public async Task<ActionResult> Put([FromRoute] int id, [FromBody] Autor autor)
         {
             if (id != autor.Id)
             {
@@ -72,7 +72,7 @@ namespace Biblioteca_API.Controllers
 
         // DELETE: api/autores/id
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete([FromRoute]int id)
         {
             var registrosBorrados = await context.Autores.Where(x => x.Id == id).ExecuteDeleteAsync();
             
