@@ -7,7 +7,7 @@ namespace Biblioteca_API.Controllers
 {
     [ApiController]
     [Route("api/autores")]
-    public class AutoresController: ControllerBase
+    public class AutoresController : ControllerBase
     {
         private readonly ApplicationDbContext context;
 
@@ -26,7 +26,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/autores/id
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Autor>> Get(int id)
+        public async Task<ActionResult<Autor>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
             var autor = await context.Autores
                 .Include(x => x.Libros)
@@ -49,7 +49,7 @@ namespace Biblioteca_API.Controllers
 
         // POST: api/autores
         [HttpPost]
-        public async Task<ActionResult> Post(Autor autor)
+        public async Task<ActionResult> Post([FromBody] Autor autor)
         {
             context.Add(autor);
             await context.SaveChangesAsync();
@@ -58,7 +58,7 @@ namespace Biblioteca_API.Controllers
 
         // PUT: api/autores/id
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, Autor autor)
+        public async Task<ActionResult> Put([FromQuery] int id, [FromBody] Autor autor)
         {
             if (id != autor.Id)
             {
@@ -72,7 +72,7 @@ namespace Biblioteca_API.Controllers
 
         // DELETE: api/autores/id
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete([FromQuery] int id)
         {
             var registrosBorrados = await context.Autores.Where(x => x.Id == id).ExecuteDeleteAsync();
             
