@@ -24,7 +24,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/libros/id
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Libro>> Get(int id)
+        public async Task<ActionResult<Libro>> Get([FromRoute]int id)
         {
             var libro = await context.Libros
                 .Include(x => x.Autor)
@@ -40,7 +40,7 @@ namespace Biblioteca_API.Controllers
 
         // POST: api/libros
         [HttpPost]
-        public async Task<ActionResult> Post(Libro libro)
+        public async Task<ActionResult> Post([FromBody]Libro libro)
         {
             var existeAutor = await context.Autores.AnyAsync(x => x.Id == libro.AutorId);
 
@@ -56,7 +56,7 @@ namespace Biblioteca_API.Controllers
 
         // PUT: api/libros/id
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, Libro libro)
+        public async Task<ActionResult> Put([FromRoute]int id,[FromBody]Libro libro)
         {
             if (id != libro.Id)
             {
@@ -77,7 +77,7 @@ namespace Biblioteca_API.Controllers
 
         // DELETE: api/libros/id
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete([FromRoute]int id)
         {
             var registrosBorrados = await context.Libros.Where(x => x.Id == id).ExecuteDeleteAsync();
 
