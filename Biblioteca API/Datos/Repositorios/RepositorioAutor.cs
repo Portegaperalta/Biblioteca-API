@@ -26,5 +26,23 @@ namespace Biblioteca_API.Datos.Repositorios
         {
             return await _context.Autores.FirstAsync();
         }
+
+        public async Task CreateAutor(Autor autor)
+        {
+            _context.Add(autor);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAutor(Autor autor)
+        {
+            _context.Update(autor);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteAutor(int id)
+        {
+            int registrosBorrados = await _context.Autores.Where(x => x.Id == id).ExecuteDeleteAsync();
+            return registrosBorrados;
+        }
     }
 }
