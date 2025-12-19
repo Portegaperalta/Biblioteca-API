@@ -19,7 +19,9 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task<Autor?> GetAutor(int id)
         {
-            return await _context.Autores.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Autores.
+                         Include(x => x.Libros).
+                         FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Autor> GetPrimerAutor()
