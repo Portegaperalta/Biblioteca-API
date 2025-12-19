@@ -1,4 +1,5 @@
 ﻿using Biblioteca_API.Datos;
+using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.Entidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +10,11 @@ namespace Biblioteca_API.Controllers
     [Route("api/autores")]
     public class AutoresController : ControllerBase
     {
-        private readonly ApplicationDbContext context;
+        private readonly IRepositorioAutor _repositorioAutor;
 
-        public AutoresController(ApplicationDbContext context)
+        public AutoresController(IRepositorioAutor repositorioAutor)
         {
-            this.context = context;
+            _repositorioAutor = repositorioAutor;
         }
 
         // GET: api/autores
@@ -21,7 +22,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet("/listado-de-autores")]
         public async Task<IEnumerable<Autor>> Get()
         {
-            return await context.Autores.ToListAsync();
+            return await _repositorioAutor.GetAutoresAsync();
         }
 
         // GET: api/autores/id
