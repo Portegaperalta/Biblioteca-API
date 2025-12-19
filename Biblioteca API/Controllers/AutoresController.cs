@@ -29,7 +29,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Autor>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
-            var autor = await _repositorioAutor.GetAutor(id);
+            var autor = await _repositorioAutor.GetAutorAsync(id);
 
             if (autor is null)
             {
@@ -43,14 +43,14 @@ namespace Biblioteca_API.Controllers
         [HttpGet("primerAutor")]
         public async Task<Autor> GetPrimerAutor()
         {
-            return await _repositorioAutor.GetPrimerAutor();
+            return await _repositorioAutor.GetPrimerAutorAsync();
         }
 
         // POST: api/autores
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Autor autor)
         {
-            await _repositorioAutor.CreateAutor(autor);
+            await _repositorioAutor.CreateAutorAsync(autor);
             return Ok();
         }
 
@@ -63,7 +63,7 @@ namespace Biblioteca_API.Controllers
                 return BadRequest("Los ids deben de coincidir");
             }
 
-            await _repositorioAutor.UpdateAutor(autor);
+            await _repositorioAutor.UpdateAutorAsync(autor);
             return Ok();
         }
 
@@ -71,7 +71,7 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
-            var registrosBorrados = await _repositorioAutor.DeleteAutor(id);
+            var registrosBorrados = await _repositorioAutor.DeleteAutorAsync(id);
             
             if (registrosBorrados == 0)
             {
