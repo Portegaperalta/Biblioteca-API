@@ -8,7 +8,7 @@ namespace Biblioteca_API.Datos.Repositorios
         Task<Autor?> GetAutor(int id);
         Task<Autor> GetPrimerAutor();
         Task CreateAutor(Autor autor);
-        Task UpdateAutor();
-        Task<int> DeleteAutor();
+        Task UpdateAutor(Autor autor);
+        Task<int> DeleteAutor(int id);
     }
 }
