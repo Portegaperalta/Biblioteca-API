@@ -1,0 +1,47 @@
+﻿using Biblioteca_API.Entidades;
+using Microsoft.EntityFrameworkCore;
+
+namespace Biblioteca_API.Datos.Repositorios
+{
+    public class RepositorioLibro : IRepositorioLibro
+    {
+        private readonly ApplicationDbContext _context;
+
+        public RepositorioLibro(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<IEnumerable<Libro>> GetLibrosAsync()
+        {
+            return await _context.Libros.ToListAsync();
+        }
+
+        public async Task<Libro?> GetLibroAsync(int id)
+        {
+            return await _context.Libros.
+                         Include(x => x.Autor).
+                         FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task CreateLibroAsync(Libro libro)
+        {
+            _context.Add(libro);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateLibroAsync(Libro libro)
+        {
+            _context.Update(libro);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> DeleteLibroAsync(int id)
+        {
+            var registrosBorrados = await _context.Libros.
+                Where(x => x.Id == id).ExecuteDeleteAsync();
+
+            return registrosBorrados;
+        }
+    }
+}

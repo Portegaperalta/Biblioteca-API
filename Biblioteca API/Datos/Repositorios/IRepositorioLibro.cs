@@ -1,0 +1,13 @@
+﻿using Biblioteca_API.Entidades;
+
+namespace Biblioteca_API.Datos.Repositorios
+{
+    public interface IRepositorioLibro
+    {
+        Task<IEnumerable<Libro>> GetLibrosAsync();
+        Task<Libro?> GetLibroAsync(int id);
+        Task CreateLibroAsync(Libro libro);
+        Task UpdateLibroAsync(Libro libro);
+        Task<int> DeleteLibroAsync(int id);
+    }
+}
