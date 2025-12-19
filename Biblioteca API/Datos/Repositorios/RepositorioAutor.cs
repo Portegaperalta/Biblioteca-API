@@ -17,31 +17,31 @@ namespace Biblioteca_API.Datos.Repositorios
             return await _context.Autores.ToListAsync();
         }
 
-        public async Task<Autor?> GetAutor(int id)
+        public async Task<Autor?> GetAutorAsync(int id)
         {
             return await _context.Autores.
                          Include(x => x.Libros).
                          FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Autor> GetPrimerAutor()
+        public async Task<Autor> GetPrimerAutorAsync()
         {
             return await _context.Autores.FirstAsync();
         }
 
-        public async Task CreateAutor(Autor autor)
+        public async Task CreateAutorAsync(Autor autor)
         {
             _context.Add(autor);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAutor(Autor autor)
+        public async Task UpdateAutorAsync(Autor autor)
         {
             _context.Update(autor);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteAutor(int id)
+        public async Task<int> DeleteAutorAsync(int id)
         {
             int registrosBorrados = await _context.Autores.Where(x => x.Id == id).ExecuteDeleteAsync();
             return registrosBorrados;
