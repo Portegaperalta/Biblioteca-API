@@ -1,8 +1,6 @@
-﻿using Biblioteca_API.Datos;
-using Biblioteca_API.Datos.Repositorios;
+﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.Entidades;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca_API.Controllers
 {
