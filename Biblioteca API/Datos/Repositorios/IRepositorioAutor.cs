@@ -5,10 +5,10 @@ namespace Biblioteca_API.Datos.Repositorios
     public interface IRepositorioAutor
     {
         Task<IEnumerable<Autor>> GetAutoresAsync();
-        Task<Autor?> GetAutor(int id);
-        Task<Autor> GetPrimerAutor();
-        Task CreateAutor(Autor autor);
-        Task UpdateAutor(Autor autor);
-        Task<int> DeleteAutor(int id);
+        Task<Autor?> GetAutorAsync(int id);
+        Task<Autor> GetPrimerAutorAsync();
+        Task CreateAutorAsync(Autor autor);
+        Task UpdateAutorAsync(Autor autor);
+        Task<int> DeleteAutorAsync(int id);
     }
 }
