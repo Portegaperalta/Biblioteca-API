@@ -49,7 +49,7 @@ namespace Biblioteca_API.Controllers
         public async Task<ActionResult> Post([FromBody] Autor autor)
         {
             await _repositorioAutor.CreateAutorAsync(autor);
-            return Ok();
+            return Ok("Autor creado exitosamente");
         }
 
         // PUT: api/autores/id
@@ -62,7 +62,7 @@ namespace Biblioteca_API.Controllers
             }
 
             await _repositorioAutor.UpdateAutorAsync(autor);
-            return Ok();
+            return Ok("Autor modificado exitosamente");
         }
 
         // DELETE: api/autores/id
@@ -76,7 +76,7 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return Ok("Autor eliminado exitosamente");
         }
     }
 }
