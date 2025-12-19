@@ -7,6 +7,7 @@ namespace Biblioteca_API.Entidades
         public int Id { get; set; }
         [Required]
         public required string Titulo { get; set; }
+        [Required]
         public int AutorId { get; set; }
         public Autor? Autor { get; set; }
     }
