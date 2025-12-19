@@ -6,7 +6,7 @@ namespace Biblioteca_API.Validaciones
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
-            if (value is null || string.IsNullOrEmpty(value.ToString())
+            if (value is null || string.IsNullOrEmpty(value.ToString()))
             {
                 return ValidationResult.Success;
             }

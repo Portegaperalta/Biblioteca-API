@@ -15,4 +15,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Datos\Repositorios\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Servicios\" />
+  </ItemGroup>
+
 </Project>
