@@ -93,7 +93,7 @@ namespace Biblioteca_API.Controllers
             }
 
             await _repositorioLibro.UpdateLibroAsync(libro);
-            return Ok();
+            return NoContent();
         }
 
         // DELETE: api/libros/id
@@ -107,7 +107,7 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            return NoContent();
         }
     }
 }
