@@ -47,7 +47,7 @@ namespace Biblioteca_API.Controllers
             }
 
             await _repositorioLibro.CreateLibroAsync(libro);
-            return Ok();
+            return CreatedAtRoute("ObtenerLibro", new {id = libro.Id},libro);
         }
 
         // PUT: api/libros/id
