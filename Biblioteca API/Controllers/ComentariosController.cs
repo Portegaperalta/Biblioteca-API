@@ -1,6 +1,10 @@
-﻿namespace Biblioteca_API.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Biblioteca_API.Controllers
 {
-    public class ComentariosController
+    [ApiController]
+    [Route("/api/comentarios")]
+    public class ComentariosController : ControllerBase
     {
     }
 }
