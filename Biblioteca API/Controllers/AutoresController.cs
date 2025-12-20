@@ -108,7 +108,7 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
-            return Ok("Autor eliminado exitosamente");
+            return NoContent();
         }
     }
 }
