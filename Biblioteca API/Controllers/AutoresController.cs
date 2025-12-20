@@ -1,7 +1,9 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using AutoMapper;
 using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_API.Controllers
@@ -96,6 +98,42 @@ namespace Biblioteca_API.Controllers
             await _repositorioAutor.UpdateAutorAsync(autor);
             return NoContent();
         }
+
+        // PATCH: api/autores/id
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult> Patch([FromRoute] int id, [FromBody] JsonPatchDocument<AutorPatchDTO> patchDoc)
+        {
+            if (patchDoc is null)
+            {
+                return BadRequest();
+            }
+
+            var autor = await _repositorioAutor.GetAutorAsync(id);
+
+            if (autor is null)
+            {
+                return NotFound();
+            }
+
+            var autorPatchDTO = new AutorPatchDTO { Nombres = $"{autor.Nombres}",Apellidos = autor.Apellidos};
+
+            patchDoc.ApplyTo(autorPatchDTO,ModelState);
+
+            var esValido = TryValidateModel(autorPatchDTO);
+
+            if (!esValido)
+            {
+                return ValidationProblem();
+            }
+
+            autor.Nombres = autorPatchDTO.Nombres;
+            autor.Apellidos = autorPatchDTO.Apellidos;
+
+            await _repositorioAutor.UpdateAutorAsync(autor);
+
+            return NoContent();
+        }
+
 
         // DELETE: api/autores/id
         [HttpDelete("{id:int}")]
