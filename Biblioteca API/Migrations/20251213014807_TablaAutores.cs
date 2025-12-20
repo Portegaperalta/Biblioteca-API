@@ -7,7 +7,7 @@ namespace Biblioteca_API.Migrations
     /// <inheritdoc />
     public partial class TablaAutores : Migration
     {
-        /// <inheritdoc />
+        /// <inheritdoc /> 
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(

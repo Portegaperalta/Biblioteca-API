@@ -14,7 +14,7 @@ builder.Services.AddControllers().AddJsonOptions(opciones =>
 builder.Services.AddScoped<IRepositorioAutor, RepositorioAutor>();
 builder.Services.AddScoped<IRepositorioLibro, RepositorioLibro>();
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => 
-        opciones.UseSqlServer("name=DefaultConnection"));
+opciones.UseSqlServer("name=DefaultConnection"));
 
 var app = builder.Build();
 
