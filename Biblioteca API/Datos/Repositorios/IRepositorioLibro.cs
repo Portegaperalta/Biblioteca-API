@@ -9,5 +9,6 @@ namespace Biblioteca_API.Datos.Repositorios
         Task CreateLibroAsync(Libro libro);
         Task UpdateLibroAsync(Libro libro);
         Task<int> DeleteLibroAsync(int id);
+        Task<bool> ExisteAutor(int id);
     }
 }

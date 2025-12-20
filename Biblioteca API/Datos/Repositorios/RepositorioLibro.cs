@@ -43,5 +43,10 @@ namespace Biblioteca_API.Datos.Repositorios
 
             return registrosBorrados;
         }
+
+        public async Task<bool> ExisteAutor(int id)
+        {
+            return await _context.Autores.AnyAsync(x => x.Id == id);
+        }
     }
 }
