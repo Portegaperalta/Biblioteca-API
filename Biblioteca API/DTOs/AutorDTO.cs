@@ -6,6 +6,6 @@ namespace Biblioteca_API.DTOs
     {
         public int Id { get; set; }
         public required string NombreCompleto { get; set; }
-        public List<Libro> Libros { get; set; } = new List<Libro>();
+        public List<LibroDTO> Libros { get; set; } = [];
     }
 }
