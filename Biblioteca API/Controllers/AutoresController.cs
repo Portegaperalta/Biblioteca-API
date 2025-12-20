@@ -28,7 +28,7 @@ namespace Biblioteca_API.Controllers
             { 
                 Id = autor.Id, 
                 NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
-                Libros = autor.Libros 
+                Libros = autor.Libros
             });
 
             return autoresDTO;
