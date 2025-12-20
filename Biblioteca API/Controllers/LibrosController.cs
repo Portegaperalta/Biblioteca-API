@@ -24,8 +24,7 @@ namespace Biblioteca_API.Controllers
            new LibroDTO
            {
                Id = libro.Id,
-               Titulo = libro.Titulo,
-               NombreAutor = $"{libro.Autor.Nombres} {libro.Autor.Apellidos}"
+               Titulo = libro.Titulo,  
            });
 
             return librosDTO;
@@ -46,7 +45,6 @@ namespace Biblioteca_API.Controllers
             {
                 Id = libro.Id,
                 Titulo = libro.Titulo,
-                NombreAutor = $"{libro.Autor.Nombres} {libro.Autor.Apellidos}"
             };
 
             return libroDTO;
