@@ -28,7 +28,9 @@ namespace Biblioteca_API.Controllers
             { 
                 Id = autor.Id, 
                 NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
-                Libros = autor.Libros
+                Libros = autor.Libros.Select(libro =>
+                new LibroDTO { Id = libro.Id, Titulo = libro.Titulo}
+                )
             });
 
             return autoresDTO;
@@ -49,7 +51,9 @@ namespace Biblioteca_API.Controllers
             {
                 Id = autor.Id,
                 NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
-                Libros = autor.Libros
+                Libros = autor.Libros.Select(libro =>
+                new LibroDTO { Id = libro.Id, Titulo = libro.Titulo }
+                )
             };
 
             return autorDTO;
@@ -64,7 +68,9 @@ namespace Biblioteca_API.Controllers
             {
                 Id = primerAutor.Id,
                 NombreCompleto = $"{primerAutor.Nombres} {primerAutor.Apellidos}",
-                Libros = primerAutor.Libros
+                Libros = primerAutor.Libros.Select(libro =>
+                new LibroDTO { Id = libro.Id, Titulo = libro.Titulo }
+                )
             };
 
             return primerAutorDTO;
