@@ -56,12 +56,12 @@ namespace Biblioteca_API.Controllers
         [HttpPut("{id:int}")]
         public async Task<ActionResult> Put([FromRoute]int id,[FromBody]Libro libro)
         {
+            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
+
             if (id != libro.Id)
             {
                 return BadRequest($"Los ids deben de coincidir");
             }
-
-            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
 
             if (!existeAutor)
             {
