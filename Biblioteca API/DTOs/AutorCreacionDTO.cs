@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Biblioteca_API.Entidades;
 using Biblioteca_API.Validaciones;
 
 namespace Biblioteca_API.DTOs
