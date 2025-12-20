@@ -49,7 +49,7 @@ namespace Biblioteca_API.Controllers
         public async Task<ActionResult> Post([FromBody] Autor autor)
         {
             await _repositorioAutor.CreateAutorAsync(autor);
-            return Ok("Autor creado exitosamente");
+            return Created();
         }
 
         // PUT: api/autores/id
