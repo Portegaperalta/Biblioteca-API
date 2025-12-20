@@ -94,7 +94,7 @@ namespace Biblioteca_API.Controllers
             }
 
             await _repositorioAutor.UpdateAutorAsync(autor);
-            return Ok("Autor modificado exitosamente");
+            return NoContent();
         }
 
         // DELETE: api/autores/id
