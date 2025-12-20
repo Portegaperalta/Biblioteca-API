@@ -7,9 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Area de servcios
 
-builder.Services.AddControllers().AddJsonOptions(opciones => 
-        opciones.JsonSerializerOptions.ReferenceHandler =
-        ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddScoped<IRepositorioAutor, RepositorioAutor>();
 builder.Services.AddScoped<IRepositorioLibro, RepositorioLibro>();
