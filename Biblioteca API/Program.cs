@@ -12,6 +12,7 @@ builder.Services.AddControllers().AddJsonOptions(opciones =>
         ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddScoped<IRepositorioAutor, RepositorioAutor>();
+builder.Services.AddScoped<IRepositorioLibro, RepositorioLibro>();
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => 
         opciones.UseSqlServer("name=DefaultConnection"));
 
