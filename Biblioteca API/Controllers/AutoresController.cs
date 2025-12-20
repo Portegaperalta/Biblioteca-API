@@ -24,7 +24,7 @@ namespace Biblioteca_API.Controllers
         }
 
         // GET: api/autores/id
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}",Name ="ObtenerAutor")]
         public async Task<ActionResult<Autor>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
             var autor = await _repositorioAutor.GetAutorAsync(id);
@@ -49,7 +49,7 @@ namespace Biblioteca_API.Controllers
         public async Task<ActionResult> Post([FromBody] Autor autor)
         {
             await _repositorioAutor.CreateAutorAsync(autor);
-            return Created();
+            return CreatedAtRoute("ObtenerAutor",new {id = autor.Id}, autor);
         }
 
         // PUT: api/autores/id
