@@ -22,7 +22,7 @@ namespace Biblioteca_API.Controllers
         }
 
         // GET: api/libros/id
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}",Name ="ObtenerLibro")]
         public async Task<ActionResult<Libro>> Get([FromRoute]int id)
         {
             var libro = await _repositorioLibro.GetLibroAsync(id);
