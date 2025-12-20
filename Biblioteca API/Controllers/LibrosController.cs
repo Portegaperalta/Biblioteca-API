@@ -32,7 +32,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/libros/id
         [HttpGet("{id:int}",Name ="ObtenerLibro")]
-        public async Task<ActionResult<Libro>> Get([FromRoute]int id)
+        public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id)
         {
             var libro = await _repositorioLibro.GetLibroAsync(id);
 
@@ -41,7 +41,13 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
-            return libro;
+            var libroDTO = new LibroDTO
+            {
+                Id = libro.Id,
+                Titulo = libro.Titulo,
+            };
+
+            return libroDTO;
         }
 
         // POST: api/libros
