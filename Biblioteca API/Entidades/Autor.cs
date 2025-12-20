@@ -7,7 +7,7 @@ namespace Biblioteca_API.Entidades
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="El campo {0} es obligatorio")]
-        [StringLength(30,ErrorMessage ="El campo {0} debe tener {1} caracteres o menos")]
+        [StringLength(150,ErrorMessage ="El campo {0} debe tener {1} caracteres o menos")]
         [PrimeraLetraMayuscula]
         public required string Nombre { get; set; }
         public List<Libro> Libros { get; set; } = new List<Libro>();
