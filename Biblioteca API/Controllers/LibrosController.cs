@@ -41,7 +41,7 @@ namespace Biblioteca_API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody]Libro libro)
         {
-            var existeAutor = await context.Autores.AnyAsync(x => x.Id == libro.AutorId);
+            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
 
             if (!existeAutor)
             {
@@ -61,7 +61,7 @@ namespace Biblioteca_API.Controllers
                 return BadRequest($"Los ids deben de coincidir");
             }
 
-            var existeAutor = await context.Autores.AnyAsync(x => x.Id == libro.AutorId);
+            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
 
             if (!existeAutor)
             {
