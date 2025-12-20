@@ -1,4 +1,5 @@
-﻿using Biblioteca_API.Datos.Repositorios;
+﻿using System.Reflection.Metadata.Ecma335;
+using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/autores/id
         [HttpGet("{id:int}",Name ="ObtenerAutor")]
-        public async Task<ActionResult<Autor>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
+        public async Task<ActionResult<AutorDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
             var autor = await _repositorioAutor.GetAutorAsync(id);
 
@@ -44,7 +45,14 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
-            return autor;
+            var autorDTO = new AutorDTO
+            {
+                Id = autor.Id,
+                NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
+                Libros = autor.Libros
+            };
+
+            return autorDTO;
         }
 
         // GET: api/autores/primerAutor
