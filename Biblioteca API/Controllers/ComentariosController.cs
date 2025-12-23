@@ -29,11 +29,11 @@ namespace Biblioteca_API.Controllers
 
             var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
             var comentariosDTO = comentarios.Select(comentario =>
-            new ComentarioDTO 
-            { 
-                Autor = comentario.Autor, 
-                Cuerpo = comentario.Cuerpo, 
-                FechaPublicacion = comentario.FechaPublicacion 
+            new ComentarioDTO
+            {
+                Autor = comentario.Autor,
+                Cuerpo = comentario.Cuerpo,
+                FechaPublicacion = comentario.FechaPublicacion
             });
 
             return Ok(comentariosDTO);
@@ -62,7 +62,7 @@ namespace Biblioteca_API.Controllers
 
         //POST comentario
         [HttpPost]
-        public async Task<ActionResult> PostComentario([FromBody]Comentario comentario)
+        public async Task<ActionResult> PostComentario([FromBody] Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
 
@@ -77,10 +77,10 @@ namespace Biblioteca_API.Controllers
 
         //PUT comentario
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult> PutComentario([FromRoute]Guid id,[FromBody] Comentario comentario)
+        public async Task<ActionResult> PutComentario([FromRoute] Guid id, [FromBody] Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
-            
+
             if (id != comentario.Id)
             {
                 return BadRequest("Los ids de comentario deben coincidir");
@@ -92,6 +92,20 @@ namespace Biblioteca_API.Controllers
             }
 
             await _repositorioComentario.UpdateComentarioAsync(id, comentario);
+            return NoContent();
+        }
+
+        //DELETE comentario
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult> DeleteComentario([FromRoute] Guid id)
+        {
+            var registrosBorrados = await _repositorioComentario.DeleteComentarioAsync(id);
+
+            if (registrosBorrados <= 0)
+            {
+                return NotFound("Comentario no encontrado");
+            }
+
             return NoContent();
         }
     }
