@@ -11,6 +11,7 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddScoped<IRepositorioAutor, RepositorioAutor>();
 builder.Services.AddScoped<IRepositorioLibro, RepositorioLibro>();
+builder.Services.AddScoped<IRepositorioComentario, RepositorioComentario>();
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => 
 opciones.UseSqlServer("name=DefaultConnection"));
 

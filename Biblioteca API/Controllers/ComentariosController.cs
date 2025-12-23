@@ -15,7 +15,7 @@ namespace Biblioteca_API.Controllers
             _repositorioComentario = repositorioComentario;
         }
 
-
+        //GET Comentarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comentario>>> GetComentarios(int libroId)
         {
