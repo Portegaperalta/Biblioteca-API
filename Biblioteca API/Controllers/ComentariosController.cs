@@ -97,7 +97,7 @@ namespace Biblioteca_API.Controllers
         }
 
         //PATCH comentario
-        [HttpPatch("{id:int}")]
+        [HttpPatch("{id:guid}")]
         public async Task<ActionResult> PatchComentario([FromRoute] Guid id, [FromBody] JsonPatchDocument<ComentarioPatchDTO> patchDoc)
         {
             if (patchDoc is null)
