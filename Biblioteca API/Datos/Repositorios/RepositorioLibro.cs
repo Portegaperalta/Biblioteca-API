@@ -20,7 +20,7 @@ namespace Biblioteca_API.Datos.Repositorios
         public async Task<Libro?> GetLibroAsync(int id)
         {
             return await _context.Libros.
-                         Include(x => x.Autor).
+                         Include(x => x.Autores).
                          FirstOrDefaultAsync(x => x.Id == id);
         }
 
