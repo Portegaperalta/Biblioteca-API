@@ -14,5 +14,20 @@ namespace Biblioteca_API.Controllers
         {
             _repositorioComentario = repositorioComentario;
         }
+
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Comentario>>> GetComentarios(int libroId)
+        {
+            bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
+
+            if (!existeLibro)
+            {
+                return NotFound();
+            }
+
+            var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
+            return Ok(comentarios);
+        }
     }
 }
