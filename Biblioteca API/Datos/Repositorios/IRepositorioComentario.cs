@@ -9,6 +9,7 @@ namespace Biblioteca_API.Datos.Repositorios
         Task CreateComentarioAsync(Comentario comentario);
         Task UpdateComentarioAsync(Guid comentarioId,Comentario comentario);
         Task<int> DeleteComentarioAsync(Guid comentarioId);
+        Task<bool> ExisteComentarioAsync(Guid comentarioId);
         Task<bool> ExisteLibroAsync(int libroId);
     }
 }
