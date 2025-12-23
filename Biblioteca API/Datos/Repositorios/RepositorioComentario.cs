@@ -56,8 +56,7 @@ namespace Biblioteca_API.Datos.Repositorios
 
          public async Task<bool> ExisteLibroAsync(int libroId)
         {
-            bool existeLibro = await _context.Libros.AnyAsync(x => x.Id == libroId);
-            return existeLibro;
+            return await _context.Libros.AnyAsync(x => x.Id == libroId);
         }
     }
 }
