@@ -58,5 +58,25 @@ namespace Biblioteca_API.Controllers
             await _repositorioComentario.CreateComentarioAsync(comentario);
             return Created();
         }
+
+        //PUT comentario
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult> PutComentario([FromRoute]Guid id,[FromBody] Comentario comentario)
+        {
+            bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
+            
+            if (id != comentario.Id)
+            {
+                return BadRequest("Los ids de comentario deben coincidir");
+            }
+
+            if (!existeLibro)
+            {
+                return BadRequest($"El libro con id: {comentario.LibroId} no existe");
+            }
+
+            await _repositorioComentario.UpdateComentarioAsync(id, comentario);
+            return NoContent();
+        }
     }
 }
