@@ -28,10 +28,9 @@ namespace Biblioteca_API.Datos.Repositorios
             return comentario;
         }
 
-        public async Task CreateComentarioAsync(int libroId, Comentario comentario)
+        public async Task CreateComentarioAsync(Comentario comentario)
         {
-            var libro = await _context.Libros.FirstOrDefaultAsync(x => x.Id == libroId);
-            libro.Comentarios.Add(comentario);
+            _context.Add(comentario);
             await _context.SaveChangesAsync();
         }
 
