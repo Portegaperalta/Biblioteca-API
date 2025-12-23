@@ -22,10 +22,10 @@ namespace Biblioteca_API.Datos.Repositorios
             return comentarios;
         }
 
-        public async Task<Comentario?> GetComentarioAsync(int libroId,Guid comentarioId)
+        public async Task<Comentario?> GetComentarioAsync(Guid comentarioId)
         {
-            var libro = await _context.Libros.FirstOrDefaultAsync(x => x.Id == libroId);
-            return libro.Comentarios.FirstOrDefault(x => x.Id == comentarioId);
+            var comentario = await _context.Comentarios.FirstOrDefaultAsync(x => x.Id == comentarioId);
+            return comentario;
         }
 
         public async Task CreateComentarioAsync(int libroId, Comentario comentario)
