@@ -62,39 +62,39 @@ namespace Biblioteca_API.Controllers
         }
 
         // POST: api/libros
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody]Libro libro)
-        {
-            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody]Libro libro)
+        //{
+        //    bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
 
-            if (!existeAutor)
-            {
-                return BadRequest($"El autor de id: {libro.AutorId} no existe");
-            }
+        //    if (!existeAutor)
+        //    {
+        //        return BadRequest($"El autor de id: {libro.AutorId} no existe");
+        //    }
 
-            await _repositorioLibro.CreateLibroAsync(libro);
-            return CreatedAtRoute("ObtenerLibro", new {id = libro.Id},libro);
-        }
+        //    await _repositorioLibro.CreateLibroAsync(libro);
+        //    return CreatedAtRoute("ObtenerLibro", new {id = libro.Id},libro);
+        //}
 
         // PUT: api/libros/id
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put([FromRoute]int id,[FromBody]Libro libro)
-        {
-            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
+        //[HttpPut("{id:int}")]
+        //public async Task<ActionResult> Put([FromRoute]int id,[FromBody]Libro libro)
+        //{
+        //    bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
 
-            if (id != libro.Id)
-            {
-                return BadRequest($"Los ids deben de coincidir");
-            }
+        //    if (id != libro.Id)
+        //    {
+        //        return BadRequest($"Los ids deben de coincidir");
+        //    }
 
-            if (!existeAutor)
-            {
-                return BadRequest($"El autor de id: {libro.AutorId} no existe");
-            }
+        //    if (!existeAutor)
+        //    {
+        //        return BadRequest($"El autor de id: {libro.AutorId} no existe");
+        //    }
 
-            await _repositorioLibro.UpdateLibroAsync(libro);
-            return NoContent();
-        }
+        //    await _repositorioLibro.UpdateLibroAsync(libro);
+        //    return NoContent();
+        //}
 
         // DELETE: api/libros/id
         [HttpDelete("{id:int}")]
