@@ -11,7 +11,7 @@ namespace Biblioteca_API.Entidades
         
         [StringLength(500,ErrorMessage = "El campo {0} solo acepta {1} caracteres o menos")]
         public required string Cuerpo { get; set; }
-        public DateTime FechaPublicacion { get; set; }
+        public DateTime FechaPublicacion { get; set; } = DateTime.UtcNow.Date;
         public int LibroId { get; set; }
         public Libro? Libro { get; set; }
     }
