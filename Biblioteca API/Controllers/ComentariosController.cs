@@ -1,6 +1,7 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_API.Controllers
@@ -92,6 +93,43 @@ namespace Biblioteca_API.Controllers
             }
 
             await _repositorioComentario.UpdateComentarioAsync(id, comentario);
+            return NoContent();
+        }
+
+        //PATCH comentario
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult> PatchComentario([FromRoute] Guid id, [FromBody] JsonPatchDocument<ComentarioPatchDTO> patchDoc)
+        {
+            if (patchDoc is null)
+            {
+                return BadRequest();
+            }
+
+            var comentario = await _repositorioComentario.GetComentarioAsync(id);
+
+            if (comentario is null)
+            {
+                return NotFound("Comentario no encontrado");
+            }
+
+            var comentarioPatchDTO = new ComentarioPatchDTO { 
+                                       Autor = comentario.Autor,
+                                       Cuerpo = comentario.Cuerpo 
+                                     };
+
+            patchDoc.ApplyTo(comentarioPatchDTO,ModelState);
+
+            bool esValido = TryValidateModel(comentarioPatchDTO);
+
+            if (!esValido)
+            {
+                return ValidationProblem();
+            }
+
+            comentario.Cuerpo = comentarioPatchDTO.Cuerpo;
+
+            await _repositorioComentario.UpdateComentarioAsync(id,comentario);
+
             return NoContent();
         }
 
