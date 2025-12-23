@@ -112,10 +112,7 @@ namespace Biblioteca_API.Controllers
                 return NotFound("Comentario no encontrado");
             }
 
-            var comentarioPatchDTO = new ComentarioPatchDTO { 
-                                       Autor = comentario.Autor,
-                                       Cuerpo = comentario.Cuerpo 
-                                     };
+            var comentarioPatchDTO = new ComentarioPatchDTO { Cuerpo = comentario.Cuerpo };
 
             patchDoc.ApplyTo(comentarioPatchDTO,ModelState);
 
