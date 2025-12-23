@@ -1,4 +1,5 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
+using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace Biblioteca_API.Controllers
 
         //GET Comentarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comentario>>> GetComentarios(int libroId)
+        public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
 
@@ -27,7 +28,15 @@ namespace Biblioteca_API.Controllers
             }
 
             var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
-            return Ok(comentarios);
+            var comentariosDTO = comentarios.Select(comentario =>
+            new ComentarioDTO 
+            { 
+                Autor = comentario.Autor, 
+                Cuerpo = comentario.Cuerpo, 
+                FechaPublicacion = comentario.FechaPublicacion 
+            });
+
+            return Ok(comentariosDTO);
         }
 
         //GET comentario por id
