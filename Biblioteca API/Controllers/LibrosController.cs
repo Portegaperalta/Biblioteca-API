@@ -43,10 +43,10 @@ namespace Biblioteca_API.Controllers
 
             if (incluyeAutor == true)
             {
-                var libroConAutorDTO = new LibroConAutorDTO 
+                var libroConAutorDTO = new LibroConAutoresDTO 
                 { Id = libro.Id,
                   Titulo = libro.Titulo,
-                  NombreAutor = $"{libro.Autor.Nombres} {libro.Autor.Apellidos}" 
+                  NombreAutores = libro.Autores 
                 };
 
                 return libroConAutorDTO;
