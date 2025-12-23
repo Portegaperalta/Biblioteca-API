@@ -14,8 +14,12 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task<IEnumerable<Comentario>> GetComentariosAsync(int libroId)
         {
-            var libro = await _context.Libros.FirstOrDefaultAsync(x => x.Id == libroId);
-            return libro.Comentarios.ToList();
+            var comentarios = await _context.Comentarios
+                              .Where(x => x.LibroId == libroId)
+                              .OrderByDescending(x => x.FechaPublicacion)
+                              .ToListAsync();
+
+            return comentarios;
         }
 
         public async Task<Comentario?> GetComentarioAsync(int libroId,Guid comentarioId)
