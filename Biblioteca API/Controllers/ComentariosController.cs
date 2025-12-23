@@ -29,5 +29,19 @@ namespace Biblioteca_API.Controllers
             var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
             return Ok(comentarios);
         }
+
+        //GET comentario por id
+        [HttpGet("{id}", Name = "ObtenerComentario")]
+        public async Task<ActionResult<Comentario>> GetComentario([FromRoute] Guid comentarioId)
+        {
+            var comentario = await _repositorioComentario.GetComentarioAsync(comentarioId);
+
+            if (comentario is null)
+            {
+                return NotFound("El comentario no existe");
+            }
+
+            return comentario;
+        }
     }
 }
