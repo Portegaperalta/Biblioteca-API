@@ -8,5 +8,11 @@ namespace Biblioteca_API.Controllers
     [Route("api/libros/{libroId:int}/comentarios")]
     public class ComentariosController : ControllerBase
     {
+        private readonly IRepositorioComentario _repositorioComentario;
+
+        public ComentariosController(IRepositorioComentario repositorioComentario)
+        {
+            _repositorioComentario = repositorioComentario;
+        }
     }
 }
