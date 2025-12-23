@@ -43,5 +43,20 @@ namespace Biblioteca_API.Controllers
 
             return comentario;
         }
+
+        //POST comentario
+        [HttpPost]
+        public async Task<ActionResult> PostComentario([FromBody]Comentario comentario)
+        {
+            bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
+
+            if (!existeLibro)
+            {
+                return NotFound();
+            }
+
+            await _repositorioComentario.CreateComentarioAsync(comentario);
+            return Created();
+        }
     }
 }
