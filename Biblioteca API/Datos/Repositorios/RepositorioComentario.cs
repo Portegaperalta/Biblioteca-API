@@ -45,5 +45,11 @@ namespace Biblioteca_API.Datos.Repositorios
 
             return registrosBorrados;
         }
+
+         public async Task<bool> ExisteLibroAsync(int libroId)
+        {
+            bool existeLibro = await _context.Libros.AnyAsync(x => x.Id == libroId);
+            return existeLibro;
+        }
     }
 }
