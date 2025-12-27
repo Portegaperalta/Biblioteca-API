@@ -46,7 +46,7 @@ namespace Biblioteca_API.Controllers
                 var libroConAutorDTO = new LibroConAutoresDTO 
                 { Id = libro.Id,
                   Titulo = libro.Titulo,
-                  NombreAutores = libro.Autores 
+                  NombreAutores = libro.Autores
                 };
 
                 return libroConAutorDTO;
