@@ -10,5 +10,6 @@ namespace Biblioteca_API.Datos.Repositorios
         Task UpdateLibroAsync(Libro libro);
         Task<int> DeleteLibroAsync(int id);
         Task<bool> ExisteAutor(int id);
+        Task<List<string>> GetNombreAutores(int libroId);
     }
 }
