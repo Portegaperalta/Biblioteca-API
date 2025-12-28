@@ -45,10 +45,28 @@ namespace Biblioteca_API.Datos.Repositorios
             return registrosBorrados;
         }
 
-        public async Task<bool> ExistenAutores(int[] autoresIds)
+        public async Task<bool> ExistenAutores(List<int> autoresIds)
         {
-            return await _context.Autores.
-                         AnyAsync(x => x.Id == id);
+            var autoresDb = await _context.Autores.ToListAsync();
+            List<int> autoresDbIds = [];
+
+            foreach (Autor autorDb in autoresDb)
+            {
+                foreach (int autorId in autoresIds)
+                {
+                    if (autorDb.Id == autorId)
+                    {
+                        autoresDbIds.Add(autorDb.Id);
+                    }
+                }
+            }
+
+            if (autoresDb.Count == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

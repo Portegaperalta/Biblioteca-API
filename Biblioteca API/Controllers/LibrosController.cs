@@ -65,7 +65,7 @@ namespace Biblioteca_API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
         {
-            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
+            bool existeAutor = await _repositorioLibro.ExistenAutores(libroCreacionDTO.AutoresIds);
 
             if (!existeAutor)
             {
