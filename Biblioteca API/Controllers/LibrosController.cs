@@ -62,19 +62,25 @@ namespace Biblioteca_API.Controllers
         }
 
         // POST: api/libros
-        //[HttpPost]
-        //public async Task<ActionResult> Post([FromBody]Libro libro)
-        //{
-        //    bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
+        {
+            bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
 
-        //    if (!existeAutor)
-        //    {
-        //        return BadRequest($"El autor de id: {libro.AutorId} no existe");
-        //    }
+            if (!existeAutor)
+            {
+                return BadRequest($"El autor de id: {libro.AutorId} no existe");
+            }
 
-        //    await _repositorioLibro.CreateLibroAsync(libro);
-        //    return CreatedAtRoute("ObtenerLibro", new {id = libro.Id},libro);
-        //}
+            var libro = new LibroCreacionDTO
+            {
+                Titulo = libroCreacionDTO.Titulo,
+                AutoresIds = libroCreacionDTO.AutoresIds
+            };
+
+            await _repositorioLibro.CreateLibroAsync(libro);
+            return CreatedAtRoute("ObtenerLibro", new {id = libro.Id},libro);
+        }
 
         // PUT: api/libros/id
         //[HttpPut("{id:int}")]
