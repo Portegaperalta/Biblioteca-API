@@ -1,4 +1,5 @@
-﻿using Biblioteca_API.Entidades;
+﻿using Biblioteca_API.DTOs;
+using Biblioteca_API.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca_API.Datos.Repositorios
@@ -24,9 +25,9 @@ namespace Biblioteca_API.Datos.Repositorios
                          FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task CreateLibroAsync(Libro libro)
+        public async Task CreateLibroAsync(LibroCreacionDTO libroCreacionDTO)
         {
-            _context.Add(libro);
+            _context.Add(libroCreacionDTO);
             await _context.SaveChangesAsync();
         }
 
