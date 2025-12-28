@@ -25,9 +25,9 @@ namespace Biblioteca_API.Datos.Repositorios
                          FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task CreateLibroAsync(LibroCreacionDTO libroCreacionDTO)
+        public async Task CreateLibroAsync(Libro libro)
         {
-            _context.Add(libroCreacionDTO);
+            _context.Add(libro);
             await _context.SaveChangesAsync();
         }
 
@@ -46,7 +46,7 @@ namespace Biblioteca_API.Datos.Repositorios
         }
 
         public async Task<bool> ExistenAutores(List<int> autoresIds)
-        {
+        {   
             var autoresDb = await _context.Autores.ToListAsync();
             List<int> autoresDbIds = [];
 
