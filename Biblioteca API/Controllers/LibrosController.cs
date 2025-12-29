@@ -1,6 +1,4 @@
-﻿using Biblioteca_API.Datos.Repositorios;
-using Biblioteca_API.DTOs;
-using Biblioteca_API.Entidades;
+﻿using Biblioteca_API.DTOs;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,7 +18,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         public async Task<IEnumerable<LibroDTO>> Get()
         {
-            var librosDto = await _libroServicio.GetLibrosAsync();
+            var librosDto = await _libroServicio.GetLibrosAsync(;
             return librosDto;
         }
 
