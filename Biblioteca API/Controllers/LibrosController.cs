@@ -59,27 +59,7 @@ namespace Biblioteca_API.Controllers
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
         {
-            if (libroCreacionDTO.AutoresIds is null || libroCreacionDTO.AutoresIds.Count == 0)
-            {
-                ModelState.AddModelError(nameof(libroCreacionDTO.AutoresIds),
-                "No se puede crear un libro sin autores");
-                return ValidationProblem();
-            }
-            
-            bool existenAutores = await _repositorioLibro.ExistenAutores(libroCreacionDTO.AutoresIds);
-
-            if (!existenAutores)
-            {
-                return BadRequest($"Uno o mas autores no existen");
-            }
-
-            var libro = new Libro
-            {
-                Titulo = libroCreacionDTO.Titulo,
-                Autores = libroCreacionDTO.AutoresIds.Select(id => new AutorLibro { AutorId = id }).ToList()
-            };
-
-            await _repositorioLibro.CreateLibroAsync(libro);
+            await _libroServicio.CreateLibroAsync(libroCreacionDTO);
             return Created();
         }
 
