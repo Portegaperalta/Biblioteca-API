@@ -33,9 +33,9 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
-            var libroConAutorDto = _libroServicio.MapLibroToLibroConAutoresDto(libro);
+            var libroDto = await _libroServicio.GetLibroDtoAsync(id);
 
-            return libroConAutorDto;
+            return libroDto;
         }
 
         // POST: api/libros
