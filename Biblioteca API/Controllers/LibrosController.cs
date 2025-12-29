@@ -26,7 +26,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet("{id:int}",Name ="ObtenerLibro")]
         public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
         {
-            var libro = await _repositorioLibro.GetLibroAsync(id);
+            var libro = await _libroServicio.GetLibroAsync(id);
 
             if (libro is null)
             {
