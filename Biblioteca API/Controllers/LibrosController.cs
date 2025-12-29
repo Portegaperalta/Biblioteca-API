@@ -20,15 +20,8 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         public async Task<IEnumerable<LibroDTO>> Get()
         {
-           var libros = await _repositorioLibro.GetLibrosAsync();
-           var librosDTO = libros.Select(libro =>
-           new LibroDTO
-           {
-               Id = libro.Id,
-               Titulo = libro.Titulo,  
-           });
-
-            return librosDTO;
+            var librosDto = await _libroServicio.MapLibrosToDto();
+            return librosDto;
         }
 
         // GET: api/libros/id
