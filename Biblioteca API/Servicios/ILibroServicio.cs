@@ -11,7 +11,7 @@ namespace Biblioteca_API.Servicios
         Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto);
         Task<int> DeleteLibroAsync(int libroId);
         Task<IEnumerable<LibroDTO>> MapLibrosToDto();
-        Task<LibroDTO> MapLibroToDto(int libroId);
+        Task<LibroDTO> MapLibroToDto(Libro libro);
         Task<Libro> MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCracionDto);
     }
 }
