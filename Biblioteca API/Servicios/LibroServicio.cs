@@ -46,7 +46,7 @@ namespace Biblioteca_API.Servicios
             {
                 Titulo = libroCreacionDTO.Titulo,
                 Autores = libroCreacionDTO.AutoresIds.Select(id =>
-                new AutorLibro { AutorId = id }).ToList()
+                          new AutorLibro { AutorId = id }).ToList()
             };
 
             await _repositorioLibro.CreateLibroAsync(libro);
