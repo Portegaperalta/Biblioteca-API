@@ -24,6 +24,13 @@ namespace Biblioteca_API.Datos.Repositorios
                          FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Libro?> GetLibroConAutorAsync(int libroId)
+        {
+            return await _context.Libros.Include(libro => libro.Autores).
+                         Where(libro => libro.Autores.Any(autor =>
+                         autor.LibroId == libroId)).FirstOrDefaultAsync();
+        }
+
         public async Task CreateLibroAsync(Libro libro)
         {
             _context.Add(libro);
