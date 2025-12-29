@@ -34,7 +34,7 @@ namespace Biblioteca_API.Servicios
                 return null;
             }
 
-            var libroDto = await MapLibroToDto(libro);
+            var libroDto = MapLibroToDto(libro);
             return libroDto;
         }
 
