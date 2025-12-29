@@ -31,35 +31,35 @@ namespace Biblioteca_API.Controllers
         }
 
         // GET: api/libros/id
-        //[HttpGet("{id:int}",Name ="ObtenerLibro")]
-        //public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
-        //{
-        //    var libro = await _repositorioLibro.GetLibroAsync(id);
+        [HttpGet("{id:int}",Name ="ObtenerLibro")]
+        public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
+        {
+            var libro = await _repositorioLibro.GetLibroAsync(id);
 
-        //    if (libro is null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (libro is null)
+            {
+                return NotFound();
+            }
 
-        //    if (incluyeAutor == true)
-        //    {
-        //        var libroConAutorDTO = new LibroConAutoresDTO 
-        //        { Id = libro.Id,
-        //          Titulo = libro.Titulo,
-        //          NombreAutores = libro.Autores
-        //        };
+            if (incluyeAutor == true)
+            {
+                var libroConAutorDTO = new LibroConAutoresDTO 
+                { Id = libro.Id,
+                  Titulo = libro.Titulo,
+                  NombreAutores = libro.Autores
+                };
 
-        //        return libroConAutorDTO;
-        //    }
+                return libroConAutorDTO;
+            }
 
-        //    var libroDTO = new LibroDTO
-        //    {
-        //        Id = libro.Id,
-        //        Titulo = libro.Titulo,
-        //    };
+            var libroDTO = new LibroDTO
+            {
+                Id = libro.Id,
+                Titulo = libro.Titulo,
+            };
 
-        //    return libroDTO;
-        //}
+            return libroDTO;
+        }
 
         // POST: api/libros
         [HttpPost]
