@@ -77,7 +77,7 @@ namespace Biblioteca_API.Servicios
         }
 
         //Mappea un LibroCreacionDTO a entidad Libro
-        Libro MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDTO)
+        public Libro MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDTO)
         {
             var libro = new Libro
             {
