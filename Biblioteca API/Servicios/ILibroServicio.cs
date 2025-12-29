@@ -5,7 +5,7 @@ namespace Biblioteca_API.Servicios
 {
     public interface ILibroServicio
     {
-        Task<IEnumerable<LibroDTO>> GetLibrosAsync();
+        List<Libro> GetLibrosDtoAsync(IEnumerable<Libro> libros);
         Task<Libro?> GetLibroAsync(int libroId);
         Task<LibroDTO> GetLibroDtoAsync(int libroId);
         Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto);
