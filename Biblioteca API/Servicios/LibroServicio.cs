@@ -1,6 +1,7 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
+using Microsoft.Identity.Client;
 
 namespace Biblioteca_API.Servicios
 {
@@ -19,7 +20,13 @@ namespace Biblioteca_API.Servicios
             return librosDto;
         }
 
-        public async Task<LibroDTO> GetLibroAsync(int libroId)
+        public async Task<Libro?> GetLibroAsync(int libroId)
+        {
+            var libro = await _repositorioLibro.GetLibroAsync(libroId);
+            return libro;
+        }
+
+        public async Task<LibroDTO> GetLibroDtoAsync(int libroId)
         {
             var libroDto = await MapLibroToDto(libroId);
             return libroDto;
