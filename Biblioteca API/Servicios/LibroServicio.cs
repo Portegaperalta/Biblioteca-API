@@ -13,8 +13,9 @@ namespace Biblioteca_API.Servicios
             _repositorioLibro = repositorioLibro;
         }
 
-        public async Task CreateLibroAsync(Libro libro)
+        public async Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto)
         {
+            var libro = await MapLibroCreacionDtoToLibro(libroCreacionDto);
             await _repositorioLibro.CreateLibroAsync(libro);
         }
 
