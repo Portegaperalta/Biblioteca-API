@@ -12,6 +12,6 @@ namespace Biblioteca_API.Datos.Repositorios
         Task UpdateLibroAsync(Libro libro);
         Task<int> DeleteLibroAsync(int id);
         Task<bool> ExistenAutores(List<int> autoresIds);
-        //Task<List<string>> GetNombreAutores(int libroId);
+        Task<IEnumerable<Autor>> GetLibroAutores(int libroId);
     }
 }

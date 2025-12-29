@@ -82,7 +82,7 @@ namespace Biblioteca_API.Servicios
             {
                 Id = libro.Id,
                 Titulo = libro.Titulo,
-                Autores = libro.Autores
+                Autores = _repositorioLibro.GetLibroConAutorAsync
             };
 
             return libroConAutoresDto;
