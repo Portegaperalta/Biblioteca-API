@@ -44,7 +44,7 @@ namespace Biblioteca_API.Controllers
                 return libroConAutorDTO;
             }
 
-            var libroDto = await _libroServicio.GetLibroAsync(id);
+            var libroDto = await _libroServicio.GetLibroDtoAsync(id);
 
             return libroDto;
         }
