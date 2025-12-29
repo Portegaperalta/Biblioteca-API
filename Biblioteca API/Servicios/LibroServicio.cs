@@ -28,7 +28,7 @@ namespace Biblioteca_API.Servicios
         }
 
         //Mappea un LibroCreacionDTO a entidad Libro
-        public async Task MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDTO)
+        public async Task<Libro> MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDTO)
         {
             if (libroCreacionDTO.AutoresIds is null || libroCreacionDTO.AutoresIds.Count == 0)
             {
@@ -49,7 +49,7 @@ namespace Biblioteca_API.Servicios
                           new AutorLibro { AutorId = id }).ToList()
             };
 
-            await _repositorioLibro.CreateLibroAsync(libro);
+            return libro;
         }
     }
 }
