@@ -31,6 +31,25 @@ namespace Biblioteca_API.Servicios
             return registrosBorrados;
         }
 
+        //Mappea entidad libro a un LibroDTO
+        public async Task<LibroDTO> MapLibroToDto (int libroId)
+        {
+            var libro = await _repositorioLibro.GetLibroAsync(libroId);
+
+            if (libro is null)
+            {
+                return null;
+            }
+
+            var libroDto = new LibroDTO 
+            { 
+                Id = libro.Id,
+                Titulo = libro.Titulo
+            };
+
+            return libroDto;
+        }
+
         // Mappea lista de entidad Libro a lista de LibroDTO
         public async Task<IEnumerable<LibroDTO>> MapLibrosToDto()
         {
