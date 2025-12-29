@@ -87,7 +87,7 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
-            int registrosBorrados = await _repositorioLibro.DeleteLibroAsync(id);
+            int registrosBorrados = await _libroServicio.DeleteLibroAsync(id);
 
             if (registrosBorrados == 0)
             {
