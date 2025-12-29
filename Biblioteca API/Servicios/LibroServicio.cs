@@ -41,7 +41,19 @@ namespace Biblioteca_API.Servicios
 
         public async Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto)
         {
-            var libro = await MapLibroCreacionDtoToLibro(libroCreacionDto);
+            if (libroCreacionDto.AutoresIds is null || libroCreacionDto.AutoresIds.Count == 0)
+            {
+                throw new ArgumentException("No se puede crear un libro sin autores");
+            }
+
+            bool existenAutores = await _repositorioLibro.ExistenAutores(libroCreacionDto.AutoresIds);
+
+            if (!existenAutores)
+            {
+                throw new ArgumentException("Uno o mas autores no existen");
+            }
+
+            var libro = MapLibroCreacionDtoToLibro(libroCreacionDto);
             await _repositorioLibro.CreateLibroAsync(libro);
         }
 
