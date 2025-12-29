@@ -27,7 +27,14 @@ namespace Biblioteca_API.Servicios
 
         public async Task<LibroDTO> GetLibroDtoAsync(int libroId)
         {
-            var libroDto = await MapLibroToDto(libroId);
+            var libro = await _repositorioLibro.GetLibroAsync(libroId);
+
+            if (libro is null)
+            {
+                return null;
+            }
+
+            var libroDto = await MapLibroToDto(libro);
             return libroDto;
         }
 
@@ -44,15 +51,8 @@ namespace Biblioteca_API.Servicios
         }
 
         //Mappea entidad libro a un LibroDTO
-        public async Task<LibroDTO> MapLibroToDto (int libroId)
+        public LibroDTO MapLibroToDto (Libro libro)
         {
-            var libro = await _repositorioLibro.GetLibroAsync(libroId);
-
-            if (libro is null)
-            {
-                return null;
-            }
-
             var libroDto = new LibroDTO 
             { 
                 Id = libro.Id,
