@@ -44,13 +44,9 @@ namespace Biblioteca_API.Controllers
                 return libroConAutorDTO;
             }
 
-            var libroDTO = new LibroDTO
-            {
-                Id = libro.Id,
-                Titulo = libro.Titulo,
-            };
+            var libroDto = await _libroServicio.GetLibroAsync(id);
 
-            return libroDTO;
+            return libroDto;
         }
 
         // POST: api/libros
