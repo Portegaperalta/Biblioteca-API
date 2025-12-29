@@ -13,6 +13,12 @@ namespace Biblioteca_API.Servicios
             _repositorioLibro = repositorioLibro;
         }
 
+        public async Task<IEnumerable<LibroDTO>> GetLibrosAsync()
+        {
+            var librosDto = await MapLibrosToDto();
+            return librosDto;
+        }
+
         public async Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto)
         {
             var libro = await MapLibroCreacionDtoToLibro(libroCreacionDto);
