@@ -77,20 +77,8 @@ namespace Biblioteca_API.Servicios
         }
 
         //Mappea un LibroCreacionDTO a entidad Libro
-        public async Task<Libro> MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDTO)
+        Libro MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDTO)
         {
-            if (libroCreacionDTO.AutoresIds is null || libroCreacionDTO.AutoresIds.Count == 0)
-            {
-                throw new ArgumentException("No se puede crear un libro sin autores");
-            }
-
-            bool existenAutores = await _repositorioLibro.ExistenAutores(libroCreacionDTO.AutoresIds);
-
-            if (!existenAutores)
-            {
-                throw new ArgumentException("Uno o mas autores no existen");
-            }
-
             var libro = new Libro
             {
                 Titulo = libroCreacionDTO.Titulo,
