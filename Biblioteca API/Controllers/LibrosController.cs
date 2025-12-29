@@ -1,6 +1,7 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
+using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_API.Controllers
@@ -9,10 +10,10 @@ namespace Biblioteca_API.Controllers
     [Route("api/libros")]
     public class LibrosController : ControllerBase
     {
-        private readonly IRepositorioLibro _repositorioLibro;
-        public LibrosController(IRepositorioLibro repositorioLibro)
+        private readonly ILibroServicio _libroServicio;
+        public LibrosController(ILibroServicio libroServicio)
         {
-            _repositorioLibro = repositorioLibro;
+            _libroServicio = libroServicio;
         }
 
         // GET: api/libros
