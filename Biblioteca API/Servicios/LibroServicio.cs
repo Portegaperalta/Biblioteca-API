@@ -19,6 +19,12 @@ namespace Biblioteca_API.Servicios
             await _repositorioLibro.CreateLibroAsync(libro);
         }
 
+        public async Task<int> DeleteLibroAsync(int libroId)
+        {
+            var registrosBorrados = await _repositorioLibro.DeleteLibroAsync(libroId);
+            return registrosBorrados;
+        }
+
         // Mappea lista de entidad Libro a lista de LibroDTO
         public async Task<IEnumerable<LibroDTO>> MapLibrosToDto()
         {
