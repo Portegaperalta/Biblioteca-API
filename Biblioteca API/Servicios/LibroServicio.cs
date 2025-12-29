@@ -75,6 +75,19 @@ namespace Biblioteca_API.Servicios
             return libroDto;
         }
 
+        //Mappea entidad libro a un LibroConAutoresDTO
+        public LibroConAutoresDTO MapLibroToLibroConAutoresDto(Libro libro)
+        {
+            var libroConAutoresDto = new LibroConAutoresDTO
+            {
+                Id = libro.Id,
+                Titulo = libro.Titulo,
+                Autores = libro.Autores
+            };
+
+            return libroConAutoresDto;
+        }
+
         // Mappea lista de entidad Libro a lista de LibroDTO
         public IEnumerable<LibroDTO> MapLibrosToDto(IEnumerable<Libro> libros)
         {
