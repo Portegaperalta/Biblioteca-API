@@ -18,7 +18,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         public async Task<IEnumerable<LibroDTO>> Get()
         {
-            var librosDto = await _libroServicio.GetLibrosAsync(;
+            var librosDto = await _libroServicio.GetLibrosAsync();
             return librosDto;
         }
 
