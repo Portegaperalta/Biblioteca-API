@@ -38,7 +38,7 @@ namespace Biblioteca_API.Servicios
                 return null;
             }
 
-            var libroDto = MapLibroToDto(libro);
+            var libroDto = _libroMapper.MapToDto(libro);
             return libroDto;
         }
 
@@ -77,18 +77,6 @@ namespace Biblioteca_API.Servicios
         {
             var registrosBorrados = await _repositorioLibro.DeleteLibroAsync(libroId);
             return registrosBorrados;
-        }
-
-        //Mappea entidad libro a un LibroDTO
-        public LibroDTO MapLibroToDto (Libro libro)
-        {
-            var libroDto = new LibroDTO 
-            { 
-                Id = libro.Id,
-                Titulo = libro.Titulo
-            };
-
-            return libroDto;
         }
 
         //Mappea entidad libro a un LibroConAutoresDTO
