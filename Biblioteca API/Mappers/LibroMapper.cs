@@ -33,5 +33,19 @@ namespace Biblioteca_API.Mappers
                .Select(id => new AutorLibro { AutorId = id }).ToList()
             };
         }
+
+        public LibroConAutoresDTO MapToLibroConAutoresDto (Libro libro)
+        {
+            return new LibroConAutoresDTO
+            {
+                Id = libro.Id,
+                Titulo = libro.Titulo,
+                Autores = libro.Autores.Select(autores => new AutorDTO
+                { 
+                  Id = autores.Autor.Id,
+                  NombreCompleto = $"{autores.Autor.Nombres} {autores.Autor.Apellidos}",
+                }).ToList()
+            };
+        }
     }
 }
