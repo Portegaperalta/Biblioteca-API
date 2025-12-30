@@ -1,16 +1,19 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
+using Biblioteca_API.Mappers;
 
 namespace Biblioteca_API.Servicios
 {
     public class LibroServicio : ILibroServicio
     {
         private readonly IRepositorioLibro _repositorioLibro;
+        private readonly LibroMapper _libroMapper;
 
-        public LibroServicio(IRepositorioLibro repositorioLibro)
+        public LibroServicio(IRepositorioLibro repositorioLibro,LibroMapper libroMapper)
         {
             _repositorioLibro = repositorioLibro;
+            _libroMapper = libroMapper;
         }
 
         public async Task<IEnumerable<LibroDTO>> GetLibrosDtoAsync()
@@ -95,7 +98,7 @@ namespace Biblioteca_API.Servicios
             {
                 Id = libro.Id,
                 Titulo = libro.Titulo,
-                Autores = _repositorioLibro.GetLibroConAutorAsync
+                Autores = _repositorioLibro.GetLibroConAutorAsync()
             };
 
             return libroConAutoresDto;
