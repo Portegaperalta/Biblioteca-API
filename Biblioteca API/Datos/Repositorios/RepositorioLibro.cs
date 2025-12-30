@@ -31,6 +31,14 @@ namespace Biblioteca_API.Datos.Repositorios
                          autor.LibroId == libroId)).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<Autor>> GetLibroAutores(int libroId)
+        {
+            var libroAutores = await _context.Autores
+                                             .Where(autor => autor.Libros
+                                             .Any(libro => libro.LibroId == libroId)).ToListAsync();
+            return libroAutores;
+        }
+
         public async Task CreateLibroAsync(Libro libro)
         {
             _context.Add(libro);
