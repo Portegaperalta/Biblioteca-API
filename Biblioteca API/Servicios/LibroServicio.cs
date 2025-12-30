@@ -19,7 +19,7 @@ namespace Biblioteca_API.Servicios
         public async Task<IEnumerable<LibroDTO>> GetLibrosDtoAsync()
         {
             var libros = await _repositorioLibro.GetLibrosAsync();
-            var librosDto = MapLibrosToDto(libros);
+            var librosDto = libros.Select(libro => _libroMapper.MapToDto(libro));
             return librosDto;
         }
 
@@ -86,23 +86,10 @@ namespace Biblioteca_API.Servicios
             {
                 Id = libro.Id,
                 Titulo = libro.Titulo,
-                Autores = _repositorioLibro.GetLibroConAutorAsync()
+                Autores = 
             };
 
             return libroConAutoresDto;
-        }
-
-        // Mappea lista de entidad Libro a lista de LibroDTO
-        public IEnumerable<LibroDTO> MapLibrosToDto(IEnumerable<Libro> libros)
-        {
-            var librosDto = libros.Select(libro =>
-            new LibroDTO
-            {
-              Id = libro.Id,
-              Titulo = libro.Titulo
-            });
-
-            return librosDto;
         }
     }
 }
