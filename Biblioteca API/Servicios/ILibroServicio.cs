@@ -14,6 +14,5 @@ namespace Biblioteca_API.Servicios
         IEnumerable<LibroDTO> MapLibrosToDto(IEnumerable<Libro> libros);
         LibroDTO MapLibroToDto(Libro libro);
         LibroConAutoresDTO MapLibroToLibroConAutoresDto(Libro libro);
-        Libro? MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCracionDto);
     }
 }
