@@ -11,6 +11,5 @@ namespace Biblioteca_API.Servicios
         Task<LibroConAutoresDTO?> GetLibroConAutoresDto(int libroId);
         Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto);
         Task<int> DeleteLibroAsync(int libroId);
-        LibroConAutoresDTO MapLibroToLibroConAutoresDto(Libro libro);
     }
 }

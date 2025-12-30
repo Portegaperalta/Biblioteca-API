@@ -78,18 +78,5 @@ namespace Biblioteca_API.Servicios
             var registrosBorrados = await _repositorioLibro.DeleteLibroAsync(libroId);
             return registrosBorrados;
         }
-
-        //Mappea entidad libro a un LibroConAutoresDTO
-        public LibroConAutoresDTO MapLibroToLibroConAutoresDto(Libro libro)
-        {
-            var libroConAutoresDto = new LibroConAutoresDTO
-            {
-                Id = libro.Id,
-                Titulo = libro.Titulo,
-                Autores = 
-            };
-
-            return libroConAutoresDto;
-        }
     }
 }
