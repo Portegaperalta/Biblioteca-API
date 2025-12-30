@@ -69,7 +69,7 @@ namespace Biblioteca_API.Servicios
                 throw new ArgumentException("Uno o mas autores no existen");
             }
 
-            var libro = MapLibroCreacionDtoToLibro(libroCreacionDto);
+            var libro = _libroMapper.MapToEntity(libroCreacionDto);
             await _repositorioLibro.CreateLibroAsync(libro);
         }
 
@@ -115,19 +115,6 @@ namespace Biblioteca_API.Servicios
             });
 
             return librosDto;
-        }
-
-        //Mappea un LibroCreacionDTO a entidad Libro
-        public Libro MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDTO)
-        {
-            var libro = new Libro
-            {
-                Titulo = libroCreacionDTO.Titulo,
-                Autores = libroCreacionDTO.AutoresIds.Select(id =>
-                          new AutorLibro { AutorId = id }).ToList()
-            };
-
-            return libro;
         }
     }
 }
