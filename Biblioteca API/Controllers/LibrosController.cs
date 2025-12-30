@@ -33,6 +33,12 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
+            if (incluyeAutor == true)
+            {
+                var libroConAutorDto = await _libroServicio.GetLibroConAutoresDto(libro.Id);
+                return libroConAutorDto;
+            }
+
             var libroDto = await _libroServicio.GetLibroDtoAsync(id);
 
             return libroDto;
