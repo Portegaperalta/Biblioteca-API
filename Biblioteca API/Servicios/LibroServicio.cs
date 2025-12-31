@@ -64,7 +64,7 @@ namespace Biblioteca_API.Servicios
 
             var autoresIdExistentes = await _repositorioLibro.GetLibroAutoresId(libroCreacionDto);
 
-            if (!existenAutores)
+            if (autoresIdExistentes.Count() != libroCreacionDto.AutoresIds.Count)
             {
                 throw new ArgumentException("Uno o mas autores no existen");
             }
