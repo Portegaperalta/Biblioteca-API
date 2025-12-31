@@ -1,4 +1,5 @@
 ﻿using Biblioteca_API.DTOs;
+using Biblioteca_API.Entidades;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,24 +54,12 @@ namespace Biblioteca_API.Controllers
         }
 
         // PUT: api/libros/id
-        //[HttpPut("{id:int}")]
-        //public async Task<ActionResult> Put([FromRoute]int id,[FromBody]Libro libro)
-        //{
-        //    bool existeAutor = await _repositorioLibro.ExisteAutor(libro.AutorId);
-
-        //    if (id != libro.Id)
-        //    {
-        //        return BadRequest($"Los ids deben de coincidir");
-        //    }
-
-        //    if (!existeAutor)
-        //    {
-        //        return BadRequest($"El autor de id: {libro.AutorId} no existe");
-        //    }
-
-        //    await _repositorioLibro.UpdateLibroAsync(libro);
-        //    return NoContent();
-        //}
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put([FromRoute]int id,[FromBody] Libro libro)
+        {
+            await _libroServicio.UpdateLibroAsync(id,libro);
+            return NoContent();
+        }
 
         // DELETE: api/libros/id
         [HttpDelete("{id:int}")]

@@ -78,6 +78,16 @@ namespace Biblioteca_API.Servicios
             await _repositorioLibro.CreateLibroAsync(libro);
         }
 
+        public async Task UpdateLibroAsync(int libroIdFromRoute,Libro libro)
+        {
+            if (libroIdFromRoute != libro.Id)
+            {
+                throw new ArgumentException($"Los ids deben de coincidir");
+            }
+
+            await _repositorioLibro.UpdateLibroAsync(libro);
+        }
+
         public async Task<int> DeleteLibroAsync(int libroId)
         {
             var registrosBorrados = await _repositorioLibro.DeleteLibroAsync(libroId);
