@@ -66,7 +66,10 @@ namespace Biblioteca_API.Servicios
 
             if (autoresIdExistentes.Count() != libroCreacionDto.AutoresIds.Count)
             {
-                throw new ArgumentException("Uno o mas autores no existen");
+                var autoresIdNoExistentes = libroCreacionDto.AutoresIds.Except(autoresIdExistentes);
+                var autoresNoExistentesString = string.Join(",",autoresIdNoExistentes);
+
+                throw new ArgumentException($"Los siguientes autores Id no existen: {autoresNoExistentesString}");
             }
 
             var libro = _libroMapper.MapToEntity(libroCreacionDto);
