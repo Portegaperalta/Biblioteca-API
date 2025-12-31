@@ -84,6 +84,7 @@ namespace Biblioteca_API.Servicios
             {
                 throw new ArgumentException($"Los ids deben de coincidir");
             }
+            //agregar validadcion faltante en caso que autoresIds no existan
 
             await _repositorioLibro.UpdateLibroAsync(libro);
         }
