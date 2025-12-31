@@ -51,7 +51,7 @@ namespace Biblioteca_API.Servicios
                 return null;
             }
 
-            var libroConAutoresDto = MapLibroToLibroConAutoresDto(libro);
+            var libroConAutoresDto = _libroMapper.MapToLibroConAutoresDto(libro);
             return libroConAutoresDto;
         }
 
