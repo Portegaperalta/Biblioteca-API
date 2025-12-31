@@ -81,5 +81,16 @@ namespace Biblioteca_API.Servicios
             var registrosBorrados = await _repositorioLibro.DeleteLibroAsync(libroId);
             return registrosBorrados;
         }
+
+        private void AsignarOrdenAutores (Libro libro)
+        {
+            if (libro.Autores != null)
+            {
+                for (int i = 0; i < libro.Autores.Count; i++)
+                {
+                    libro.Autores[i].Orden = i;
+                }
+            }
+        }
     }
 }
