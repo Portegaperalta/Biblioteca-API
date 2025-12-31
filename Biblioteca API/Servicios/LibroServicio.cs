@@ -62,7 +62,7 @@ namespace Biblioteca_API.Servicios
                 throw new ArgumentException("No se puede crear un libro sin autores");
             }
 
-            bool existenAutores = await _repositorioLibro.ExistenAutores(libroCreacionDto.AutoresIds);
+            var autoresIdExistentes = await _repositorioLibro.GetLibroAutoresId(libroCreacionDto);
 
             if (!existenAutores)
             {
