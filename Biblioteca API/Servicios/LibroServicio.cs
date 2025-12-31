@@ -73,6 +73,8 @@ namespace Biblioteca_API.Servicios
             }
 
             var libro = _libroMapper.MapToEntity(libroCreacionDto);
+            AsignarOrdenAutores(libro);
+
             await _repositorioLibro.CreateLibroAsync(libro);
         }
 
