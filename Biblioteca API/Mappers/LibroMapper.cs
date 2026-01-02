@@ -5,7 +5,7 @@ namespace Biblioteca_API.Mappers
 {
     public class LibroMapper
     {
-        public LibroDTO MapToDto(Libro libro)
+        public LibroDTO MapToLibroDto(Libro libro)
         {
             return new LibroDTO
             {
