@@ -81,6 +81,8 @@ namespace Biblioteca_API.Servicios
             {
                 throw new ArgumentException($"El libro con Id: {libroIdFromRoute} no existe");
             }
+
+            var libro = _libroMapper.MapLibroPutDtoToLibro(libroPutDto);
             //agregar validadcion faltante en caso que autoresIds no existan
 
             await _repositorioLibro.UpdateLibroAsync(libro);
