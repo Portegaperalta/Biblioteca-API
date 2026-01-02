@@ -106,7 +106,7 @@ namespace Biblioteca_API.Servicios
             }
         }
 
-        private async Task<bool> ExisteLibro(int libroId)
+        private async Task<bool> VerificarLibroExistencia(int libroId)
         {
             var libroDb = await _repositorioLibro.GetLibroAsync(libroId);
 
