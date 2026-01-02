@@ -1,4 +1,5 @@
-﻿using Biblioteca_API.Datos.Repositorios;
+﻿using System.Threading.Tasks;
+using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
@@ -103,6 +104,18 @@ namespace Biblioteca_API.Servicios
                     libro.Autores[i].Orden = i;
                 }
             }
+        }
+
+        private async Task<bool> ExisteLibro(int libroId)
+        {
+            var libroDb = await _repositorioLibro.GetLibroAsync(libroId);
+
+            if (libroDb is null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
