@@ -31,7 +31,7 @@ namespace Biblioteca_API.Servicios
                 return null;
             }
 
-            var libroDto = _libroMapper.MapToDto(libro);
+            var libroDto = _libroMapper.MapToLibroDto(libro);
             return libroDto;
         }
 
