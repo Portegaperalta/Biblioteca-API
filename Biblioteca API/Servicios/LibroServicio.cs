@@ -35,14 +35,9 @@ namespace Biblioteca_API.Servicios
             return libroDto;
         }
 
-        public async Task<LibroConAutoresDTO?> GetLibroConAutoresDto(int libroId)
+        public async Task<LibroConAutoresDTO> GetLibroConAutoresDto(int libroId)
         {
             var libroConAutores = await _repositorioLibro.GetLibroConAutorAsync(libroId);
-
-            if (libroConAutores is null)
-            {
-                return null;
-            }
 
             var libroConAutoresDto = _libroMapper.MapToLibroConAutoresDto(libroConAutores);
             return libroConAutoresDto;

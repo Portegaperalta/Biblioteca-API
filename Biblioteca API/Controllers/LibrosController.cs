@@ -36,8 +36,7 @@ namespace Biblioteca_API.Controllers
 
             if (incluyeAutor == true)
             {
-                var libroConAutorDto = await _libroServicio.GetLibroConAutoresDto(libro.Id);
-                return libroConAutorDto;
+                return await _libroServicio.GetLibroConAutoresDto(libro.Id);
             }
 
             var libroDto = await _libroServicio.GetLibroDtoAsync(id);
