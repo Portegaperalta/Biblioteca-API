@@ -43,7 +43,8 @@ namespace Biblioteca_API.Mappers
             return new Libro
             {
                 Titulo = libroPutDto.Titulo,
-                Autores = libroPutDto.Autores
+                Autores = libroPutDto.AutoresIds
+                .Select(id => new AutorLibro { AutorId = id}).ToList()
             };
         }
     }
