@@ -75,10 +75,11 @@ namespace Biblioteca_API.Servicios
 
         public async Task UpdateLibroAsync(int libroIdFromRoute,LibroPutDTO libroPutDto)
         {
+            var LibroDb = await _repositorioLibro.GetLibroAsync(libroIdFromRoute);
 
-            if (libroIdFromRoute != libro.Id)
+            if (LibroDb is null)
             {
-                throw new ArgumentException($"Los ids deben de coincidir");
+                throw new ArgumentException($"El libro con Id: {libroIdFromRoute} no existe");
             }
             //agregar validadcion faltante en caso que autoresIds no existan
 
