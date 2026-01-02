@@ -19,13 +19,8 @@ namespace Biblioteca_API.Mappers
             };
         }
 
-        public Libro? MapToEntity(LibroCreacionDTO libroCreacionDto)
+        public Libro MapToEntity(LibroCreacionDTO libroCreacionDto)
         {
-            if (libroCreacionDto is null)
-            {
-                return null;
-            }
-
             return new Libro
             {
                 Titulo = libroCreacionDto.Titulo,
