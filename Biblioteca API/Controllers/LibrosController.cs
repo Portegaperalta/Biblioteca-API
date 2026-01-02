@@ -54,9 +54,9 @@ namespace Biblioteca_API.Controllers
 
         // PUT: api/libros/id
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put([FromRoute]int id,[FromBody] Libro libro)
+        public async Task<ActionResult> Put([FromRoute]int id,[FromBody] LibroPutDTO libroPutDto)
         {
-            await _libroServicio.UpdateLibroAsync(id,libro);
+            await _libroServicio.UpdateLibroAsync(id,libroPutDto);
             return NoContent();
         }
 
