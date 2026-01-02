@@ -83,8 +83,22 @@ namespace Biblioteca_API.Servicios
                 throw new ArgumentException($"El libro con Id: {libroIdFromRoute} no existe");
             }
 
-            var libro = _libroMapper.MapLibroPutDtoToLibro(libroPutDto);
+            if (libroPutDto.AutoresIds is null || libroPutDto.AutoresIds.Count == 0)
+            {
+                throw new ArgumentException("El libro debe tener un autor o mas");
+            }
 
+            var autoresIdExistentes = await _repositorioLibro.GetLibroAutoresId(libroPutDto);
+
+            if (autoresIdExistentes.Count() != libroPutDto.AutoresIds.Count)
+            {
+                var autoresIdNoExistentes = libroPutDto.AutoresIds.Except(autoresIdExistentes);
+                var autoresNoExistentesString = string.Join(",", autoresIdNoExistentes);
+
+                throw new ArgumentException($"Los siguientes autores Ids no existen: {autoresNoExistentesString}");
+            }
+
+            var libro = _libroMapper.MapLibroPutDtoToLibro(libroPutDto);
             await _repositorioLibro.UpdateLibroAsync(libro);
         }
 
