@@ -68,5 +68,15 @@ namespace Biblioteca_API.Datos.Repositorios
 
             return autoresId;
         }
+        public async Task<IEnumerable<int>> GetLibroAutoresId(LibroPutDTO libroPutDto)
+        {
+            var autoresId = await _context.Autores
+                                       .Where(autor => libroPutDto.AutoresIds
+                                       .Contains(autor.Id))
+                                       .Select(autor => autor.Id)
+                                       .ToListAsync();
+
+            return autoresId;
+        }
     }
 }
