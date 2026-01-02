@@ -5,13 +5,8 @@ namespace Biblioteca_API.Mappers
 {
     public class LibroMapper
     {
-        public LibroDTO? MapToDto(Libro libro)
+        public LibroDTO MapToDto(Libro libro)
         {
-            if (libro is null)
-            {
-                return null;
-            }
-
             return new LibroDTO
             {
                 Id = libro.Id,
