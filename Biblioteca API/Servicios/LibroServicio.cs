@@ -46,7 +46,7 @@ namespace Biblioteca_API.Servicios
         public async Task<IEnumerable<LibroDTO>> GetLibrosDtoAsync()
         {
             var libros = await _repositorioLibro.GetLibrosAsync();
-            var librosDto = libros.Select(libro => _libroMapper.MapToDto(libro));
+            var librosDto = libros.Select(libro => _libroMapper.MapToLibroDto(libro));
             return librosDto;
         }
 
