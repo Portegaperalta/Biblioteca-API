@@ -22,7 +22,7 @@ namespace Biblioteca_API.Servicios
             return libro;
         }
 
-        public async Task<LibroDTO> GetLibroDtoAsync(int libroId)
+        public async Task<LibroDTO?> GetLibroDtoAsync(int libroId)
         {
             var libro = await _repositorioLibro.GetLibroAsync(libroId);
 
