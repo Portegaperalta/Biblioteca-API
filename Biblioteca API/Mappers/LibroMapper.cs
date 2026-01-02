@@ -14,7 +14,7 @@ namespace Biblioteca_API.Mappers
             };
         }
 
-        public Libro MapToEntity(LibroCreacionDTO libroCreacionDto)
+        public Libro MapLibroCreacionDtoToLibro(LibroCreacionDTO libroCreacionDto)
         {
             return new Libro
             {

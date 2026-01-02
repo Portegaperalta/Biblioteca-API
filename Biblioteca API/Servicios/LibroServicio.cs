@@ -67,7 +67,7 @@ namespace Biblioteca_API.Servicios
                 throw new ArgumentException($"Los siguientes autores Id no existen: {autoresNoExistentesString}");
             }
 
-            var libro = _libroMapper.MapToEntity(libroCreacionDto);
+            var libro = _libroMapper.MapLibroCreacionDtoToLibro(libroCreacionDto);
             AsignarOrdenAutores(libro);
 
             await _repositorioLibro.CreateLibroAsync(libro);
