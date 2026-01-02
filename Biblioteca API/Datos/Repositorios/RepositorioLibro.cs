@@ -26,9 +26,8 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task<Libro?> GetLibroConAutorAsync(int libroId)
         {
-            return await _context.Libros.Include(libro => libro.Autores).
-                         Where(libro => libro.Autores.Any(autor =>
-                         autor.LibroId == libroId)).FirstOrDefaultAsync();
+            return await _context.Libros.Include(l => l.Autores)
+                                        .FirstOrDefaultAsync(l => l.Id == libroId);
         }
 
         public async Task<IEnumerable<Autor>> GetLibroAutores(int libroId)
