@@ -16,13 +16,6 @@ namespace Biblioteca_API.Servicios
             _libroMapper = libroMapper;
         }
 
-        public async Task<IEnumerable<LibroDTO>> GetLibrosDtoAsync()
-        {
-            var libros = await _repositorioLibro.GetLibrosAsync();
-            var librosDto = libros.Select(libro => _libroMapper.MapToDto(libro));
-            return librosDto;
-        }
-
         public async Task<Libro?> GetLibroAsync(int libroId)
         {
             var libro = await _repositorioLibro.GetLibroAsync(libroId);
@@ -53,6 +46,13 @@ namespace Biblioteca_API.Servicios
 
             var libroConAutoresDto = _libroMapper.MapToLibroConAutoresDto(libroConAutores);
             return libroConAutoresDto;
+        }
+
+        public async Task<IEnumerable<LibroDTO>> GetLibrosDtoAsync()
+        {
+            var libros = await _repositorioLibro.GetLibrosAsync();
+            var librosDto = libros.Select(libro => _libroMapper.MapToDto(libro));
+            return librosDto;
         }
 
         public async Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto)
