@@ -10,7 +10,7 @@ namespace Biblioteca_API.Servicios
         Task<LibroDTO?> GetLibroDtoAsync(int libroId);
         Task<LibroConAutoresDTO> GetLibroConAutoresDto(int libroId);
         Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto);
-        Task UpdateLibroAsync(int libroId,Libro libro);
+        Task UpdateLibroAsync(int libroId,LibroPutDTO libroPutDto);
         Task<int> DeleteLibroAsync(int libroId);
     }
 }
