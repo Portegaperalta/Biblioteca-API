@@ -37,5 +37,14 @@ namespace Biblioteca_API.Mappers
                 }).ToList()
             };
         }
+
+        public Libro MapLibroPutDtoToLibro(LibroPutDTO libroPutDto)
+        {
+            return new Libro
+            {
+                Titulo = libroPutDto.Titulo,
+                Autores = libroPutDto.Autores
+            };
+        }
     }
 }
