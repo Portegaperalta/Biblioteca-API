@@ -76,13 +76,12 @@ namespace Biblioteca_API.Servicios
 
         public async Task UpdateLibroAsync(int libroIdFromRoute,LibroPutDTO libroPutDto)
         {
-            //busca libro en db para confirmar si el libro existe o no
-            var LibroDb = await _repositorioLibro.GetLibroAsync(libroIdFromRoute);
+            bool existeLibro = await VerificarLibroExistencia(libroIdFromRoute);
 
-            if (LibroDb is null)
+            if (!existeLibro)
             {
                 throw new ArgumentException($"El libro con Id: {libroIdFromRoute} no existe");
-            } 
+            }
 
             var libro = _libroMapper.MapLibroPutDtoToLibro(libroPutDto);
 
