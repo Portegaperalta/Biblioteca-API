@@ -8,7 +8,7 @@ namespace Biblioteca_API.Servicios
         Task <IEnumerable<LibroDTO>> GetLibrosDtoAsync();
         Task<Libro?> GetLibroAsync(int libroId);
         Task<LibroDTO?> GetLibroDtoAsync(int libroId);
-        Task<LibroConAutoresDTO> GetLibroConAutoresDto(int libroId);
+        Task<LibroConAutoresDTO?> GetLibroConAutoresDto(int libroId);
         Task CreateLibroAsync(LibroCreacionDTO libroCreacionDto);
         Task UpdateLibroAsync(int libroId,LibroPutDTO libroPutDto);
         Task<int> DeleteLibroAsync(int libroId);
