@@ -6,6 +6,8 @@ namespace Biblioteca_API.DTOs
     public class LibroPutDTO
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         [StringLength(250, ErrorMessage = "El titulo del libro debe ser 250 caracteres o menos")]
         public required string Titulo { get; set; }
 
