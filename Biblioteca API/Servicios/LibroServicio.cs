@@ -97,7 +97,14 @@ namespace Biblioteca_API.Servicios
             }
 
             var libro = _libroMapper.MapLibroPutDtoToLibro(libroPutDto);
+
             await _repositorioLibro.UpdateLibroAsync(libro);
+
+            // Elimina relacion existente en tabla intermedia AutoresLibros
+            // para evitar records duplicados y vuelve a insertar relacion 
+            // con nueva lista de autoresIds
+            await _repositorioLibro.DeleteAutoresLibrosAsync(libroIdFromRoute);
+            await _repositorioLibro.InsertAutoresLibrosAsync(libroIdFromRoute, libroPutDto.AutoresIds);
         }
 
         public async Task<int> DeleteLibroAsync(int libroId)
