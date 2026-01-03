@@ -31,5 +31,15 @@ namespace Biblioteca_API.Servicios
             var autorDto = _autorMapper.MapToAutorDto(autor);
             return autorDto;
         }
+
+        public async Task<AutorSinLibrosDTO?> GetAutorSinLibrosDto(int autorId)
+        {
+            var autorSinLibros = await _repositorioAutor.GetAutorSinLibrosAsync(autorId);
+
+            if (autorSinLibros is null) return null;
+
+            var autorSinLibrosDto = _autorMapper.MapToAutorSinLibrosDto(autorSinLibros);
+            return autorSinLibrosDto;
+        }
     }
 }
