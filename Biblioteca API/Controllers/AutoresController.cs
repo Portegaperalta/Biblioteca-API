@@ -1,6 +1,7 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
+using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,11 @@ namespace Biblioteca_API.Controllers
     [Route("api/autores")]
     public class AutoresController : ControllerBase
     {
-        private readonly IRepositorioAutor _repositorioAutor;
+        private readonly IAutorServicio _autorServicio;
 
-        public AutoresController(IRepositorioAutor repositorioAutor)
+        public AutoresController(IAutorServicio autorServicio)
         {
-            _repositorioAutor = repositorioAutor;
+            _autorServicio = autorServicio;
         }
 
         // GET: api/autores
