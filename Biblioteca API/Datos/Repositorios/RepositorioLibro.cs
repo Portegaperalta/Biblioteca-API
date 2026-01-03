@@ -46,7 +46,7 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task UpdateLibroAsync(Libro libro)
         {
-            _context.Update(libro);
+            _context.Libros.Update(libro);
             await _context.SaveChangesAsync();
         }
 
