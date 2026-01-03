@@ -76,11 +76,9 @@ namespace Biblioteca_API.Servicios
 
         public async Task UpdateLibroAsync(int libroIdFromRoute,LibroPutDTO libroPutDto)
         {
-            bool existeLibro = await VerificarLibroExistencia(libroIdFromRoute);
-
-            if (!existeLibro)
+            if(libroPutDto.Id != libroIdFromRoute)
             {
-                throw new ArgumentException($"El libro con Id: {libroIdFromRoute} no existe");
+                throw new ArgumentException("Los ids deben de coincidir");
             }
 
             if (libroPutDto.AutoresIds is null || libroPutDto.AutoresIds.Count == 0)
