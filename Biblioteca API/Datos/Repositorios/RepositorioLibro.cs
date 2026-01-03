@@ -78,5 +78,13 @@ namespace Biblioteca_API.Datos.Repositorios
 
             return autoresId;
         }
+
+        public async Task<int> DeleteLibroAutoresAsync(int libroId)
+        {
+            var deletedRecords = await _context.AutoresLibros
+                                               .Where(al => al.LibroId == libroId)
+                                               .ExecuteDeleteAsync();
+            return deletedRecords;
+        }
     }
 }
