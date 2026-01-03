@@ -73,12 +73,8 @@ namespace Biblioteca_API.Servicios
         }
         public AutorPatchDTO HandleAutorPatch(Autor autor)
         {
-            return new AutorPatchDTO
-            {
-                Nombres = autor.Nombres,
-                Apellidos = autor.Apellidos,
-                Identificacion = autor.Identificacion
-            };
+            var autorPatchDto = _autorMapper.MapToAutorPatchDto(autor);
+            return autorPatchDto;
         }
     }
 }
