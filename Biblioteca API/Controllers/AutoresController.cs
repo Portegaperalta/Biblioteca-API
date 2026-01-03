@@ -74,7 +74,7 @@ namespace Biblioteca_API.Controllers
                 return BadRequest("Los ids deben de coincidir");
             }
 
-            await _autorServicio.UpdateAutorAsync(id, autorPutDto);
+            await _autorServicio.UpdateAutorAsync(autorPutDto);
             return NoContent();
         }
 
