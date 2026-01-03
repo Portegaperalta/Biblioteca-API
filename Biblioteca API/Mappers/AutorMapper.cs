@@ -19,6 +19,17 @@ namespace Biblioteca_API.Mappers
             };
         }
 
+        public Autor MapToLibro(AutorCreacionDTO autorCreacionDto)
+        {
+            return new Autor
+            {
+                Nombres = autorCreacionDto.Nombres,
+                Apellidos = autorCreacionDto.Apellidos,
+                Identificacion = autorCreacionDto.Identificacion,
+                Libros = new List<AutorLibro>()
+            };
+        }
+
         public AutorSinLibrosDTO MapToAutorSinLibrosDto(Autor autor)
         {
             return new AutorSinLibrosDTO
