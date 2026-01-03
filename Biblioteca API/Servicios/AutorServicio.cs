@@ -1,4 +1,5 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
+using Biblioteca_API.DTOs;
 using Biblioteca_API.Mappers;
 
 namespace Biblioteca_API.Servicios
@@ -12,6 +13,13 @@ namespace Biblioteca_API.Servicios
         {
             _repositorioAutor = repositorioAutor;
             _autorMapper = autorMapper;
+        }
+
+        public async Task<IEnumerable<AutorDTO>> GetAutoresDto()
+        {
+            var autores = await _repositorioAutor.GetAutoresAsync();
+            var autoresDto = autores.Select(autor => _autorMapper.MapToAutorDto(autor));
+            return autoresDto;
         }
     }
 }
