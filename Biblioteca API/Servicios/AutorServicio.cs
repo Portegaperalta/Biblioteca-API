@@ -48,13 +48,8 @@ namespace Biblioteca_API.Servicios
             await _repositorioAutor.CreateAutorAsync(autor);
         }
 
-        public async Task UpdateAutorAsync(int autorIdFromRoute,AutorPutDTO autorPutDto)
+        public async Task UpdateAutorAsync(AutorPutDTO autorPutDto)
         {
-            if (autorIdFromRoute != autorPutDto.Id)
-            {
-                throw new ArgumentException("Los ids deben de coincidir");
-            }
-
             var autor = _autorMapper.MapAutorPutDtoToAutor(autorPutDto);
             await _repositorioAutor.UpdateAutorAsync(autor);
         }
