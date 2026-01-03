@@ -71,7 +71,7 @@ namespace Biblioteca_API.Servicios
             var registrosBorrados = await _repositorioAutor.DeleteAutorAsync(autorId);
             return registrosBorrados;
         }
-        public AutorPatchDTO HandleAutorPatch(Autor autor)
+        public AutorPatchDTO HandleAutorPatchDtoMapping(Autor autor)
         {
             var autorPatchDto = _autorMapper.MapToAutorPatchDto(autor);
             return autorPatchDto;

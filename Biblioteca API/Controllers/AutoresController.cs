@@ -77,7 +77,7 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
-            var autorPatchDTO = _autorServicio.HandleAutorPatch(autor);
+            var autorPatchDTO = _autorServicio.HandleAutorPatchDtoMapping(autor);
 
             patchDoc.ApplyTo(autorPatchDTO, ModelState);
 
