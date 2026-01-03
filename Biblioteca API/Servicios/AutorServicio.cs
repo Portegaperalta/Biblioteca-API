@@ -47,5 +47,11 @@ namespace Biblioteca_API.Servicios
             var autor = _autorMapper.MapToAutor(autorCreacionDto);
             await _repositorioAutor.CreateAutorAsync(autor);
         }
+
+        public async Task UpdateAutorAsync(int autorId,AutorPutDTO autorPutDto)
+        {
+            var autor = _autorMapper.MapAutorPutDtoToAutor(autorPutDto);
+            await _repositorioAutor.UpdateAutorAsync(autor);
+        }
     }
 }

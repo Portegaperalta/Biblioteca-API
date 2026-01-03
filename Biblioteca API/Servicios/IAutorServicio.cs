@@ -8,7 +8,7 @@ namespace Biblioteca_API.Servicios
         Task<AutorDTO?> GetAutorDtoAsync(int autorId);
         Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId);
         Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto);
-        Task UpdateAutorAsync();
+        Task UpdateAutorAsync(int autodId,AutorPutDTO autorPutDTO);
         Task<int> DeleteAutorAsyc(int autorId);
     }
 }
