@@ -33,6 +33,7 @@ namespace Biblioteca_API.Mappers
         {
             return new Autor
             {
+                 Id = autorPutDto.Id,
                  Nombres = autorPutDto.Nombres,
                  Apellidos = autorPutDto.Apellidos,
                  Identificacion = autorPutDto.Identificacion,
