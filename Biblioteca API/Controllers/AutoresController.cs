@@ -23,18 +23,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet("/listado-de-autores")]
         public async Task<IEnumerable<AutorDTO>> Get()
         {
-            var autores = await _repositorioAutor.GetAutoresAsync();
-            var autoresDTO = autores.Select(autor =>
-            new AutorDTO 
-            { 
-                Id = autor.Id, 
-                NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
-                Libros = autor.Libros.Select(libro =>
-                new LibroDTO { Id = libro.LibroId, Titulo = libro.Libro.Titulo}
-                )
-            });
-
-            return autoresDTO;
+            return await _autorServicio.GetAutoresDtoAsync();
         }
 
         // GET: api/autores/id
