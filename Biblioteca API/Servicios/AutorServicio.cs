@@ -76,5 +76,10 @@ namespace Biblioteca_API.Servicios
             var autorPatchDto = _autorMapper.MapToAutorPatchDto(autor);
             return autorPatchDto;
         }
+        public AutorPutDTO HandleAutorPutDtoMapping(int autorId, AutorPatchDTO autorPatchDto)
+        {
+            var autorPutDto = _autorMapper.MapPatchDtoToPutDto(autorId, autorPatchDto);
+            return autorPutDto;
+        }
     }
 }
