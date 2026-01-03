@@ -19,7 +19,7 @@ namespace Biblioteca_API.Mappers
             };
         }
 
-        public Autor MapToLibro(AutorCreacionDTO autorCreacionDto)
+        public Autor MapToAutor(AutorCreacionDTO autorCreacionDto)
         {
             return new Autor
             {
