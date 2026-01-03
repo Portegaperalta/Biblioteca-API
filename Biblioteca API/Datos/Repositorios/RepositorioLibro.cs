@@ -79,6 +79,18 @@ namespace Biblioteca_API.Datos.Repositorios
             return autoresId;
         }
 
+        public async Task InsertAutoresLibrosAsync(int libroId,List<int> autoresIds)
+        {
+            var autoresLibros = autoresIds.Select(autorId => new AutorLibro
+            { 
+                AutorId = autorId,
+                LibroId = libroId
+            }).ToList();
+
+            await _context.AutoresLibros.AddRangeAsync(autoresLibros);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<int> DeleteAutoresLibrosAsync(int libroId)
         {
             var deletedRecords = await _context.AutoresLibros
