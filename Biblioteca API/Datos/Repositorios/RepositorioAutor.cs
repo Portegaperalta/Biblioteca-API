@@ -38,11 +38,6 @@ namespace Biblioteca_API.Datos.Repositorios
             return autorSinLibros;
         }
 
-        public async Task<Autor> GetPrimerAutorAsync()
-        {
-            return await _context.Autores.FirstAsync();
-        }
-
         public async Task CreateAutorAsync(Autor autor)
         {
             _context.Add(autor);
