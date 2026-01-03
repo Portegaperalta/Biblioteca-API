@@ -2,6 +2,8 @@
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_API.Servicios
 {
@@ -68,6 +70,15 @@ namespace Biblioteca_API.Servicios
         {
             var registrosBorrados = await _repositorioAutor.DeleteAutorAsync(autorId);
             return registrosBorrados;
+        }
+        public AutorPatchDTO HandleAutorPatch(Autor autor)
+        {
+            return new AutorPatchDTO
+            {
+                Nombres = autor.Nombres,
+                Apellidos = autor.Apellidos,
+                Identificacion = autor.Identificacion
+            };
         }
     }
 }
