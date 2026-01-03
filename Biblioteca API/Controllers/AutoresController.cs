@@ -30,23 +30,14 @@ namespace Biblioteca_API.Controllers
         [HttpGet("{id:int}",Name ="ObtenerAutor")]
         public async Task<ActionResult<AutorDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
-            var autor = await _repositorioAutor.GetAutorAsync(id);
-
-            if (autor is null)
+            var autorDto = await _autorServicio.GetAutorDtoAsync(id);
+            
+            if (autorDto is null)
             {
                 return NotFound();
             }
 
-            var autorDTO = new AutorDTO
-            {
-                Id = autor.Id,
-                NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
-                Libros = autor.Libros.Select(libro =>
-                new LibroDTO { Id = libro.LibroId, Titulo = libro.Libro.Titulo }
-                )
-            };
-
-            return autorDTO;
+            return autorDto;
         }
 
         // GET: api/autores/primerAutor
