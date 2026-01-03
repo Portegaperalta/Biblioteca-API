@@ -21,5 +21,15 @@ namespace Biblioteca_API.Servicios
             var autoresDto = autores.Select(autor => _autorMapper.MapToAutorDto(autor));
             return autoresDto;
         }
+
+        public async Task<AutorDTO?> GetAutorDtoAsync(int autorId)
+        {
+            var autor = await _repositorioAutor.GetAutorAsync(autorId);
+
+            if (autor is null) return null;
+
+            var autorDto = _autorMapper.MapToAutorDto(autor);
+            return autorDto;
+        }
     }
 }
