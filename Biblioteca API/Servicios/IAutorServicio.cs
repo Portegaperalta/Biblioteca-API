@@ -6,7 +6,7 @@ namespace Biblioteca_API.Servicios
     {
         Task<IEnumerable<AutorDTO>> GetAutoresDtoAsync();
         Task<AutorDTO?> GetAutorDtoAsync(int autorId);
-        Task<AutorSinLibrosDTO> GetAutorSinLibrosDtoAsync(int autorId);
+        Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId);
         Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto);
         Task UpdateAutorAsync();
         Task<int> DeleteAutorAsyc(int autorId);
