@@ -53,5 +53,11 @@ namespace Biblioteca_API.Servicios
             var autor = _autorMapper.MapAutorPutDtoToAutor(autorPutDto);
             await _repositorioAutor.UpdateAutorAsync(autor);
         }
+
+        public async Task<int> DeleteAutorAsync(int autorId)
+        {
+            var registrosBorrados = await _repositorioAutor.DeleteAutorAsync(autorId);
+            return registrosBorrados;
+        }
     }
 }
