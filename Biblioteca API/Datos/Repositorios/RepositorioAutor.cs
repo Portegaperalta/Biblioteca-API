@@ -52,7 +52,9 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task<int> DeleteAutorAsync(int id)
         {
-            int registrosBorrados = await _context.Autores.Where(x => x.Id == id).ExecuteDeleteAsync();
+            int registrosBorrados = await _context.Autores
+                                          .Where(x => x.Id == id)
+                                          .ExecuteDeleteAsync();
             return registrosBorrados;
         }
     }
