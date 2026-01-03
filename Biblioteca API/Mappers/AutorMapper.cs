@@ -26,7 +26,6 @@ namespace Biblioteca_API.Mappers
                 Nombres = autorCreacionDto.Nombres,
                 Apellidos = autorCreacionDto.Apellidos,
                 Identificacion = autorCreacionDto.Identificacion,
-                Libros = new List<AutorLibro>()
             };
         }
 
