@@ -57,5 +57,16 @@ namespace Biblioteca_API.Mappers
              Identificacion = autor.Identificacion
             };
         }
+
+        public AutorPutDTO MapPatchDtoToPutDto(int libroId,AutorPatchDTO autorPatchDto)
+        {
+            return new AutorPutDTO
+            {
+             Id = libroId,
+             Nombres = autorPatchDto.Nombres,
+             Apellidos = autorPatchDto.Apellidos,
+             Identificacion = autorPatchDto.Identificacion
+            };
+        }
     }
 }
