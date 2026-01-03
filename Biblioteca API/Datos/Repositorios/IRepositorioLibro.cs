@@ -14,6 +14,6 @@ namespace Biblioteca_API.Datos.Repositorios
         Task<IEnumerable<int>> GetLibroAutoresId (LibroCreacionDTO libroCreacionDto);
         Task<IEnumerable<int>> GetLibroAutoresId(LibroPutDTO libroPutDto);
         Task<IEnumerable<Autor>> GetLibroAutores(int libroId);
-        Task<int> DeleteLibroAutoresAsync(int libroId);
+        Task<int> DeleteAutoresLibrosAsync(int libroId);
     }
 }
