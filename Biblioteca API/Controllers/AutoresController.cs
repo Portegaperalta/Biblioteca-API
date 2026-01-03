@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using AutoMapper;
-using Biblioteca_API.Datos.Repositorios;
+﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Microsoft.AspNetCore.JsonPatch;
