@@ -5,6 +5,8 @@ namespace Biblioteca_API.DTOs
 {
     public class AutorPutDTO
     {
+        [Required]
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [StringLength(150, ErrorMessage = "El campo {0} debe tener {1} caracteres o menos")]
