@@ -67,14 +67,9 @@ namespace Biblioteca_API.Controllers
 
         // PUT: api/autores/id
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put([FromRoute] int id, [FromBody] Autor autor)
+        public async Task<ActionResult> Put([FromRoute] int id, [FromBody] AutorPutDTO autorPutDto)
         {
-            if (id != autor.Id)
-            {
-                return BadRequest("Los ids deben de coincidir");
-            }
-
-            await _repositorioAutor.UpdateAutorAsync(autor);
+            await _autorServicio.UpdateAutorAsync(id, autorPutDto);
             return NoContent();
         }
 
