@@ -40,23 +40,6 @@ namespace Biblioteca_API.Controllers
             return autorDto;
         }
 
-        // GET: api/autores/primerAutor
-        //[HttpGet("primerAutor")]
-        //public async Task<AutorDTO> GetPrimerAutor()
-        //{
-        //    var primerAutor = await _repositorioAutor.GetPrimerAutorAsync();
-        //    var primerAutorDTO = new AutorDTO
-        //    {
-        //        Id = primerAutor.Id,
-        //        NombreCompleto = $"{primerAutor.Nombres} {primerAutor.Apellidos}",
-        //        Libros = primerAutor.Libros.Select(libro =>
-        //        new LibroDTO { Id = libro.LibroId, Titulo = libro.Libro.Titulo }
-        //        )
-        //    };
-
-        //    return primerAutorDTO;
-        //}
-
         // POST: api/autores
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] AutorCreacionDTO autorCreacionDto)
