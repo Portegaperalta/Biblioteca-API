@@ -91,7 +91,8 @@ namespace Biblioteca_API.Controllers
             autor.Nombres = autorPatchDTO.Nombres;
             autor.Apellidos = autorPatchDTO.Apellidos;
 
-            await _repositorioAutor.UpdateAutorAsync(autor);
+            var autorPutDto = _autorServicio.HandleAutorPutDtoMapping(autor.Id, autorPatchDTO);
+            await _autorServicio.UpdateAutorAsync(autorPutDto);
 
             return NoContent();
         }
