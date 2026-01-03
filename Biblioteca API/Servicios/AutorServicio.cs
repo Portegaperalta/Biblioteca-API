@@ -1,5 +1,6 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
+using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 
 namespace Biblioteca_API.Servicios
@@ -30,6 +31,15 @@ namespace Biblioteca_API.Servicios
 
             var autorDto = _autorMapper.MapToAutorDto(autor);
             return autorDto;
+        }
+
+        public async Task<Autor?> GetAutorAsync(int autorId)
+        {
+            var autor = await _repositorioAutor.GetAutorAsync(autorId);
+
+            if (autor is null) return null;
+
+            return autor;
         }
 
         public async Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId)
