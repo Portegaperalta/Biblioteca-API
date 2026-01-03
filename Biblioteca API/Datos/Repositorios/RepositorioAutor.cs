@@ -14,9 +14,10 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task<IEnumerable<Autor>> GetAutoresAsync()
         {
-            return await _context.Autores.
-                         Include(x => x.Libros).
-                         ToListAsync();
+            return await _context.Autores
+                         .Include(x => x.Libros)
+                         .ThenInclude(l => l.Libro)
+                         .ToListAsync();
         }
 
         public async Task<Autor?> GetAutorAsync(int id)
