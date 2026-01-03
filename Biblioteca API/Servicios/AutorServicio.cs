@@ -15,7 +15,7 @@ namespace Biblioteca_API.Servicios
             _autorMapper = autorMapper;
         }
 
-        public async Task<IEnumerable<AutorDTO>> GetAutoresDto()
+        public async Task<IEnumerable<AutorDTO>> GetAutoresDtoAsync()
         {
             var autores = await _repositorioAutor.GetAutoresAsync();
             var autoresDto = autores.Select(autor => _autorMapper.MapToAutorDto(autor));
@@ -32,7 +32,7 @@ namespace Biblioteca_API.Servicios
             return autorDto;
         }
 
-        public async Task<AutorSinLibrosDTO?> GetAutorSinLibrosDto(int autorId)
+        public async Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId)
         {
             var autorSinLibros = await _repositorioAutor.GetAutorSinLibrosAsync(autorId);
 
