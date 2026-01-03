@@ -5,5 +5,18 @@ namespace Biblioteca_API.Mappers
 {
     public class AutorMapper
     {
+        public AutorDTO MapToAutorDto(Autor autor)
+        {
+            return new AutorDTO
+            {
+                Id = autor.Id,
+                NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
+                Libros = autor.Libros.Select(autoresLibros => new LibroDTO
+                {
+                    Id = autoresLibros.LibroId,
+                    Titulo = autoresLibros.Libro.Titulo
+                }).ToList() ?? new List<LibroDTO>()
+            };
+        }
     }
 }
