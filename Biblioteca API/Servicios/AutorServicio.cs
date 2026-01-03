@@ -41,5 +41,11 @@ namespace Biblioteca_API.Servicios
             var autorSinLibrosDto = _autorMapper.MapToAutorSinLibrosDto(autorSinLibros);
             return autorSinLibrosDto;
         }
+
+        public async Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto)
+        {
+            var autor = _autorMapper.MapToAutor(autorCreacionDto);
+            await _repositorioAutor.CreateAutorAsync(autor);
+        }
     }
 }
