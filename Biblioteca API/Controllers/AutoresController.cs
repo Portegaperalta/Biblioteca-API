@@ -59,10 +59,10 @@ namespace Biblioteca_API.Controllers
 
         // POST: api/autores
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] Autor autor)
+        public async Task<ActionResult> Post([FromBody] AutorCreacionDTO autorCreacionDto)
         {
-            await _repositorioAutor.CreateAutorAsync(autor);
-            return CreatedAtRoute("ObtenerAutor",new {id = autor.Id}, autor);
+            await _autorServicio.CreateAutorAsync(autorCreacionDto);
+            return Created();
         }
 
         // PUT: api/autores/id
