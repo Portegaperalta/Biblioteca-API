@@ -123,17 +123,5 @@ namespace Biblioteca_API.Servicios
                 }
             }
         }
-
-        private async Task<bool> VerificarLibroExistencia(int libroId)
-        {
-            var libroDb = await _repositorioLibro.GetLibroAsync(libroId);
-
-            if (libroDb is null)
-            {
-                return false;
-            }
-
-            return true;
-        }
     }
 }
