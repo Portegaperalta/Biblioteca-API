@@ -47,5 +47,15 @@ namespace Biblioteca_API.Mappers
              NombreCompleto = $"{autor.Nombres} {autor.Apellidos}"
             };
         }
+
+        public AutorPatchDTO MapToAutorPatchDto(Autor autor)
+        {
+            return new AutorPatchDTO
+            {
+             Nombres = autor.Nombres,
+             Apellidos = autor.Apellidos,
+             Identificacion = autor.Identificacion
+            };
+        }
     }
 }
