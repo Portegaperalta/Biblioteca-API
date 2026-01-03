@@ -30,10 +30,10 @@ namespace Biblioteca_API.Mappers
             {
                 Id = libro.Id,
                 Titulo = libro.Titulo,
-                Autores = libro.Autores.Select(autores => new AutorDTO
-                { 
-                  Id = autores.Autor.Id,
-                  NombreCompleto = $"{autores.Autor.Nombres} {autores.Autor.Apellidos}",
+                Autores = libro.Autores.Select(autoresLibros => new AutorSinLibrosDTO
+                {
+                 Id = autoresLibros.AutorId,
+                 NombreCompleto = $"{autoresLibros.Autor.Nombres} {autoresLibros.Autor.Apellidos}"
                 }).ToList()
             };
         }
