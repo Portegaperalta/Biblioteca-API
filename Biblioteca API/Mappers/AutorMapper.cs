@@ -29,6 +29,16 @@ namespace Biblioteca_API.Mappers
             };
         }
 
+        public Autor MapAutorPutDtoToAutor(AutorPutDTO autorPutDto)
+        {
+            return new Autor
+            {
+                 Nombres = autorPutDto.Nombres,
+                 Apellidos = autorPutDto.Apellidos,
+                 Identificacion = autorPutDto.Identificacion,
+            };
+        }
+
         public AutorSinLibrosDTO MapToAutorSinLibrosDto(Autor autor)
         {
             return new AutorSinLibrosDTO
