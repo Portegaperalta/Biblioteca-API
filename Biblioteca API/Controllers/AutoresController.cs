@@ -62,39 +62,39 @@ namespace Biblioteca_API.Controllers
         }
 
         // PATCH: api/autores/id
-        //[HttpPatch("{id:int}")]
-        //public async Task<ActionResult> Patch([FromRoute] int id, [FromBody] JsonPatchDocument<AutorPatchDTO> patchDoc)
-        //{
-        //    if (patchDoc is null)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult> Patch([FromRoute] int id, [FromBody] JsonPatchDocument<AutorPatchDTO> patchDoc)
+        {
+            if (patchDoc is null)
+            {
+                return BadRequest();
+            }
 
-        //    var autor = await _repositorioAutor.GetAutorAsync(id);
+            var autor = await _autorServicio.GetAutorAsync(id);
 
-        //    if (autor is null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (autor is null)
+            {
+                return NotFound();
+            }
 
-        //    var autorPatchDTO = new AutorPatchDTO { Nombres = $"{autor.Nombres}",Apellidos = autor.Apellidos};
+            var autorPatchDTO = new AutorPatchDTO { Nombres = $"{autor.Nombres}", Apellidos = autor.Apellidos };
 
-        //    patchDoc.ApplyTo(autorPatchDTO,ModelState);
+            patchDoc.ApplyTo(autorPatchDTO, ModelState);
 
-        //    var esValido = TryValidateModel(autorPatchDTO);
+            var esValido = TryValidateModel(autorPatchDTO);
 
-        //    if (!esValido)
-        //    {
-        //        return ValidationProblem();
-        //    }
+            if (!esValido)
+            {
+                return ValidationProblem();
+            }
 
-        //    autor.Nombres = autorPatchDTO.Nombres;
-        //    autor.Apellidos = autorPatchDTO.Apellidos;
+            autor.Nombres = autorPatchDTO.Nombres;
+            autor.Apellidos = autorPatchDTO.Apellidos;
 
-        //    await _repositorioAutor.UpdateAutorAsync(autor);
+            await _repositorioAutor.UpdateAutorAsync(autor);
 
-        //    return NoContent();
-        //}
+            return NoContent();
+        }
 
 
         // DELETE: api/autores/id
