@@ -28,6 +28,16 @@ namespace Biblioteca_API.Datos.Repositorios
                          .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Autor?> GetAutorSinLibrosAsync(int autorId)
+        {
+            var autorSinLibros = await _context.Autores
+                                       .FirstOrDefaultAsync(a => a.Id == autorId);
+
+            if (autorSinLibros is null) return null;
+
+            return autorSinLibros;
+        }
+
         public async Task<Autor> GetPrimerAutorAsync()
         {
             return await _context.Autores.FirstAsync();

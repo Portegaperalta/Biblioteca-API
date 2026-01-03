@@ -6,6 +6,7 @@ namespace Biblioteca_API.Datos.Repositorios
     {
         Task<IEnumerable<Autor>> GetAutoresAsync();
         Task<Autor?> GetAutorAsync(int id);
+        Task<Autor?> GetAutorSinLibrosAsync(int id);
         Task<Autor> GetPrimerAutorAsync();
         Task CreateAutorAsync(Autor autor);
         Task UpdateAutorAsync(Autor autor);
