@@ -57,14 +57,5 @@ namespace Biblioteca_API.Datos.Repositorios
                                           .ExecuteDeleteAsync();
             return registrosBorrados;
         }
-
-        public async Task<int> DeleteAutoresLibrosAsync(int autorId)
-        {
-            var registrosBorrados = await _context.AutoresLibros
-                                    .Where(al => al.AutorId == autorId)
-                                    .ExecuteDeleteAsync();
-
-            return registrosBorrados;
-        }
     }
 }

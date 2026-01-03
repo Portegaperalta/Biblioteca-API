@@ -10,6 +10,5 @@ namespace Biblioteca_API.Datos.Repositorios
         Task CreateAutorAsync(Autor autor);
         Task UpdateAutorAsync(Autor autor);
         Task<int> DeleteAutorAsync(int id);
-        Task<int> DeleteAutoresLibrosAsync(int autorId);
     }
 }
