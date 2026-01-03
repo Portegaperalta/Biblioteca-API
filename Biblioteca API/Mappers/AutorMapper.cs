@@ -18,5 +18,14 @@ namespace Biblioteca_API.Mappers
                 }).ToList() ?? new List<LibroDTO>()
             };
         }
+
+        public AutorSinLibrosDTO MapToAutorSinLibrosDto(Autor autor)
+        {
+            return new AutorSinLibrosDTO
+            {
+             Id = autor.Id,
+             NombreCompleto = $"{autor.Nombres} {autor.Apellidos}"
+            };
+        }
     }
 }
