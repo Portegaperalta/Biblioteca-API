@@ -79,6 +79,10 @@ namespace Biblioteca_API.Controllers
                 return NotFound();
             }
 
+            var usuario = await _usuarioServicio.ObtenerUsuario();
+
+            if (usuario is null) return NotFound();
+
             await _repositorioComentario.CreateComentarioAsync(comentario);
             return Created();
         }
