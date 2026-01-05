@@ -15,12 +15,19 @@ namespace Biblioteca_API.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration;
 
-        public UsuariosController(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public UsuariosController
+            (
+            UserManager<IdentityUser> userManager,
+            IConfiguration configuration,
+            SignInManager<IdentityUser> signInManager
+            )
         {
             _userManager = userManager;
             _configuration = configuration;
+            _signInManager = signInManager;
         }
 
         [HttpPost("registro")]
