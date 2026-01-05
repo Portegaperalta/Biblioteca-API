@@ -118,6 +118,10 @@ namespace Biblioteca_API.Controllers
                 return BadRequest();
             }
 
+            var usuario = await _usuarioServicio.ObtenerUsuario();
+
+            if (usuario is null) return NotFound();
+
             var comentario = await _repositorioComentario.GetComentarioAsync(id);
 
             if (comentario is null)
