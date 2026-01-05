@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Biblioteca_API</RootNamespace>
+    <UserSecretsId>9d5d23d0-0ee0-44a4-b2e0-b4cb15142af4</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
