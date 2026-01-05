@@ -32,7 +32,9 @@ namespace Biblioteca_API.Controllers
             var comentariosDTO = comentarios.Select(comentario =>
             new ComentarioDTO
             {
-                Autor = comentario.Autor,
+                UsuarioId = comentario.UsuarioId,
+                Usuario = comentario.Autor,
+                UsuarioEmail = comentario.Usuario.Email,
                 Cuerpo = comentario.Cuerpo,
                 FechaPublicacion = comentario.FechaPublicacion
             });
@@ -53,7 +55,9 @@ namespace Biblioteca_API.Controllers
 
             var comentarioDTO = new ComentarioDTO
             {
-                Autor = comentario.Autor,
+                UsuarioId = comentario.UsuarioId,
+                Usuario = comentario.Autor,
+                UsuarioEmail = comentario.Usuario.Email,
                 Cuerpo = comentario.Cuerpo,
                 FechaPublicacion = comentario.FechaPublicacion
             };
