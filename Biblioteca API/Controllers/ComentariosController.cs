@@ -156,6 +156,10 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> DeleteComentario([FromRoute] Guid id)
         {
+            var usuario = await _usuarioServicio.ObtenerUsuario();
+
+            if (usuario is null) return NotFound();
+
             var registrosBorrados = await _repositorioComentario.DeleteComentarioAsync(id);
 
             if (registrosBorrados <= 0)
