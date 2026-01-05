@@ -29,9 +29,7 @@ namespace Biblioteca_API.Controllers
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
 
             if (!existeLibro)
-            {
                 return NotFound();
-            }
 
             var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
             var comentariosDTO = comentarios.Select(comentario =>
@@ -54,9 +52,7 @@ namespace Biblioteca_API.Controllers
             var comentario = await _repositorioComentario.GetComentarioAsync(id);
 
             if (comentario is null)
-            {
                 return NotFound("El comentario no existe");
-            }
 
             var comentarioDTO = new ComentarioDTO
             {
@@ -77,13 +73,13 @@ namespace Biblioteca_API.Controllers
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
 
             if (!existeLibro)
-            {
                 return NotFound();
-            }
+
 
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
-            if (usuario is null) return NotFound();
+            if (usuario is null) 
+                return NotFound();
 
             await _repositorioComentario.CreateComentarioAsync(comentario);
             return Created();
@@ -158,20 +154,21 @@ namespace Biblioteca_API.Controllers
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
-            if (usuario is null) return NotFound();
+            if (usuario is null) 
+                return NotFound();
 
             var comentarioDb = await _repositorioComentario.GetComentarioAsync(id);
 
-            if (comentarioDb is null) return NotFound();
+            if (comentarioDb is null) 
+                     return NotFound();
 
-            if (comentarioDb.UsuarioId != usuario.Id) return Forbid();
+            if (comentarioDb.UsuarioId != usuario.Id) 
+                return Forbid();
             
             var registrosBorrados = await _repositorioComentario.DeleteComentarioAsync(id);
 
             if (registrosBorrados <= 0)
-            {
                 return NotFound("Comentario no encontrado");
-            }
 
             return NoContent();
         }
