@@ -15,6 +15,7 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddScoped<LibroMapper>();
 builder.Services.AddScoped<AutorMapper>();
+builder.Services.AddTransient<IUsuarioServicio, UsuarioServicio>();
 builder.Services.AddScoped<IAutorServicio, AutorServicio>();
 builder.Services.AddScoped<ILibroServicio, LibroServicio>();
 builder.Services.AddScoped<IRepositorioAutor, RepositorioAutor>();
