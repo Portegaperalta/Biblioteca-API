@@ -21,6 +21,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/autores
         [HttpGet]
         [HttpGet("/listado-de-autores")]
+        [AllowAnonymous]
         public async Task<IEnumerable<AutorDTO>> Get()
         {
             return await _autorServicio.GetAutoresDtoAsync();
