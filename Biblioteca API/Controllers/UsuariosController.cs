@@ -58,6 +58,35 @@ namespace Biblioteca_API.Controllers
             }
         }
 
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<RespuestaAutenticacionDto>> Login
+            (CredencialesUsuarioDTO credencialesUsuario)
+        {
+            var usuario = await _userManager.FindByEmailAsync(credencialesUsuario.Email);
+
+            if (usuario is null)
+            {
+                return RetornarLoginIncorrecto();
+            }
+
+            var resultado = await _signInManager.CheckPasswordSignInAsync(usuario, credencialesUsuario.Password!, false);
+
+            if (resultado.Succeeded)
+            {
+                return await ConstruirToken(credencialesUsuario);
+            } else
+            {
+                return RetornarLoginIncorrecto();
+            }
+        }
+
+        private ActionResult RetornarLoginIncorrecto()
+        {
+            ModelState.AddModelError(string.Empty, "Login incorrecto");
+            return ValidationProblem();
+        }
+
         private async Task<RespuestaAutenticacionDto> ConstruirToken
             (CredencialesUsuarioDTO credencialesUsuarioDto)
         {
