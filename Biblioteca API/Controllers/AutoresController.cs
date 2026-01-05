@@ -1,6 +1,4 @@
-﻿using Biblioteca_API.Datos.Repositorios;
-using Biblioteca_API.DTOs;
-using Biblioteca_API.Entidades;
+﻿using Biblioteca_API.DTOs;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
