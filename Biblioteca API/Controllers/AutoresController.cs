@@ -1,5 +1,6 @@
 ﻿using Biblioteca_API.DTOs;
 using Biblioteca_API.Servicios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace Biblioteca_API.Controllers
 {
     [ApiController]
     [Route("api/autores")]
+    [Authorize]
     public class AutoresController : ControllerBase
     {
         private readonly IAutorServicio _autorServicio;
