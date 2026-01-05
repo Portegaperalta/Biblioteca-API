@@ -92,14 +92,10 @@ namespace Biblioteca_API.Controllers
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
 
             if (id != comentario.Id)
-            {
                 return BadRequest("Los ids de comentario deben coincidir");
-            }
 
             if (!existeLibro)
-            {
                 return BadRequest($"El libro con id: {comentario.LibroId} no existe");
-            }
 
             await _repositorioComentario.UpdateComentarioAsync(id, comentario);
             return NoContent();
@@ -116,19 +112,16 @@ namespace Biblioteca_API.Controllers
 
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
-            if (usuario is null) return NotFound();
+            if (usuario is null) 
+                return NotFound();
 
             var comentario = await _repositorioComentario.GetComentarioAsync(id);
 
             if (comentario is null)
-            {
                 return NotFound("Comentario no encontrado");
-            }
 
             if (comentario.UsuarioId != usuario.Id)
-            {
                 return Forbid();
-            }
 
             var comentarioPatchDTO = new ComentarioPatchDTO { Cuerpo = comentario.Cuerpo };
 
@@ -137,9 +130,7 @@ namespace Biblioteca_API.Controllers
             bool esValido = TryValidateModel(comentarioPatchDTO);
 
             if (!esValido)
-            {
                 return ValidationProblem();
-            }
 
             comentario.Cuerpo = comentarioPatchDTO.Cuerpo;
 
