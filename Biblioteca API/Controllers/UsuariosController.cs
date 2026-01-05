@@ -1,0 +1,84 @@
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Biblioteca_API.DTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+
+namespace Biblioteca_API.Controllers
+{
+    [Route("api/usuarios")]
+    [ApiController]
+    [Authorize]
+    public class UsuariosController : ControllerBase
+    {
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IConfiguration _configuration;
+
+        public UsuariosController(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        {
+            _userManager = userManager;
+            _configuration = configuration;
+        }
+
+        [HttpPost("registro")]
+        [AllowAnonymous]
+        public async Task<ActionResult<RespuestaAutenticacionDto>> Registrar
+            (CredencialesUsuarioDTO credencialesUsuario)
+        {
+            var usuario = new IdentityUser
+            {
+                UserName = credencialesUsuario.Email,
+                Email = credencialesUsuario.Email,
+            };
+
+            var resultado = await _userManager.CreateAsync(usuario, credencialesUsuario.Password!);
+        
+            if (resultado.Succeeded)
+            {
+                var respuestaAutenticacion = await ConstruirToken(credencialesUsuario);
+                return respuestaAutenticacion;
+            } else
+            {
+                foreach (var error in resultado.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                return ValidationProblem();
+            }
+        }
+
+        private async Task<RespuestaAutenticacionDto> ConstruirToken
+            (CredencialesUsuarioDTO credencialesUsuarioDto)
+        {
+            var claims = new List<Claim>
+            {
+               new Claim("email",credencialesUsuarioDto.Email),
+            };
+
+            var usuario = await _userManager.FindByEmailAsync(credencialesUsuarioDto.Email);
+            var claimsDb = await _userManager.GetClaimsAsync(usuario!);
+
+            claims.AddRange(claimsDb);
+
+            var llave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["llavejwt"]!));
+            var credenciales = new SigningCredentials(llave, SecurityAlgorithms.HmacSha256);
+
+            var expiracion = DateTime.UtcNow.AddYears(1);
+
+            var tokenDeSeguridad = new JwtSecurityToken 
+                (issuer:null,audience:null,claims,expires:expiracion,signingCredentials:credenciales);
+
+            var token = new JwtSecurityTokenHandler().WriteToken(tokenDeSeguridad);
+
+            return new RespuestaAutenticacionDto
+            {
+             Token = token,
+             Expiracion = expiracion
+            };
+        }
+    }
+}
