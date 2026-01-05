@@ -26,7 +26,7 @@ namespace Biblioteca_API.Datos.Repositorios
         public async Task<Comentario?> GetComentarioAsync(Guid comentarioId)
         {
             var comentario = await _context.Comentarios
-                                   .Include(c => c.Autor)
+                                   .Include(c => c.Usuario)
                                    .FirstOrDefaultAsync(x => x.Id == comentarioId);
             return comentario;
         }

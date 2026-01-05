@@ -56,6 +56,7 @@ namespace Biblioteca_API.Controllers
 
             var comentarioDTO = new ComentarioDTO
             {
+                Id = comentario.Id,
                 UsuarioId = comentario.UsuarioId,
                 Usuario = comentario.Autor,
                 UsuarioEmail = comentario.Usuario.Email,
