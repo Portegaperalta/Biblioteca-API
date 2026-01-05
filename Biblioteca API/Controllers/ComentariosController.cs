@@ -160,6 +160,12 @@ namespace Biblioteca_API.Controllers
 
             if (usuario is null) return NotFound();
 
+            var comentarioDb = await _repositorioComentario.GetComentarioAsync(id);
+
+            if (comentarioDb is null) return NotFound();
+
+            if (comentarioDb.UsuarioId != usuario.Id) return Forbid();
+            
             var registrosBorrados = await _repositorioComentario.DeleteComentarioAsync(id);
 
             if (registrosBorrados <= 0)
