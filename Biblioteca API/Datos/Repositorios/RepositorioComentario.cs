@@ -15,6 +15,7 @@ namespace Biblioteca_API.Datos.Repositorios
         public async Task<IEnumerable<Comentario>> GetComentariosAsync(int libroId)
         {
             var comentarios = await _context.Comentarios
+                              .Include(c => c.Usuario)
                               .Where(x => x.LibroId == libroId)
                               .OrderByDescending(x => x.FechaPublicacion)
                               .ToListAsync();
@@ -24,7 +25,9 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task<Comentario?> GetComentarioAsync(Guid comentarioId)
         {
-            var comentario = await _context.Comentarios.FirstOrDefaultAsync(x => x.Id == comentarioId);
+            var comentario = await _context.Comentarios
+                                   .Include(c => c.Autor)
+                                   .FirstOrDefaultAsync(x => x.Id == comentarioId);
             return comentario;
         }
 
