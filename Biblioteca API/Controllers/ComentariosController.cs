@@ -129,6 +129,11 @@ namespace Biblioteca_API.Controllers
                 return NotFound("Comentario no encontrado");
             }
 
+            if (comentario.UsuarioId != usuario.Id)
+            {
+                return Forbid();
+            }
+
             var comentarioPatchDTO = new ComentarioPatchDTO { Cuerpo = comentario.Cuerpo };
 
             patchDoc.ApplyTo(comentarioPatchDTO,ModelState);
