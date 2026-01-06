@@ -1,11 +1,13 @@
 ﻿using Biblioteca_API.DTOs;
 using Biblioteca_API.Servicios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_API.Controllers
 {
     [ApiController]
     [Route("api/libros")]
+    [Authorize(Policy = "esAdmin")]
     public class LibrosController : ControllerBase
     {
         private readonly ILibroServicio _libroServicio;
@@ -16,6 +18,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/libros
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IEnumerable<LibroDTO>> Get()
         {
             var librosDto = await _libroServicio.GetLibrosDtoAsync();
@@ -24,6 +27,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/libros/id
         [HttpGet("{id:int}",Name ="ObtenerLibro")]
+        [AllowAnonymous]
         public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
         {
             var libro = await _libroServicio.GetLibroAsync(id);

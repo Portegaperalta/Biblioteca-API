@@ -8,7 +8,7 @@ namespace Biblioteca_API.Controllers
 {
     [ApiController]
     [Route("api/autores")]
-    [Authorize]
+    [Authorize(Policy = "esAdmin")]
     public class AutoresController : ControllerBase
     {
         private readonly IAutorServicio _autorServicio;
@@ -29,6 +29,7 @@ namespace Biblioteca_API.Controllers
 
         // GET: api/autores/id
         [HttpGet("{id:int}",Name ="ObtenerAutor")]
+        [AllowAnonymous]
         public async Task<ActionResult<AutorDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
             var autorDto = await _autorServicio.GetAutorDtoAsync(id);
