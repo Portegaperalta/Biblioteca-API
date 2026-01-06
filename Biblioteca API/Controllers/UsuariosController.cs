@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Biblioteca_API.DTOs;
+using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,18 +17,21 @@ namespace Biblioteca_API.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IUsuarioServicio _usuarioServicio;
         private readonly IConfiguration _configuration;
 
         public UsuariosController
             (
             UserManager<IdentityUser> userManager,
             IConfiguration configuration,
-            SignInManager<IdentityUser> signInManager
+            SignInManager<IdentityUser> signInManager,
+            IUsuarioServicio usuarioServicio
             )
         {
             _userManager = userManager;
             _configuration = configuration;
             _signInManager = signInManager;
+            _usuarioServicio = usuarioServicio;
         }
 
         [HttpPost("registro")]
@@ -79,6 +83,24 @@ namespace Biblioteca_API.Controllers
             {
                 return RetornarLoginIncorrecto();
             }
+        }
+
+        [HttpGet("renovar-token")]
+        public async Task<ActionResult<RespuestaAutenticacionDto>> RenovarToken()
+        {
+            var usuario = await _usuarioServicio.ObtenerUsuario();
+
+            if (usuario is null)
+                return NotFound();
+
+            var credencialesUsuarioDto = new CredencialesUsuarioDTO
+                                         {
+                                            Email = usuario.Email!,
+                                         };
+
+            var respuestaAutenticacion = await ConstruirToken(credencialesUsuarioDto);
+
+            return respuestaAutenticacion;
         }
 
         private ActionResult RetornarLoginIncorrecto()
