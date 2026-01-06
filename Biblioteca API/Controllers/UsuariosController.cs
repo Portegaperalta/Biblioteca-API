@@ -101,6 +101,19 @@ namespace Biblioteca_API.Controllers
             return respuestaAutenticacion;
         }
 
+        [HttpPost("hacer-admin")]
+        [Authorize(Policy = "esAdmin")]
+        public async Task<ActionResult> HacerAdmin(EditarClaimDTO editarClaimDto)
+        {
+            var usuario = await _userManager.FindByEmailAsync(editarClaimDto.Email);
+
+            if (usuario is null)
+                return NotFound();
+
+            await _userManager.AddClaimAsync(usuario, new Claim("esAdmin", "true"));
+            return NoContent();
+        }
+
         private ActionResult RetornarLoginIncorrecto()
         {
             ModelState.AddModelError(string.Empty, "Login incorrecto");
