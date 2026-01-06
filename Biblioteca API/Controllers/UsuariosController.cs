@@ -12,7 +12,6 @@ namespace Biblioteca_API.Controllers
 {
     [Route("api/usuarios")]
     [ApiController]
-    [Authorize]
     public class UsuariosController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -35,7 +34,6 @@ namespace Biblioteca_API.Controllers
         }
 
         [HttpPost("registro")]
-        [AllowAnonymous]
         public async Task<ActionResult<RespuestaAutenticacionDto>> Registrar
             (CredencialesUsuarioDTO credencialesUsuario)
         {
@@ -63,7 +61,6 @@ namespace Biblioteca_API.Controllers
         }
 
         [HttpPost("login")]
-        [AllowAnonymous]
         public async Task<ActionResult<RespuestaAutenticacionDto>> Login
             (CredencialesUsuarioDTO credencialesUsuario)
         {
@@ -86,6 +83,7 @@ namespace Biblioteca_API.Controllers
         }
 
         [HttpGet("renovar-token")]
+        [Authorize]
         public async Task<ActionResult<RespuestaAutenticacionDto>> RenovarToken()
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
