@@ -1,16 +1,19 @@
-﻿using Biblioteca_API.Entidades;
+﻿using Biblioteca_API.Datos;
+using Biblioteca_API.Entidades;
 using Microsoft.AspNetCore.Identity;
 
 namespace Biblioteca_API.Servicios
 {
     public class UsuarioServicio : IUsuarioServicio
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<Usuario> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UsuarioServicio
-            (UserManager<Usuario> userManager,IHttpContextAccessor httpContextAccessor)
+            (ApplicationDbContext context,UserManager<Usuario> userManager,IHttpContextAccessor httpContextAccessor)
         {
+            _context = context;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
         }
