@@ -83,6 +83,21 @@ namespace Biblioteca_API.Controllers
             }
         }
 
+        [HttpPut("actualizar-usuario")]
+        [Authorize]
+        public async Task<ActionResult> Put(UsuarioActualizarDTO usuarioActualizarDto)
+        {
+            var usuario = await _usuarioServicio.ObtenerUsuario();
+
+            if (usuario is null)
+                return NotFound();
+
+            usuario.FechaNacimiento = usuarioActualizarDto.FechaNacimiento;
+
+            await _userManager.UpdateAsync(usuario);
+            return NoContent();
+        }
+
         [HttpGet("renovar-token")]
         [Authorize]
         public async Task<ActionResult<RespuestaAutenticacionDto>> RenovarToken()
