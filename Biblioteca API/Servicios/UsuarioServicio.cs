@@ -23,6 +23,15 @@ namespace Biblioteca_API.Servicios
             _usuarioMapper = usuarioMapper;
         }
 
+        public async Task<IEnumerable<UsuarioDTO>> GetAll()
+        {
+            var usuariosDb = await _context.Users.ToListAsync();
+            var usuariosDtos = usuariosDb.Select(usuarioDb => 
+                              _usuarioMapper.MapToDto(usuarioDb));
+
+            return usuariosDtos;
+        }
+
         public async Task<Usuario?> ObtenerUsuario()
         {
             var emailClaim = _httpContextAccessor.HttpContext!
