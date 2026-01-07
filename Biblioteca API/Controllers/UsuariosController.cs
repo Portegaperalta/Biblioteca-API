@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Biblioteca_API.DTOs;
+using Biblioteca_API.Entidades;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,16 +15,16 @@ namespace Biblioteca_API.Controllers
     [ApiController]
     public class UsuariosController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<Usuario> _userManager;
+        private readonly SignInManager<Usuario> _signInManager;
         private readonly IUsuarioServicio _usuarioServicio;
         private readonly IConfiguration _configuration;
 
         public UsuariosController
             (
-            UserManager<IdentityUser> userManager,
+            UserManager<Usuario> userManager,
             IConfiguration configuration,
-            SignInManager<IdentityUser> signInManager,
+            SignInManager<Usuario> signInManager,
             IUsuarioServicio usuarioServicio
             )
         {
@@ -37,7 +38,7 @@ namespace Biblioteca_API.Controllers
         public async Task<ActionResult<RespuestaAutenticacionDto>> Registrar
             (CredencialesUsuarioDTO credencialesUsuario)
         {
-            var usuario = new IdentityUser
+            var usuario = new Usuario
             {
                 UserName = credencialesUsuario.Email,
                 Email = credencialesUsuario.Email,

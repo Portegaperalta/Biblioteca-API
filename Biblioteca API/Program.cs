@@ -1,6 +1,7 @@
 using System.Text;
 using Biblioteca_API.Datos;
 using Biblioteca_API.Datos.Repositorios;
+using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Identity;
@@ -25,12 +26,12 @@ builder.Services.AddScoped<IRepositorioComentario, RepositorioComentario>();
 builder.Services.AddDbContext<ApplicationDbContext>(opciones => 
 opciones.UseSqlServer("name=DefaultConnection"));
 
-builder.Services.AddIdentityCore<IdentityUser>()
+builder.Services.AddIdentityCore<Usuario>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<UserManager<IdentityUser>>();
-builder.Services.AddScoped<SignInManager<IdentityUser>>();
+builder.Services.AddScoped<UserManager<Usuario>>();
+builder.Services.AddScoped<SignInManager<Usuario>>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthentication().AddJwtBearer(opciones =>
