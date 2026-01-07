@@ -34,6 +34,14 @@ namespace Biblioteca_API.Controllers
             _usuarioServicio = usuarioServicio;
         }
 
+        [HttpGet]
+        [Authorize(Policy = "esAdmin")]
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetAll()
+        {
+            var usuarios = await _usuarioServicio.GetAll();
+            return Ok(usuarios);
+        }
+
         [HttpPost("registro")]
         public async Task<ActionResult<RespuestaAutenticacionDto>> Registrar
             (CredencialesUsuarioDTO credencialesUsuario)
@@ -81,14 +89,6 @@ namespace Biblioteca_API.Controllers
             {
                 return RetornarLoginIncorrecto();
             }
-        }
-
-        [HttpGet]
-        [Authorize(Policy = "esAdmin")]
-        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetAll()
-        {
-            var usuarios = await _usuarioServicio.GetAll();
-            return Ok(usuarios);
         }
 
         [HttpPut("actualizar-usuario")]
