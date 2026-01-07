@@ -1,6 +1,9 @@
 ﻿using Biblioteca_API.Datos;
+using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
+using Biblioteca_API.Mappers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca_API.Servicios
 {
@@ -9,13 +12,15 @@ namespace Biblioteca_API.Servicios
         private readonly ApplicationDbContext _context;
         private readonly UserManager<Usuario> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UsuarioMapper _usuarioMapper;
 
         public UsuarioServicio
-            (ApplicationDbContext context,UserManager<Usuario> userManager,IHttpContextAccessor httpContextAccessor)
+            (ApplicationDbContext context,UserManager<Usuario> userManager,IHttpContextAccessor httpContextAccessor, UsuarioMapper usuarioMapper)
         {
             _context = context;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
+            _usuarioMapper = usuarioMapper;
         }
 
         public async Task<Usuario?> ObtenerUsuario()
