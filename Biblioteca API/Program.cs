@@ -12,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Area de servcios
 
+builder.Services.AddDataProtection();
+
 var origenesPermitidos = builder.Configuration
                                 .GetSection("origenesPermitidos")
                                 .Get<string[]>()!;
@@ -20,7 +22,10 @@ builder.Services.AddCors(opciones =>
 {
     opciones.AddDefaultPolicy(opcionesCORS =>
     {
-        opcionesCORS.WithOrigins(origenesPermitidos).AllowAnyMethod().AllowAnyHeader();
+        opcionesCORS.WithOrigins(origenesPermitidos)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .WithExposedHeaders("mi-cabecera");
     });
 });
 
@@ -73,6 +78,11 @@ builder.Services.AddAuthorization(opciones =>
 var app = builder.Build();
 
 //Area de middlewares
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Append("mi-cabecera", "valor");
+    await next();
+});
 
 app.UseCors();
 

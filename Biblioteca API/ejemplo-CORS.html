@@ -27,6 +27,9 @@
         const respuesta = await fetch(urlWebAPI, header);
         const json = await respuesta.text();
         console.log(json);
+
+        const cabeceras = Array.from(respuesta.headers.entries());
+        console.log(cabeceras);
       } catch (error) {
         console.log(error);
       }
