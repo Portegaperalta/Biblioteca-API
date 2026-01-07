@@ -83,6 +83,14 @@ namespace Biblioteca_API.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize(Policy = "esAdmin")]
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetAll()
+        {
+            var usuarios = await _usuarioServicio.GetAll();
+            return Ok(usuarios);
+        }
+
         [HttpPut("actualizar-usuario")]
         [Authorize]
         public async Task<ActionResult> Put(UsuarioActualizarDTO usuarioActualizarDto)
