@@ -12,11 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Area de servcios
 
+var origenesPermitidos = builder.Configuration
+                                .GetSection("origenesPermitidos")
+                                .Get<string[]>()!;
+
 builder.Services.AddCors(opciones =>
 {
     opciones.AddDefaultPolicy(opcionesCORS =>
     {
-        opcionesCORS.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        opcionesCORS.WithOrigins(origenesPermitidos).AllowAnyMethod().AllowAnyHeader();
     });
 });
 
