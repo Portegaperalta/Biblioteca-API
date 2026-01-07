@@ -12,6 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Area de servcios
 
+builder.Services.AddCors(opciones =>
+{
+    opciones.AddDefaultPolicy(opcionesCORS =>
+    {
+        opcionesCORS.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+    });
+});
+
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddScoped<LibroMapper>();
@@ -61,6 +69,8 @@ builder.Services.AddAuthorization(opciones =>
 var app = builder.Build();
 
 //Area de middlewares
+
+app.UseCors();
 
 app.MapControllers();
 
