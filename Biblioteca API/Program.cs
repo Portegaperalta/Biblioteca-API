@@ -102,21 +102,6 @@ builder.Services.AddSwaggerGen(opciones =>
         BearerFormat = "JWT",
         In = ParameterLocation.Header
     });
-
-    opciones.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            }
-        },
-        new string[]{}
-        }
-    });
 });
 
 var app = builder.Build();
