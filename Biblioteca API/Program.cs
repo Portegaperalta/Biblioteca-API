@@ -75,9 +75,14 @@ builder.Services.AddAuthorization(opciones =>
 }
 );
 
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 //Area de middlewares
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors();
 
