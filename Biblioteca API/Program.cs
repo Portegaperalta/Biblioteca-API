@@ -75,7 +75,24 @@ builder.Services.AddAuthorization(opciones =>
 }
 );
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opciones =>
+{
+    opciones.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Description = "WebAPI para trabajar con datos de autores y libros",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        { 
+         Email = "ortegaperaltap@gmail.com",
+         Name = "Pablo Ortega",
+         Url = new Uri("https://github.com/Portegaperalta")
+        },
+        License = new Microsoft.OpenApi.Models.OpenApiLicense
+        { 
+          Name = "MIT",
+          Url = new Uri("https://opensource.org/license/mit/")
+        }
+    });
+});
 
 var app = builder.Build();
 
