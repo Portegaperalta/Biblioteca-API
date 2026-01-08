@@ -25,6 +25,7 @@ namespace Biblioteca_API.Controllers
         //GET Comentarios
         [HttpGet]
         [AllowAnonymous]
+        [EndpointSummary("Obtiene todos los comentarios del libro")]
         public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
@@ -49,6 +50,7 @@ namespace Biblioteca_API.Controllers
         //GET comentario por id
         [HttpGet("{id:guid}", Name = "ObtenerComentario")]
         [AllowAnonymous]
+        [EndpointSummary("Obtiene comentario por ID")]
         public async Task<ActionResult<ComentarioDTO>> GetComentario([FromRoute] Guid id)
         {
             var comentario = await _repositorioComentario.GetComentarioAsync(id);
@@ -71,6 +73,7 @@ namespace Biblioteca_API.Controllers
 
         //POST comentario
         [HttpPost]
+        [EndpointSummary("Crea un comentario")]
         public async Task<ActionResult> PostComentario([FromBody] Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
@@ -90,6 +93,7 @@ namespace Biblioteca_API.Controllers
 
         //PUT comentario
         [HttpPut("{id:guid}")]
+        [EndpointSummary("Actualiza un comentario por ID")]
         public async Task<ActionResult> PutComentario([FromRoute] Guid id, [FromBody] Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
@@ -106,6 +110,7 @@ namespace Biblioteca_API.Controllers
 
         //PATCH comentario
         [HttpPatch("{id:guid}")]
+        [EndpointSummary("Actualiza parcialmente comentario por ID")]
         public async Task<ActionResult> PatchComentario([FromRoute] Guid id, [FromBody] JsonPatchDocument<ComentarioPatchDTO> patchDoc)
         {
             if (patchDoc is null)
@@ -144,6 +149,7 @@ namespace Biblioteca_API.Controllers
 
         //DELETE comentario
         [HttpDelete("{id:guid}")]
+        [EndpointSummary("Elimina comentario por ID")]
         public async Task<ActionResult> DeleteComentario([FromRoute] Guid id)
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();

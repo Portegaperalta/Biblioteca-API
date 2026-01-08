@@ -25,6 +25,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/libros
         [HttpGet]
         [AllowAnonymous]
+        [EndpointSummary("Obtiene listado de libros")]
         public async Task<IEnumerable<LibroDTO>> Get()
         {
             var librosDto = await _libroServicio.GetLibrosDtoAsync();
@@ -34,6 +35,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/libros/id
         [HttpGet("{id:int}",Name ="ObtenerLibro")]
         [AllowAnonymous]
+        [EndpointSummary("Obtiene libro por ID")]
         public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
         {
             var libro = await _libroServicio.GetLibroAsync(id);
@@ -62,6 +64,7 @@ namespace Biblioteca_API.Controllers
 
         // POST: api/libros
         [HttpPost]
+        [EndpointSummary("Crea un libro")]
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
         {
             await _libroServicio.CreateLibroAsync(libroCreacionDTO);
@@ -70,6 +73,7 @@ namespace Biblioteca_API.Controllers
 
         // PUT: api/libros/id
         [HttpPut("{id:int}")]
+        [EndpointSummary("Actualiza libro por ID")]
         public async Task<ActionResult> Put([FromRoute]int id,[FromBody] LibroPutDTO libroPutDto)
         {
             await _libroServicio.UpdateLibroAsync(id,libroPutDto);
@@ -78,6 +82,7 @@ namespace Biblioteca_API.Controllers
 
         // DELETE: api/libros/id
         [HttpDelete("{id:int}")]
+        [EndpointSummary("Elimina libro por ID")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
             int registrosBorrados = await _libroServicio.DeleteLibroAsync(id);

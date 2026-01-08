@@ -22,6 +22,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         [HttpGet("/listado-de-autores")]
         [AllowAnonymous]
+        [EndpointSummary("Obtiene listado de autores")]
         public async Task<IEnumerable<AutorDTO>> Get()
         {
             return await _autorServicio.GetAutoresDtoAsync();
@@ -30,6 +31,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/autores/id
         [HttpGet("{id:int}",Name ="ObtenerAutor")]
         [AllowAnonymous]
+        [EndpointSummary("Obtiene autor por ID")]
         public async Task<ActionResult<AutorDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
             var autorDto = await _autorServicio.GetAutorDtoAsync(id);
@@ -44,6 +46,7 @@ namespace Biblioteca_API.Controllers
 
         // POST: api/autores
         [HttpPost]
+        [EndpointSummary("Crea un autor")]
         public async Task<ActionResult> Post([FromBody] AutorCreacionDTO autorCreacionDto)
         {
             await _autorServicio.CreateAutorAsync(autorCreacionDto);
@@ -52,6 +55,7 @@ namespace Biblioteca_API.Controllers
 
         // PUT: api/autores/id
         [HttpPut("{id:int}")]
+        [EndpointSummary("Actualiza autor por ID")]
         public async Task<ActionResult> Put([FromRoute] int id, [FromBody] AutorPutDTO autorPutDto)
         {
             if (id != autorPutDto.Id)
@@ -65,6 +69,7 @@ namespace Biblioteca_API.Controllers
 
         // PATCH: api/autores/id
         [HttpPatch("{id:int}")]
+        [EndpointSummary("Actualiza parcialmente un autor por ID")]
         public async Task<ActionResult> Patch([FromRoute] int id, [FromBody] JsonPatchDocument<AutorPatchDTO> patchDoc)
         {
             if (patchDoc is null)
@@ -102,6 +107,7 @@ namespace Biblioteca_API.Controllers
 
         // DELETE: api/autores/id
         [HttpDelete("{id:int}")]
+        [EndpointSummary("Elimina un autor por ID")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
             var registrosBorrados = await _autorServicio.DeleteAutorAsync(id);
