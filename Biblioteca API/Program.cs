@@ -4,6 +4,7 @@ using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 using Biblioteca_API.Servicios;
+using Biblioteca_API.Swagger;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -102,6 +103,8 @@ builder.Services.AddSwaggerGen(opciones =>
         BearerFormat = "JWT",
         In = ParameterLocation.Header
     });
+
+    opciones.OperationFilter<FiltroAutorizacion>();
 });
 
 var app = builder.Build();
