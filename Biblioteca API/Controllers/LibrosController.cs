@@ -1,6 +1,7 @@
 ﻿using Biblioteca_API.DTOs;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca_API.Controllers
@@ -11,9 +12,14 @@ namespace Biblioteca_API.Controllers
     public class LibrosController : ControllerBase
     {
         private readonly ILibroServicio _libroServicio;
-        public LibrosController(ILibroServicio libroServicio)
+        private readonly ITimeLimitedDataProtector _protectorLimitadoPorTiempo;
+
+        public LibrosController(ILibroServicio libroServicio,IDataProtectionProvider protectionProvider)
         {
             _libroServicio = libroServicio;
+            _protectorLimitadoPorTiempo = protectionProvider
+                                         .CreateProtector("LibrosController")
+                                         .ToTimeLimitedDataProtector();
         }
 
         // GET: api/libros
@@ -52,6 +58,17 @@ namespace Biblioteca_API.Controllers
             var libroDto = await _libroServicio.GetLibroDtoAsync(id);
 
             return libroDto;
+        }
+
+        [HttpGet("creacion/obtener-token")]
+        public ActionResult ObtenerTokenListado()
+        {
+            var textoPlano = Guid.NewGuid().ToString();
+            var token = _protectorLimitadoPorTiempo
+                        .Protect(textoPlano,lifetime: TimeSpan.FromSeconds(30));
+            var url = Url.RouteUrl("CrearLibroUsandoToken",new {token},"https");
+
+            return Ok(new { url });
         }
 
         // POST: api/libros
