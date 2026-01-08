@@ -26,6 +26,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         [AllowAnonymous]
         [EndpointSummary("Obtiene todos los comentarios del libro")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
@@ -52,6 +53,7 @@ namespace Biblioteca_API.Controllers
         [AllowAnonymous]
         [EndpointSummary("Obtiene comentario por ID")]
         [EndpointDescription("Obtiene comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ComentarioDTO>> GetComentario([FromRoute] Guid id)
         {
             var comentario = await _repositorioComentario.GetComentarioAsync(id);
@@ -75,6 +77,8 @@ namespace Biblioteca_API.Controllers
         //POST comentario
         [HttpPost]
         [EndpointSummary("Crea un comentario")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> PostComentario([FromBody] Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
@@ -96,6 +100,8 @@ namespace Biblioteca_API.Controllers
         [HttpPut("{id:guid}")]
         [EndpointSummary("Actualiza un comentario por ID")]
         [EndpointDescription("Actualiza comentario por ID, si el ID del comentario en la ruta no coincide con ID de comentario de peticion, devuelve status 400 (Bad Request)")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> PutComentario([FromRoute] Guid id, [FromBody] Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
@@ -113,6 +119,10 @@ namespace Biblioteca_API.Controllers
         //PATCH comentario
         [HttpPatch("{id:guid}")]
         [EndpointSummary("Actualiza parcialmente comentario por ID")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> PatchComentario([FromRoute] Guid id, [FromBody] JsonPatchDocument<ComentarioPatchDTO> patchDoc)
         {
             if (patchDoc is null)
@@ -153,6 +163,9 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("{id:guid}")]
         [EndpointSummary("Elimina comentario por ID")]
         [EndpointDescription("Elimina comentario por ID, si el comentario o el usuario no existe, devuelve status 404 (Not Found)")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<ActionResult> DeleteComentario([FromRoute] Guid id)
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();

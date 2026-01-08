@@ -37,6 +37,7 @@ namespace Biblioteca_API.Controllers
         [AllowAnonymous]
         [EndpointSummary("Obtiene libro por ID")]
         [EndpointDescription("Obtiene libro por ID, si el libro no existe, devuelve status 404 (Not Found)")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
         {
             var libro = await _libroServicio.GetLibroAsync(id);
@@ -66,6 +67,7 @@ namespace Biblioteca_API.Controllers
         // POST: api/libros
         [HttpPost]
         [EndpointSummary("Crea un libro")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
         {
             await _libroServicio.CreateLibroAsync(libroCreacionDTO);
@@ -76,6 +78,7 @@ namespace Biblioteca_API.Controllers
         [HttpPut("{id:int}")]
         [EndpointSummary("Actualiza libro por ID")]
         [EndpointDescription("Actualiza libro por ID, si el ID del libro en la ruta no coincide con ID de libro de peticion, devuelve status 400 (Bad Request)")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Put([FromRoute]int id,[FromBody] LibroPutDTO libroPutDto)
         {
             await _libroServicio.UpdateLibroAsync(id,libroPutDto);
@@ -86,6 +89,8 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("{id:int}")]
         [EndpointSummary("Elimina libro por ID")]
         [EndpointDescription("Elimina comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
             int registrosBorrados = await _libroServicio.DeleteLibroAsync(id);

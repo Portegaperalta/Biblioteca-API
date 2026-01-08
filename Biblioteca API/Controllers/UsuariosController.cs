@@ -97,6 +97,8 @@ namespace Biblioteca_API.Controllers
         [HttpPut("actualizar-usuario")]
         [Authorize]
         [EndpointSummary("Actualiza usuario")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Put(UsuarioActualizarDTO usuarioActualizarDto)
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
@@ -113,6 +115,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet("renovar-token")]
         [Authorize]
         [EndpointSummary("Renueva Token")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<RespuestaAutenticacionDto>> RenovarToken()
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
@@ -133,6 +136,8 @@ namespace Biblioteca_API.Controllers
         [HttpPost("hacer-admin")]
         [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Accede permisos de admin a usuario")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> HacerAdmin(EditarClaimDTO editarClaimDto)
         {
             var usuario = await _userManager.FindByEmailAsync(editarClaimDto.Email);
@@ -147,6 +152,8 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("remover-admin")]
         [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Quita permisos de admin a usuario")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> RemoverAdmin(EditarClaimDTO editarClaimDto)
         {
             var usuario = await _userManager.FindByEmailAsync(editarClaimDto.Email);

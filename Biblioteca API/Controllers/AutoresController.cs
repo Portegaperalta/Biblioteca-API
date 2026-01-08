@@ -33,6 +33,8 @@ namespace Biblioteca_API.Controllers
         [AllowAnonymous]
         [EndpointSummary("Obtiene autor por ID")]
         [EndpointDescription("Obtiene autor por ID incluyendo sus libros, si el autor no existe, devuelve status 404 (Not Found)")]
+        [ProducesResponseType<AutorDTO>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<AutorDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
             var autorDto = await _autorServicio.GetAutorDtoAsync(id);
@@ -48,6 +50,7 @@ namespace Biblioteca_API.Controllers
         // POST: api/autores
         [HttpPost]
         [EndpointSummary("Crea un autor")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromBody] AutorCreacionDTO autorCreacionDto)
         {
             await _autorServicio.CreateAutorAsync(autorCreacionDto);
@@ -58,6 +61,8 @@ namespace Biblioteca_API.Controllers
         [HttpPut("{id:int}")]
         [EndpointSummary("Actualiza autor por ID")]
         [EndpointDescription("Actualiza autor por ID, si el ID del autor en la ruta no coincide con ID de autor de peticion, devuelve status 400 (Bad Request)")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Put([FromRoute] int id, [FromBody] AutorPutDTO autorPutDto)
         {
             if (id != autorPutDto.Id)
@@ -72,6 +77,9 @@ namespace Biblioteca_API.Controllers
         // PATCH: api/autores/id
         [HttpPatch("{id:int}")]
         [EndpointSummary("Actualiza parcialmente un autor por ID")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Patch([FromRoute] int id, [FromBody] JsonPatchDocument<AutorPatchDTO> patchDoc)
         {
             if (patchDoc is null)
@@ -111,6 +119,8 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("{id:int}")]
         [EndpointSummary("Elimina un autor por ID")]
         [EndpointDescription("Elimina un autor por ID, si el autor no existe, devuelve status 404 (Not Found)")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
             var registrosBorrados = await _autorServicio.DeleteAutorAsync(id);
