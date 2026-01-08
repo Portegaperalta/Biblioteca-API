@@ -32,6 +32,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet("{id:int}",Name ="ObtenerAutor")]
         [AllowAnonymous]
         [EndpointSummary("Obtiene autor por ID")]
+        [EndpointDescription("Obtiene autor por ID incluyendo sus libros, si el autor no existe, devuelve status 404 (Not Found)")]
         public async Task<ActionResult<AutorDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeLibros)
         {
             var autorDto = await _autorServicio.GetAutorDtoAsync(id);
@@ -56,6 +57,7 @@ namespace Biblioteca_API.Controllers
         // PUT: api/autores/id
         [HttpPut("{id:int}")]
         [EndpointSummary("Actualiza autor por ID")]
+        [EndpointDescription("Actualiza autor por ID, si el ID del autor en la ruta no coincide con ID de autor de peticion, devuelve status 400 (Bad Request)")]
         public async Task<ActionResult> Put([FromRoute] int id, [FromBody] AutorPutDTO autorPutDto)
         {
             if (id != autorPutDto.Id)
@@ -108,6 +110,7 @@ namespace Biblioteca_API.Controllers
         // DELETE: api/autores/id
         [HttpDelete("{id:int}")]
         [EndpointSummary("Elimina un autor por ID")]
+        [EndpointDescription("Elimina un autor por ID, si el autor no existe, devuelve status 404 (Not Found)")]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
             var registrosBorrados = await _autorServicio.DeleteAutorAsync(id);
