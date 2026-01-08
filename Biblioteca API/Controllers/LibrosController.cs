@@ -60,17 +60,6 @@ namespace Biblioteca_API.Controllers
             return libroDto;
         }
 
-        [HttpGet("creacion/obtener-token")]
-        public ActionResult ObtenerTokenListado()
-        {
-            var textoPlano = Guid.NewGuid().ToString();
-            var token = _protectorLimitadoPorTiempo
-                        .Protect(textoPlano,lifetime: TimeSpan.FromSeconds(30));
-            var url = Url.RouteUrl("CrearLibroUsandoToken",new {token},"https");
-
-            return Ok(new { url });
-        }
-
         // POST: api/libros
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
