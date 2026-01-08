@@ -24,6 +24,7 @@ namespace Biblioteca_API.Controllers
 
         //GET Comentarios
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
@@ -47,6 +48,7 @@ namespace Biblioteca_API.Controllers
 
         //GET comentario por id
         [HttpGet("{id:guid}", Name = "ObtenerComentario")]
+        [AllowAnonymous]
         public async Task<ActionResult<ComentarioDTO>> GetComentario([FromRoute] Guid id)
         {
             var comentario = await _repositorioComentario.GetComentarioAsync(id);
