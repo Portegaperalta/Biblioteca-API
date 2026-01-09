@@ -51,9 +51,9 @@ namespace Biblioteca_API.Controllers
         [HttpPost]
         [EndpointSummary("Crea un autor")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult> Post([FromForm] IFormFile fotoAutor,[FromForm] AutorCreacionDTO autorCreacionDto)
+        public async Task<ActionResult> Post([FromForm] AutorCreacionDTO autorCreacionDto)
         {
-            await _autorServicio.CreateAutorAsync(fotoAutor,autorCreacionDto);
+            await _autorServicio.CreateAutorAsync(autorCreacionDto);
             return Created();
         }
 
