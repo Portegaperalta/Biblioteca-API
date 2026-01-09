@@ -1,4 +1,5 @@
-﻿using Biblioteca_API.Entidades;
+﻿using Biblioteca_API.DTOs;
+using Biblioteca_API.Entidades;
 using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca_API.Datos.Repositorios
@@ -12,7 +13,7 @@ namespace Biblioteca_API.Datos.Repositorios
             _context = context;
         }
 
-        public async Task<IEnumerable<Autor>> GetAutoresAsync()
+        public async Task<IEnumerable<Autor>> GetAutoresAsync(PaginacionDTO paginacionDTO)
         {
             return await _context.Autores
                          .Include(x => x.Libros)
