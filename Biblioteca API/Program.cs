@@ -37,6 +37,7 @@ builder.Services.AddScoped<LibroMapper>();
 builder.Services.AddScoped<AutorMapper>();
 builder.Services.AddScoped<UsuarioMapper>();
 builder.Services.AddTransient<IUsuarioServicio, UsuarioServicio>();
+builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
 builder.Services.AddScoped<IAutorServicio, AutorServicio>();
 builder.Services.AddScoped<ILibroServicio, LibroServicio>();
 builder.Services.AddScoped<IRepositorioAutor, RepositorioAutor>();
