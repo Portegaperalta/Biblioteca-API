@@ -13,7 +13,7 @@ namespace Biblioteca_API.Datos.Repositorios
             _context = context;
         }
 
-        public async Task<IEnumerable<Libro>> GetLibrosAsync()
+        public async Task<IEnumerable<Libro>> GetLibrosAsync(PaginacionDTO paginacionDTO)
         {
             return await _context.Libros.ToListAsync();
         }
