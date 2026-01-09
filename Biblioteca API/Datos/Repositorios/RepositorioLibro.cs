@@ -15,7 +15,10 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task<IEnumerable<Libro>> GetLibrosAsync(PaginacionDTO paginacionDTO)
         {
-            return await _context.Libros.ToListAsync();
+            return await _context.Libros
+                                 .Skip((paginacionDTO.pagina - 1) * paginacionDTO.recordsPorPagina)
+                                 .Take(paginacionDTO.recordsPorPagina)
+                                 .ToListAsync();
         }
 
         public async Task<Libro?> GetLibroAsync(int id)
