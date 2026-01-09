@@ -79,7 +79,7 @@ namespace Biblioteca_API.Controllers
                 return NotFound($"El autor con ID: {id} no existe");
             }
 
-            await _autorServicio.UpdateAutorAsync(autorPutDto);
+            await _autorServicio.UpdateAutorAsync(fotoAutor,autorPutDto);
             return NoContent();
         }
 
