@@ -51,7 +51,7 @@ namespace Biblioteca_API.Controllers
         [HttpPost]
         [EndpointSummary("Crea un autor")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult> Post([FromForm] IFormFile fotoAutor,[FromBody] AutorCreacionDTO autorCreacionDto)
+        public async Task<ActionResult> Post([FromForm] IFormFile fotoAutor,[FromForm] AutorCreacionDTO autorCreacionDto)
         {
             await _autorServicio.CreateAutorAsync(fotoAutor,autorCreacionDto);
             return Created();
@@ -64,7 +64,7 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Put([FromRoute] int id,
-                                            [FromBody] AutorPutDTO autorPutDto,
+                                            [FromForm] AutorPutDTO autorPutDto,
                                             [FromForm] IFormFile fotoAutor)
         {
             if (id != autorPutDto.Id)
