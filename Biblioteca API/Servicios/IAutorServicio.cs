@@ -6,7 +6,7 @@ namespace Biblioteca_API.Servicios
 {
     public interface IAutorServicio
     {
-        Task<IEnumerable<AutorDTO>> GetAutoresDtoAsync();
+        Task<IEnumerable<AutorDTO>> GetAutoresDtoAsync(PaginacionDTO paginacionDTO);
         Task<AutorDTO?> GetAutorDtoAsync(int autorId);
         Task<Autor?> GetAutorAsync(int autorId);
         Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId);
