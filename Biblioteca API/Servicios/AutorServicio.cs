@@ -18,7 +18,7 @@ namespace Biblioteca_API.Servicios
             _autorMapper = autorMapper;
         }
 
-        public async Task<IEnumerable<AutorDTO>> GetAutoresDtoAsync()
+        public async Task<IEnumerable<AutorDTO>> GetAutoresDtoAsync(PaginacionDTO paginacionDTO)
         {
             var autores = await _repositorioAutor.GetAutoresAsync();
             var autoresDto = autores.Select(autor => _autorMapper.MapToAutorDto(autor));
