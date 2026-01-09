@@ -2,6 +2,7 @@
 using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
+using Biblioteca_API.Migrations;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,13 +59,13 @@ namespace Biblioteca_API.Servicios
             return autorSinLibrosDto;
         }
 
-        public async Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto)
+        public async Task CreateAutorAsync(IFormFile fotoAutor,AutorCreacionDTO autorCreacionDto)
         {
             var autor = _autorMapper.MapToAutor(autorCreacionDto);
 
-            if (autorCreacionDto.Foto is not null)
+            if (fotoAutor is not null)
             {
-                var url = await _almacenadorArchivos.Almacenar(contenedor, autorCreacionDto.Foto);
+                var url = await _almacenadorArchivos.Almacenar(contenedor, fotoAutor);
                 autor.Foto = url;
             }
 
