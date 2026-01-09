@@ -27,7 +27,7 @@ builder.Services.AddCors(opciones =>
         opcionesCORS.WithOrigins(origenesPermitidos)
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithExposedHeaders("mi-cabecera");
+                    .WithExposedHeaders("cantidad-total-registros");
     });
 });
 
