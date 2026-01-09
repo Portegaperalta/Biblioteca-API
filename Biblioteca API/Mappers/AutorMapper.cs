@@ -11,6 +11,7 @@ namespace Biblioteca_API.Mappers
             {
                 Id = autor.Id,
                 NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
+                Foto = autor.Foto,
                 Libros = autor.Libros.Select(autoresLibros => new LibroDTO
                 {
                     Id = autoresLibros.LibroId,
@@ -26,6 +27,7 @@ namespace Biblioteca_API.Mappers
                 Nombres = autorCreacionDto.Nombres,
                 Apellidos = autorCreacionDto.Apellidos,
                 Identificacion = autorCreacionDto.Identificacion,
+                Foto = autorCreacionDto.Foto
             };
         }
 
@@ -37,6 +39,7 @@ namespace Biblioteca_API.Mappers
                  Nombres = autorPutDto.Nombres,
                  Apellidos = autorPutDto.Apellidos,
                  Identificacion = autorPutDto.Identificacion,
+                 Foto = autorPutDto.Foto
             };
         }
 
@@ -45,7 +48,8 @@ namespace Biblioteca_API.Mappers
             return new AutorSinLibrosDTO
             {
              Id = autor.Id,
-             NombreCompleto = $"{autor.Nombres} {autor.Apellidos}"
+             NombreCompleto = $"{autor.Nombres} {autor.Apellidos}",
+             Foto = autor.Foto
             };
         }
 
@@ -55,7 +59,8 @@ namespace Biblioteca_API.Mappers
             {
              Nombres = autor.Nombres,
              Apellidos = autor.Apellidos,
-             Identificacion = autor.Identificacion
+             Identificacion = autor.Identificacion,
+             Foto = autor.Foto
             };
         }
 
@@ -66,7 +71,8 @@ namespace Biblioteca_API.Mappers
              Id = autorId,
              Nombres = autorPatchDto.Nombres,
              Apellidos = autorPatchDto.Apellidos,
-             Identificacion = autorPatchDto.Identificacion
+             Identificacion = autorPatchDto.Identificacion,
+             Foto = autorPatchDto.Foto
             };
         }
     }
