@@ -26,10 +26,9 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         [AllowAnonymous]
         [EndpointSummary("Obtiene listado de libros")]
-        public async Task<IEnumerable<LibroDTO>> Get()
+        public async Task<IEnumerable<LibroDTO>> Get([FromQuery] PaginacionDTO paginacionDTO)
         {
-            var librosDto = await _libroServicio.GetLibrosDtoAsync();
-            return librosDto;
+            return await _libroServicio.GetLibrosDtoAsync(paginacionDTO);
         }
 
         // GET: api/libros/id
