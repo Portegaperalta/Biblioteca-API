@@ -15,7 +15,7 @@ namespace Biblioteca_API.Mappers
                 Libros = autor.Libros.Select(autoresLibros => new LibroDTO
                 {
                     Id = autoresLibros.LibroId,
-                    Titulo = autoresLibros.Libro.Titulo
+                    Titulo = autoresLibros.Libro!.Titulo
                 }).ToList() ?? new List<LibroDTO>()
             };
         }
