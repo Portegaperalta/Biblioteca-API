@@ -88,10 +88,17 @@ namespace Biblioteca_API.Servicios
             await _repositorioAutor.UpdateAutorAsync(autor);
         }
 
-        public async Task<int> DeleteAutorAsync(int autorId)
+        public async Task<bool> DeleteAutorAsync(int autorId)
         {
-            var registrosBorrados = await _repositorioAutor.DeleteAutorAsync(autorId);
-            return registrosBorrados;
+            var autorDb = await _repositorioAutor.GetAutorAsync(autorId);
+
+            if (autorDb is null)
+            {
+                return false;
+            }
+
+            await _repositorioAutor.DeleteAutorAsync(autorDb);
+            return true;
         }
 
         public AutorPatchDTO HandleAutorPatchDtoMapping(Autor autor)

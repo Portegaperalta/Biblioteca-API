@@ -14,6 +14,6 @@ namespace Biblioteca_API.Servicios
         Task UpdateAutorAsync(AutorPutDTO autorPutDTO);
         AutorPatchDTO HandleAutorPatchDtoMapping(Autor autor);
         AutorPutDTO HandleAutorPutDtoMapping(int autorId,AutorPatchDTO autorPatchDto);
-        Task<int> DeleteAutorAsync(int autorId);
+        Task<bool> DeleteAutorAsync(int autorId);
     }
 }
