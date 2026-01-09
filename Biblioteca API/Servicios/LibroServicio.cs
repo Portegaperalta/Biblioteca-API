@@ -49,9 +49,9 @@ namespace Biblioteca_API.Servicios
             return libroConAutoresDto;
         }
 
-        public async Task<IEnumerable<LibroDTO>> GetLibrosDtoAsync()
+        public async Task<IEnumerable<LibroDTO>> GetLibrosDtoAsync(PaginacionDTO paginacionDTO)
         {
-            var libros = await _repositorioLibro.GetLibrosAsync();
+            var libros = await _repositorioLibro.GetLibrosAsync(paginacionDTO);
             var librosDto = libros.Select(libro => _libroMapper.MapToLibroDto(libro));
             return librosDto;
         }
