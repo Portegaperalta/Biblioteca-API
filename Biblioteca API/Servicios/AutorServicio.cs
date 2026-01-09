@@ -72,16 +72,16 @@ namespace Biblioteca_API.Servicios
             await _repositorioAutor.CreateAutorAsync(autor);
         }
 
-        public async Task UpdateAutorAsync(AutorPutDTO autorPutDto)
+        public async Task UpdateAutorAsync(IFormFile nuevaFotoAutor,AutorPutDTO autorPutDto)
         {
             var autorDb = await _repositorioAutor.GetAutorAsync(autorPutDto.Id);
             var autor = _autorMapper.MapAutorPutDtoToAutor(autorPutDto);
 
-            if (autorPutDto.Foto is not null)
+            if (nuevaFotoAutor is not null)
             {
                 var fotoActual = autorDb!.Foto;
                 var url = await _almacenadorArchivos
-                                .Editar(fotoActual, contenedor, autorPutDto.Foto);
+                                .Editar(fotoActual, contenedor, nuevaFotoAutor);
 
                 autor.Foto = url;
             }
