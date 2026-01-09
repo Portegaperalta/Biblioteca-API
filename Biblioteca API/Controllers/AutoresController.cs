@@ -84,44 +84,44 @@ namespace Biblioteca_API.Controllers
         }
 
         // PATCH: api/autores/id
-        [HttpPatch("{id:int}")]
-        [EndpointSummary("Actualiza parcialmente un autor por ID")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Patch([FromRoute] int id, [FromBody] JsonPatchDocument<AutorPatchDTO> patchDoc)
-        {
-            if (patchDoc is null)
-            {
-                return BadRequest();
-            }
+        //[HttpPatch("{id:int}")]
+        //[EndpointSummary("Actualiza parcialmente un autor por ID")]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status204NoContent)]
+        //public async Task<ActionResult> Patch([FromRoute] int id, [FromBody] JsonPatchDocument<AutorPatchDTO> patchDoc)
+        //{
+        //    if (patchDoc is null)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            var autor = await _autorServicio.GetAutorAsync(id);
+        //    var autor = await _autorServicio.GetAutorAsync(id);
 
-            if (autor is null)
-            {
-                return NotFound();
-            }
+        //    if (autor is null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var autorPatchDTO = _autorServicio.HandleAutorPatchDtoMapping(autor);
+        //    var autorPatchDTO = _autorServicio.HandleAutorPatchDtoMapping(autor);
 
-            patchDoc.ApplyTo(autorPatchDTO, ModelState);
+        //    patchDoc.ApplyTo(autorPatchDTO, ModelState);
 
-            var esValido = TryValidateModel(autorPatchDTO);
+        //    var esValido = TryValidateModel(autorPatchDTO);
 
-            if (!esValido)
-            {
-                return ValidationProblem();
-            }
+        //    if (!esValido)
+        //    {
+        //        return ValidationProblem();
+        //    }
 
-            autor.Nombres = autorPatchDTO.Nombres;
-            autor.Apellidos = autorPatchDTO.Apellidos;
+        //    autor.Nombres = autorPatchDTO.Nombres;
+        //    autor.Apellidos = autorPatchDTO.Apellidos;
 
-            var autorPutDto = _autorServicio.HandleAutorPutDtoMapping(id, autorPatchDTO);
-            await _autorServicio.UpdateAutorAsync(autorPutDto);
+        //    var autorPutDto = _autorServicio.HandleAutorPutDtoMapping(id, autorPatchDTO);
+        //    await _autorServicio.UpdateAutorAsync(autorPutDto);
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
 
         // DELETE: api/autores/id
