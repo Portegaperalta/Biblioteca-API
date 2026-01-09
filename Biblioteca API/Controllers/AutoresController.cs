@@ -53,7 +53,7 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromForm] IFormFile fotoAutor,[FromBody] AutorCreacionDTO autorCreacionDto)
         {
-            await _autorServicio.CreateAutorAsync(autorCreacionDto);
+            await _autorServicio.CreateAutorAsync(fotoAutor,autorCreacionDto);
             return Created();
         }
 
