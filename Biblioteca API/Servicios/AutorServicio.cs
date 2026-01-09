@@ -98,6 +98,8 @@ namespace Biblioteca_API.Servicios
             }
 
             await _repositorioAutor.DeleteAutorAsync(autorDb);
+            await _almacenadorArchivos.Borrar(autorDb.Foto, contenedor);
+
             return true;
         }
 
