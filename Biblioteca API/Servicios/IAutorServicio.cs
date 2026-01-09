@@ -10,7 +10,7 @@ namespace Biblioteca_API.Servicios
         Task<AutorDTO?> GetAutorDtoAsync(int autorId);
         Task<Autor?> GetAutorAsync(int autorId);
         Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId);
-        Task CreateAutorAsync(IFormFile fotoAutor,AutorCreacionDTO autorCreacionDto);
+        Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto);
         Task UpdateAutorAsync(IFormFile nuevaFotoAutor,AutorPutDTO autorPutDTO);
         AutorPatchDTO HandleAutorPatchDtoMapping(Autor autor);
         AutorPutDTO HandleAutorPutDtoMapping(int autorId,AutorPatchDTO autorPatchDto);

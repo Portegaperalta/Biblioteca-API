@@ -59,7 +59,7 @@ namespace Biblioteca_API.Servicios
             return autorSinLibrosDto;
         }
 
-        public async Task CreateAutorAsync(IFormFile fotoAutor,AutorCreacionDTO autorCreacionDto)
+        public async Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto)
         {
             var autor = _autorMapper.MapToAutor(autorCreacionDto);
 
