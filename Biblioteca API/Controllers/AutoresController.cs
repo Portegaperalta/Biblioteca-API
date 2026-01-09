@@ -70,6 +70,13 @@ namespace Biblioteca_API.Controllers
                 return BadRequest("Los ids deben de coincidir");
             }
 
+            var autorDb = await _autorServicio.GetAutorAsync(id);
+
+            if (autorDb is null)
+            {
+                return NotFound($"El autor con ID: {id} no existe");
+            }
+
             await _autorServicio.UpdateAutorAsync(autorPutDto);
             return NoContent();
         }
