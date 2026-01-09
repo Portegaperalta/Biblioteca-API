@@ -11,11 +11,15 @@ namespace Biblioteca_API.Servicios
     {
         private readonly IRepositorioAutor _repositorioAutor;
         private readonly AutorMapper _autorMapper;
+        private readonly IAlmacenadorArchivos _almacenadorArchivos;
+        private const string contenedor = "autores";
 
-        public AutorServicio(IRepositorioAutor repositorioAutor,AutorMapper autorMapper)
+        public AutorServicio(IRepositorioAutor repositorioAutor,AutorMapper autorMapper,
+                             IAlmacenadorArchivos almacenadorArchivos)
         {
             _repositorioAutor = repositorioAutor;
             _autorMapper = autorMapper;
+            _almacenadorArchivos = almacenadorArchivos;
         }
 
         public async Task<IEnumerable<AutorDTO>> GetAutoresDtoAsync(PaginacionDTO paginacionDTO)
