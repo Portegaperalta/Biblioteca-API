@@ -63,7 +63,9 @@ namespace Biblioteca_API.Controllers
         [EndpointDescription("Actualiza autor por ID, si el ID del autor en la ruta no coincide con ID de autor de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Put([FromRoute] int id, [FromBody] AutorPutDTO autorPutDto)
+        public async Task<ActionResult> Put([FromRoute] int id,
+                                            [FromBody] AutorPutDTO autorPutDto,
+                                            [FromForm] IFormFile fotoAutor)
         {
             if (id != autorPutDto.Id)
             {
