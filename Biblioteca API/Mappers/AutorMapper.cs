@@ -27,7 +27,6 @@ namespace Biblioteca_API.Mappers
                 Nombres = autorCreacionDto.Nombres,
                 Apellidos = autorCreacionDto.Apellidos,
                 Identificacion = autorCreacionDto.Identificacion,
-                Foto = autorCreacionDto.Foto
             };
         }
 
@@ -39,7 +38,6 @@ namespace Biblioteca_API.Mappers
                  Nombres = autorPutDto.Nombres,
                  Apellidos = autorPutDto.Apellidos,
                  Identificacion = autorPutDto.Identificacion,
-                 Foto = autorPutDto.Foto
             };
         }
 
@@ -72,7 +70,6 @@ namespace Biblioteca_API.Mappers
              Nombres = autorPatchDto.Nombres,
              Apellidos = autorPatchDto.Apellidos,
              Identificacion = autorPatchDto.Identificacion,
-             Foto = autorPatchDto.Foto
             };
         }
     }
