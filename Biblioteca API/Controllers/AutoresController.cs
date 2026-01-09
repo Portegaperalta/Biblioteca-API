@@ -25,7 +25,7 @@ namespace Biblioteca_API.Controllers
         [EndpointSummary("Obtiene listado de autores")]
         public async Task<IEnumerable<AutorDTO>> Get([FromQuery] PaginacionDTO paginacionDTO)
         {
-            return await _autorServicio.GetAutoresDtoAsync();
+            return await _autorServicio.GetAutoresDtoAsync(paginacionDTO);
         }
 
         // GET: api/autores/id

@@ -16,6 +16,8 @@ namespace Biblioteca_API.Datos.Repositorios
         public async Task<IEnumerable<Autor>> GetAutoresAsync(PaginacionDTO paginacionDTO)
         {
             return await _context.Autores
+                         .Skip((paginacionDTO.pagina - 1) * paginacionDTO.recordsPorPagina)
+                         .Take(paginacionDTO.recordsPorPagina)
                          .Include(x => x.Libros)
                          .ThenInclude(l => l.Libro)
                          .ToListAsync();
