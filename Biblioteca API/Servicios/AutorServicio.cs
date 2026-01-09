@@ -61,6 +61,13 @@ namespace Biblioteca_API.Servicios
         public async Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto)
         {
             var autor = _autorMapper.MapToAutor(autorCreacionDto);
+
+            if (autorCreacionDto.Foto is not null)
+            {
+                var url = await _almacenadorArchivos.Almacenar(contenedor, autorCreacionDto.Foto);
+                autor.Foto = url;
+            }
+
             await _repositorioAutor.CreateAutorAsync(autor);
         }
 
