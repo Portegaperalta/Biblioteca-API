@@ -130,9 +130,9 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult> Delete([FromRoute]int id)
         {
-            var registrosBorrados = await _autorServicio.DeleteAutorAsync(id);
+            bool autorEliminado = await _autorServicio.DeleteAutorAsync(id);
             
-            if (registrosBorrados == 0) return NotFound();
+            if (autorEliminado is false) return NotFound();
 
             return NoContent();
         }
