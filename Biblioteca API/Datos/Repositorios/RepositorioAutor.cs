@@ -53,12 +53,10 @@ namespace Biblioteca_API.Datos.Repositorios
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteAutorAsync(int id)
+        public async Task DeleteAutorAsync(Autor autor)
         {
-            int registrosBorrados = await _context.Autores
-                                          .Where(x => x.Id == id)
-                                          .ExecuteDeleteAsync();
-            return registrosBorrados;
+            _context.Autores.Remove(autor);
+            await _context.SaveChangesAsync();
         }
     }
 }

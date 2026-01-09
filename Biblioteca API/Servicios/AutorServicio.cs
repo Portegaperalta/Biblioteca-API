@@ -78,7 +78,7 @@ namespace Biblioteca_API.Servicios
 
             if (autorPutDto.Foto is not null)
             {
-                var fotoActual = autorDb.Foto;
+                var fotoActual = autorDb!.Foto;
                 var url = await _almacenadorArchivos
                                 .Editar(fotoActual, contenedor, autorPutDto.Foto);
 
@@ -93,11 +93,13 @@ namespace Biblioteca_API.Servicios
             var registrosBorrados = await _repositorioAutor.DeleteAutorAsync(autorId);
             return registrosBorrados;
         }
+
         public AutorPatchDTO HandleAutorPatchDtoMapping(Autor autor)
         {
             var autorPatchDto = _autorMapper.MapToAutorPatchDto(autor);
             return autorPatchDto;
         }
+
         public AutorPutDTO HandleAutorPutDtoMapping(int autorId, AutorPatchDTO autorPatchDto)
         {
             var autorPutDto = _autorMapper.MapPatchDtoToPutDto(autorId, autorPatchDto);

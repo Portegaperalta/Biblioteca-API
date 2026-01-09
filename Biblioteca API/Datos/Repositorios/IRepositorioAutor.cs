@@ -10,6 +10,6 @@ namespace Biblioteca_API.Datos.Repositorios
         Task<Autor?> GetAutorSinLibrosAsync(int id);
         Task CreateAutorAsync(Autor autor);
         Task UpdateAutorAsync(Autor autor);
-        Task<int> DeleteAutorAsync(int id);
+        Task DeleteAutorAsync(Autor autor);
     }
 }
