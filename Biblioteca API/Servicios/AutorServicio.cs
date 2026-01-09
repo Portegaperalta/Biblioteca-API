@@ -63,9 +63,9 @@ namespace Biblioteca_API.Servicios
         {
             var autor = _autorMapper.MapToAutor(autorCreacionDto);
 
-            if (fotoAutor is not null)
+            if (autorCreacionDto.Foto is not null)
             {
-                var url = await _almacenadorArchivos.Almacenar(contenedor, fotoAutor);
+                var url = await _almacenadorArchivos.Almacenar(contenedor, autorCreacionDto.Foto);
                 autor.Foto = url;
             }
 
