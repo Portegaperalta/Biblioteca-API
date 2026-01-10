@@ -107,6 +107,18 @@ namespace Biblioteca_API.Servicios
                 }
             }
 
+            //Permite filtar los autores que tienen o no tiene libros
+            if (autorFiltroDTO.TieneLibros.HasValue)
+            {
+                if (autorFiltroDTO.TieneLibros.Value == true)
+                {
+                    queryable = queryable.Where(a => a.Libros.Count > 0);
+                } else
+                {
+                    queryable = queryable.Where(a => a.Libros.Count == 0);
+                }
+            }
+
             var autores = await queryable.OrderBy(a => a.Nombres)
                                          .Paginar(autorFiltroDTO.PaginacionDTO)
                                          .ToListAsync();
