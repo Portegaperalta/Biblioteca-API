@@ -43,7 +43,7 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task CreateAutorAsync(Autor autor)
         {
-            _context.Add(autor);
+            _context.Autores.Add(autor);
             await _context.SaveChangesAsync();
         }
 
