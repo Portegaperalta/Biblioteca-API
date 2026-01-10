@@ -27,6 +27,7 @@ namespace Biblioteca_API.Controllers
         [AllowAnonymous]
         [EndpointSummary("Obtiene todos los comentarios del libro")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
@@ -54,6 +55,7 @@ namespace Biblioteca_API.Controllers
         [EndpointSummary("Obtiene comentario por ID")]
         [EndpointDescription("Obtiene comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ComentarioDTO>> GetComentario([FromRoute] Guid id)
         {
             var comentario = await _repositorioComentario.GetComentarioAsync(id);

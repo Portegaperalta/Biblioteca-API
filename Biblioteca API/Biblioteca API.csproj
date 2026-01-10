@@ -24,6 +24,7 @@
   <ItemGroup>
     <Folder Include="Middleware\" />
     <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\autores\" />
   </ItemGroup>
 
 </Project>
