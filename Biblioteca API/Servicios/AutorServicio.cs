@@ -119,6 +119,15 @@ namespace Biblioteca_API.Servicios
                 }
             }
 
+            //Permite filtrar los autores cuyos libros incluyan palabra/s especificas
+            if (!string.IsNullOrEmpty(autorFiltroDTO.TituloLibro))
+            {
+                queryable = queryable.Where(a =>
+                            a.Libros.Any(l =>
+                            l.Libro!.Titulo.Contains(autorFiltroDTO.TituloLibro)
+                            ));
+            }
+
             var autores = await queryable.OrderBy(a => a.Nombres)
                                          .Paginar(autorFiltroDTO.PaginacionDTO)
                                          .ToListAsync();
