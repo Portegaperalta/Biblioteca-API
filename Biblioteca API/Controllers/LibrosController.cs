@@ -36,6 +36,7 @@ namespace Biblioteca_API.Controllers
         [AllowAnonymous]
         [EndpointSummary("Obtiene libro por ID")]
         [EndpointDescription("Obtiene libro por ID, si el libro no existe, devuelve status 404 (Not Found)")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
         {
