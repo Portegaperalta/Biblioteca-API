@@ -81,11 +81,6 @@ namespace Biblioteca_API.Servicios
 
         public async Task UpdateLibroAsync(int libroIdFromRoute,LibroPutDTO libroPutDto)
         {
-            if(libroPutDto.Id != libroIdFromRoute)
-            {
-                throw new ArgumentException("Los ids deben de coincidir");
-            }
-
             if (libroPutDto.AutoresIds is null || libroPutDto.AutoresIds.Count == 0)
             {
                 throw new ArgumentException("El libro debe tener un autor o mas");

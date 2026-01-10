@@ -79,8 +79,14 @@ namespace Biblioteca_API.Controllers
         [EndpointSummary("Actualiza libro por ID")]
         [EndpointDescription("Actualiza libro por ID, si el ID del libro en la ruta no coincide con ID de libro de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Put([FromRoute]int id,[FromBody] LibroPutDTO libroPutDto)
         {
+            if (id != libroPutDto.Id)
+            {
+                return BadRequest("Los ids deben de coincidir");
+            }
+
             await _libroServicio.UpdateLibroAsync(id,libroPutDto);
             return NoContent();
         }
