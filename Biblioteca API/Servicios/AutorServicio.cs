@@ -7,6 +7,7 @@ using Biblioteca_API.Utilidades;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace Biblioteca_API.Servicios
 {
@@ -15,11 +16,11 @@ namespace Biblioteca_API.Servicios
         private readonly IRepositorioAutor _repositorioAutor;
         private readonly AutorMapper _autorMapper;
         private readonly IAlmacenadorArchivos _almacenadorArchivos;
-        private readonly ILogger _logger;
+        private readonly ILogger<AutorServicio> _logger;
         private const string contenedor = "autores";
 
         public AutorServicio(IRepositorioAutor repositorioAutor,AutorMapper autorMapper,
-                             IAlmacenadorArchivos almacenadorArchivos,ILogger logger)
+                             IAlmacenadorArchivos almacenadorArchivos,ILogger<AutorServicio> logger)
         {
             _repositorioAutor = repositorioAutor;
             _autorMapper = autorMapper;
@@ -130,9 +131,25 @@ namespace Biblioteca_API.Servicios
                             ));
             }
 
-            var autores = await queryable.OrderBy(a => a.Nombres)
-                                         .Paginar(autorFiltroDTO.PaginacionDTO)
-                                         .ToListAsync();
+            //Permite ordenar autores en orden ascendente o descendente
+            if (!string.IsNullOrEmpty(autorFiltroDTO.CampoOrdernar))
+            {
+                var tipoOrden = autorFiltroDTO.OrdenAscendente ? "ascending" : "descending";
+
+                try
+                {
+                    queryable = queryable.OrderBy($"{autorFiltroDTO.CampoOrdernar} {tipoOrden}");
+                } catch (Exception ex)
+                {
+                    queryable = queryable.OrderBy(a => a.Nombres);
+                    _logger.LogError(ex.Message, ex);
+                }
+            } else
+            {
+                queryable = queryable.OrderBy(a => a.Nombres);
+            }
+
+            var autores = await queryable.Paginar(autorFiltroDTO.PaginacionDTO).ToListAsync();
 
             var autoresDTO = autores.Select(autor => _autorMapper.MapToAutorDto(autor));
 
