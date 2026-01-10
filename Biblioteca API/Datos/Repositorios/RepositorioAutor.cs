@@ -31,6 +31,13 @@ namespace Biblioteca_API.Datos.Repositorios
                          .FirstOrDefaultAsync(x => x.Id == id);
         }
 
+        public async Task<Autor?> GetAutorAsNoTrackingAsync(int id)
+        {
+            return await _context.Autores
+                                 .AsNoTracking()
+                                 .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
         public async Task<Autor?> GetAutorSinLibrosAsync(int autorId)
         {
             var autorSinLibros = await _context.Autores
