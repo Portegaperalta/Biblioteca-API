@@ -10,6 +10,7 @@ namespace Biblioteca_API.Datos.Repositorios
         Task<Autor?> GetAutorAsNoTrackingAsync(int id);
         Task<Autor?> GetAutorSinLibrosAsync(int id);
         Task<string?> GetFotoActualAutor(int id);
+        IQueryable<Autor> GetAutoresAsQueryableAsync();
         Task CreateAutorAsync(Autor autor);
         Task UpdateAutorAsync(Autor autor);
         Task DeleteAutorAsync(Autor autor);

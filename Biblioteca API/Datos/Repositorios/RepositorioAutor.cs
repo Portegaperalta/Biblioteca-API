@@ -1,4 +1,5 @@
-﻿using Biblioteca_API.DTOs;
+﻿using System.Threading.Tasks;
+using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,6 +56,11 @@ namespace Biblioteca_API.Datos.Repositorios
                                            .Select(a => a.Foto)
                                            .FirstAsync();
             return fotoActual;
+        }
+
+        public IQueryable<Autor> GetAutoresAsQueryableAsync()
+        {
+           return _context.Autores.AsQueryable();
         }
 
         public async Task CreateAutorAsync(Autor autor)
