@@ -60,7 +60,10 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public IQueryable<Autor> GetAutoresAsQueryable()
         {
-           return _context.Autores.AsQueryable();
+           return _context.Autores
+                          .Include(a => a.Libros)
+                          .ThenInclude(a => a.Libro)
+                          .AsQueryable();
         }
 
         public async Task CreateAutorAsync(Autor autor)
