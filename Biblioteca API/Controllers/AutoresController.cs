@@ -47,6 +47,7 @@ namespace Biblioteca_API.Controllers
             return autorDto;
         }
 
+        //GET api/autores/filtrar
         [HttpGet("filtrar")]
         [AllowAnonymous]
         public async Task<ActionResult> Filtrar([FromQuery] AutorFiltroDTO autorFiltroDTO)
