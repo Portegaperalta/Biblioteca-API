@@ -95,6 +95,18 @@ namespace Biblioteca_API.Servicios
                 queryable = queryable.Where(a => a.Apellidos.Contains(autorFiltroDTO.Apellidos));
             }
 
+            //Permite filtrar los autores con foto y los que no tienen foto.
+            if (autorFiltroDTO.TieneFoto.HasValue)
+            {
+                if (autorFiltroDTO.TieneFoto.Value)
+                {
+                    queryable = queryable.Where(a => a.Foto != null);
+                } else
+                {
+                    queryable = queryable.Where(a => a.Foto == null);
+                }
+            }
+
             var autores = await queryable.OrderBy(a => a.Nombres)
                                          .Paginar(autorFiltroDTO.PaginacionDTO)
                                          .ToListAsync();
