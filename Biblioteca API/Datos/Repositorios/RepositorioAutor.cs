@@ -49,7 +49,7 @@ namespace Biblioteca_API.Datos.Repositorios
 
         public async Task UpdateAutorAsync(Autor autor)
         {
-            _context.Update(autor);
+            _context.Autores.Update(autor);
             await _context.SaveChangesAsync();
         }
 
