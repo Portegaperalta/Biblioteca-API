@@ -11,6 +11,7 @@ namespace Biblioteca_API.Servicios
         Task<Autor?> GetAutorAsync(int autorId);
         Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId);
         Task<Autor?> GetAutorAsNoTrackingAsync(int autorId);
+        Task<IEnumerable<AutorDTO>> GetAutoresFiltro(AutorFiltroDTO autorFiltroDTO);
         Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto);
         Task UpdateAutorAsync(AutorPutDTO autorPutDTO);
         AutorPatchDTO HandleAutorPatchDtoMapping(Autor autor);

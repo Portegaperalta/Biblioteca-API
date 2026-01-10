@@ -47,6 +47,15 @@ namespace Biblioteca_API.Controllers
             return autorDto;
         }
 
+        [HttpGet("filtrar")]
+        [AllowAnonymous]
+        public async Task<ActionResult> Filtrar([FromQuery] AutorFiltroDTO autorFiltroDTO)
+        {
+            var autoresFiltrados = await _autorServicio.GetAutoresFiltro(autorFiltroDTO);
+        
+            return Ok(autoresFiltrados);
+        }
+
         // POST: api/autores
         [HttpPost]
         [EndpointSummary("Crea un autor")]

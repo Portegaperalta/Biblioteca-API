@@ -3,8 +3,10 @@ using Biblioteca_API.DTOs;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 using Biblioteca_API.Migrations;
+using Biblioteca_API.Utilidades;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca_API.Servicios
 {
@@ -75,6 +77,31 @@ namespace Biblioteca_API.Servicios
             }
 
             await _repositorioAutor.CreateAutorAsync(autor);
+        }
+
+        public async Task<IEnumerable<AutorDTO>> GetAutoresFiltro(AutorFiltroDTO autorFiltroDTO)
+        {
+            var queryable = _repositorioAutor.GetAutoresAsQueryable();
+
+            //Si el nombre no es null o vacio se filtran autores por nombre
+            if (!string.IsNullOrEmpty(autorFiltroDTO.Nombres))
+            {
+                queryable = queryable.Where(a => a.Nombres.Contains(autorFiltroDTO.Nombres));
+            }
+
+            //Si el apellido no es null o vacio se filtran autores por apellido
+            if (!string.IsNullOrEmpty(autorFiltroDTO.Apellidos))
+            {
+                queryable = queryable.Where(a => a.Apellidos.Contains(autorFiltroDTO.Apellidos));
+            }
+
+            var autores = await queryable.OrderBy(a => a.Nombres)
+                                         .Paginar(autorFiltroDTO.PaginacionDTO)
+                                         .ToListAsync();
+
+            var autoresDTO = autores.Select(autor => _autorMapper.MapToAutorDto(autor));
+
+            return autoresDTO;
         }
 
         public async Task UpdateAutorAsync(AutorPutDTO autorPutDto)
