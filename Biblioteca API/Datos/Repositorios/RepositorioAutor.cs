@@ -58,7 +58,7 @@ namespace Biblioteca_API.Datos.Repositorios
             return fotoActual;
         }
 
-        public IQueryable<Autor> GetAutoresAsQueryableAsync()
+        public IQueryable<Autor> GetAutoresAsQueryable()
         {
            return _context.Autores.AsQueryable();
         }
