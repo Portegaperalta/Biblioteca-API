@@ -48,6 +48,15 @@ namespace Biblioteca_API.Datos.Repositorios
             return autorSinLibros;
         }
 
+        public async Task<string?> GetFotoActualAutor(int autorId)
+        {
+            var fotoActual = await _context.Autores
+                                           .Where(a => a.Id == autorId)
+                                           .Select(a => a.Foto)
+                                           .FirstAsync();
+            return fotoActual;
+        }
+
         public async Task CreateAutorAsync(Autor autor)
         {
             _context.Autores.Add(autor);

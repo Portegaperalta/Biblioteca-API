@@ -74,12 +74,12 @@ namespace Biblioteca_API.Servicios
 
         public async Task UpdateAutorAsync(AutorPutDTO autorPutDto)
         {
-            var autorDb = await _repositorioAutor.GetAutorAsync(autorPutDto.Id);
+           
             var autor = _autorMapper.MapAutorPutDtoToAutor(autorPutDto);
 
             if (autorPutDto.Foto is not null)
             {
-                var fotoActual = autorDb!.Foto;
+                var fotoActual = await _repositorioAutor.GetFotoActualAutor(autorPutDto.Id);
                 var url = await _almacenadorArchivos
                                 .Editar(fotoActual, contenedor, autorPutDto.Foto);
 
