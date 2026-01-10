@@ -59,6 +59,11 @@ namespace Biblioteca_API.Servicios
             return autorSinLibrosDto;
         }
 
+        public async Task<Autor?> GetAutorAsNoTrackingAsync(int autorId)
+        {
+            return await _repositorioAutor.GetAutorAsNoTrackingAsync(autorId);
+        }
+
         public async Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto)
         {
             var autor = _autorMapper.MapToAutor(autorCreacionDto);

@@ -10,6 +10,7 @@ namespace Biblioteca_API.Servicios
         Task<AutorDTO?> GetAutorDtoAsync(int autorId);
         Task<Autor?> GetAutorAsync(int autorId);
         Task<AutorSinLibrosDTO?> GetAutorSinLibrosDtoAsync(int autorId);
+        Task<Autor?> GetAutorAsNoTrackingAsync(int autorId);
         Task CreateAutorAsync(AutorCreacionDTO autorCreacionDto);
         Task UpdateAutorAsync(AutorPutDTO autorPutDTO);
         AutorPatchDTO HandleAutorPatchDtoMapping(Autor autor);
