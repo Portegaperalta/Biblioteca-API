@@ -16,6 +16,7 @@ namespace Biblioteca_API.Entidades
         public int LibroId { get; set; }
         public Libro? Libro { get; set; }
         public required string UsuarioId { get; set; }
+        public bool EstaBorrado { get; set; }
         public Usuario? Usuario { get; set; }
     }
 }
