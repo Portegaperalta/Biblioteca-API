@@ -6,9 +6,9 @@ namespace Biblioteca_API.Servicios
 {
     public class ComentarioServicio : IComentarioServicio
     {
-        private readonly RepositorioComentario _repositorioComentario;
+        private readonly IRepositorioComentario _repositorioComentario;
 
-        public ComentarioServicio(RepositorioComentario repositorioComentario)
+        public ComentarioServicio(IRepositorioComentario repositorioComentario)
         {
             _repositorioComentario = repositorioComentario;
         }
