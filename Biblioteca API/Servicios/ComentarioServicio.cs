@@ -22,7 +22,7 @@ namespace Biblioteca_API.Servicios
                 throw new ArgumentException($"El libro con id {libroId} no existe");
             }
 
-            var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
+            var comentarios = await _repositorioComentario.GetComentariosDtoAsync(libroId);
             var comentariosDTO = comentarios.Select(c => new ComentarioDTO
             {
                 UsuarioId = c.UsuarioId,
@@ -37,7 +37,7 @@ namespace Biblioteca_API.Servicios
 
         public async Task<ComentarioDTO?> GetById(Guid comentarioId)
         {
-            var comentario = await _repositorioComentario.GetComentarioAsync(comentarioId);
+            var comentario = await _repositorioComentario.GetComentarioDtoByIdAsync(comentarioId);
             
             if (comentario is null)
             {
