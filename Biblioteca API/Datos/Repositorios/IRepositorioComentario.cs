@@ -4,8 +4,8 @@ namespace Biblioteca_API.Datos.Repositorios
 {
     public interface IRepositorioComentario
     {
-        Task<IEnumerable<Comentario>> GetComentariosAsync(int libroId);
-        Task<Comentario?> GetComentarioAsync(Guid comentarioId);
+        Task<IEnumerable<Comentario>> GetComentariosDtoAsync(int libroId);
+        Task<Comentario?> GetComentarioDtoByIdAsync(Guid comentarioId);
         Task CreateComentarioAsync(Comentario comentario);
         Task UpdateComentarioAsync(Guid comentarioId,Comentario comentario);
         Task<bool> DeleteComentarioAsync(Guid comentarioId);
