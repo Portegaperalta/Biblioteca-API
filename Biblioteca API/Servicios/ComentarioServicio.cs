@@ -81,7 +81,7 @@ namespace Biblioteca_API.Servicios
             await _repositorioComentario.CreateAsync(comentario);
         }
 
-        public async Task Update(Guid comentarioId,Comentario comentario)
+        public async Task Update(Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
 

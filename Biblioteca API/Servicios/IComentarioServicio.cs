@@ -9,7 +9,7 @@ namespace Biblioteca_API.Servicios
       Task<ComentarioDTO?> GetById(Guid comentarioId);
       Task<Comentario?> GetEntityByIdAsync(Guid comentarioId);
       Task Create(int libroId, Comentario comentario);
-      Task Update(Guid comentarioId, Comentario comentario);
+      Task Update(Comentario comentario);
       Task<bool> Delete(Guid comentarioId);
     }
 }
