@@ -14,6 +14,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Area de servcios
 
+builder.Services.AddOutputCache(opciones =>
+{
+    opciones.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
+});
+
 builder.Services.AddDataProtection();
 
 var origenesPermitidos = builder.Configuration
@@ -119,6 +124,8 @@ app.UseSwaggerUI();
 app.UseStaticFiles();
 
 app.UseCors();
+
+app.UseOutputCache();
 
 app.MapControllers();
 
