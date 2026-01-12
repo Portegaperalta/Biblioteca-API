@@ -30,22 +30,7 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
         {
-            bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
-
-            if (!existeLibro)
-                return NotFound();
-
-            var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
-            var comentariosDTO = comentarios.Select(comentario =>
-            new ComentarioDTO
-            {
-                UsuarioId = comentario.UsuarioId,
-                Usuario = comentario.Autor,
-                UsuarioEmail = comentario.Usuario.Email,
-                Cuerpo = comentario.Cuerpo,
-                FechaPublicacion = comentario.FechaPublicacion
-            });
-
+            var comentariosDTO = await _comentarioServicio.GetAll(libroId);
             return Ok(comentariosDTO);
         }
 
