@@ -43,21 +43,13 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ComentarioDTO>> GetComentario([FromRoute] Guid id)
         {
-            var comentario = await _repositorioComentario.GetComentarioAsync(id);
+            var comentarioDTO = await _comentarioServicio.GetById(id);
 
-            if (comentario is null)
-                return NotFound("El comentario no existe");
-
-            var comentarioDTO = new ComentarioDTO
+            if (comentarioDTO is null)
             {
-                Id = comentario.Id,
-                UsuarioId = comentario.UsuarioId,
-                Usuario = comentario.Autor,
-                UsuarioEmail = comentario.Usuario.Email,
-                Cuerpo = comentario.Cuerpo,
-                FechaPublicacion = comentario.FechaPublicacion
-            };
-
+                return NotFound("El comentario no existe");
+            }
+                
             return comentarioDTO;
         }
 
