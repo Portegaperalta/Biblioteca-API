@@ -37,7 +37,7 @@ namespace Biblioteca_API.Datos.Repositorios
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Guid comentarioId,Comentario comentario)
+        public async Task UpdateAsync(Comentario comentario)
         {
             _context.Update(comentario);
             await _context.SaveChangesAsync();
