@@ -57,6 +57,18 @@ namespace Biblioteca_API.Servicios
             return comentarioDTO;
         }
 
+        public async Task<Comentario?> GetEntityByIdAsync(Guid comentarioId)
+        {
+            var comentario = await _repositorioComentario.GetByIdAsync(comentarioId);
+            
+            if (comentario is null)
+            {
+                return null;
+            }
+
+            return comentario;
+        }
+
         public async Task Create(int libroId,Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
