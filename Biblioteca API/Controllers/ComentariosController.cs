@@ -13,12 +13,12 @@ namespace Biblioteca_API.Controllers
     [Authorize]
     public class ComentariosController : ControllerBase
     {
-        private readonly IRepositorioComentario _repositorioComentario;
+        private readonly IComentarioServicio _comentarioServicio;
         private readonly IUsuarioServicio _usuarioServicio;
 
-        public ComentariosController(IRepositorioComentario repositorioComentario,IUsuarioServicio usuarioServicio)
+        public ComentariosController(IComentarioServicio comentarioServicio,IUsuarioServicio usuarioServicio)
         {
-            _repositorioComentario = repositorioComentario;
+            _comentarioServicio = comentarioServicio;
             _usuarioServicio = usuarioServicio;
         }
 
