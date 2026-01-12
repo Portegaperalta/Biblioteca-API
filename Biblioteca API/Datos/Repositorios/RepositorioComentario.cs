@@ -12,7 +12,7 @@ namespace Biblioteca_API.Datos.Repositorios
             _context = context;
         }
 
-        public async Task<IEnumerable<Comentario>> GetComentariosAsync(int libroId)
+        public async Task<IEnumerable<Comentario>> GetComentariosDtoAsync(int libroId)
         {
             var comentarios = await _context.Comentarios
                               .Include(c => c.Usuario)
@@ -23,7 +23,7 @@ namespace Biblioteca_API.Datos.Repositorios
             return comentarios;
         }
 
-        public async Task<Comentario?> GetComentarioAsync(Guid comentarioId)
+        public async Task<Comentario?> GetComentarioDtoByIdAsync(Guid comentarioId)
         {
             var comentario = await _context.Comentarios
                                    .Include(c => c.Usuario)
