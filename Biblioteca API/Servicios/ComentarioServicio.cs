@@ -22,7 +22,7 @@ namespace Biblioteca_API.Servicios
                 throw new ArgumentException($"El libro con id {libroId} no existe");
             }
 
-            var comentarios = await _repositorioComentario.GetComentariosAsync(libroId);
+            var comentarios = await _repositorioComentario.GetAllAsync(libroId);
             var comentariosDTO = comentarios.Select(c => new ComentarioDTO
             {
                 UsuarioId = c.UsuarioId,
@@ -37,7 +37,7 @@ namespace Biblioteca_API.Servicios
 
         public async Task<ComentarioDTO?> GetById(Guid comentarioId)
         {
-            var comentario = await _repositorioComentario.GetComentarioAsync(comentarioId);
+            var comentario = await _repositorioComentario.GetByIdAsync(comentarioId);
             
             if (comentario is null)
             {
@@ -66,7 +66,7 @@ namespace Biblioteca_API.Servicios
                 throw new ArgumentException($"El libro con id {libroId} no existe");
             }
 
-            await _repositorioComentario.CreateComentarioAsync(comentario);
+            await _repositorioComentario.CreateAsync(comentario);
         }
 
         public async Task Update(Guid comentarioId,Comentario comentario)
@@ -78,12 +78,12 @@ namespace Biblioteca_API.Servicios
                 throw new InvalidOperationException($"El libro con id: {comentario.LibroId} no existe");
             }
 
-            await _repositorioComentario.UpdateComentarioAsync(comentarioId, comentario);
+            await _repositorioComentario.UpdateAsync(comentarioId, comentario);
         }
 
         public async Task<bool> Delete(Guid comentarioId)
         {
-            bool estaBorrado = await _repositorioComentario.DeleteComentarioAsync(comentarioId);
+            bool estaBorrado = await _repositorioComentario.DeleteAsync(comentarioId);
 
             if (estaBorrado == false)
             {
