@@ -40,6 +40,7 @@ builder.Services.AddTransient<IUsuarioServicio, UsuarioServicio>();
 builder.Services.AddTransient<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
 builder.Services.AddScoped<IAutorServicio, AutorServicio>();
 builder.Services.AddScoped<ILibroServicio, LibroServicio>();
+builder.Services.AddScoped<IComentarioServicio, ComentarioServicio>();
 builder.Services.AddScoped<IRepositorioAutor, RepositorioAutor>();
 builder.Services.AddScoped<IRepositorioLibro, RepositorioLibro>();
 builder.Services.AddScoped<IRepositorioComentario, RepositorioComentario>();
