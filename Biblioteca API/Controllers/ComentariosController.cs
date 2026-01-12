@@ -141,21 +141,29 @@ namespace Biblioteca_API.Controllers
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
-            if (usuario is null) 
+            if (usuario is null)
+            {
                 return NotFound();
+            }
 
-            var comentarioDb = await _repositorioComentario.GetComentarioAsync(id);
+            var comentarioDTO = await _comentarioServicio.GetById(id);
 
-            if (comentarioDb is null) 
-                     return NotFound();
+            if (comentarioDTO is null)
+            {
+                return NotFound();
+            }
 
-            if (comentarioDb.UsuarioId != usuario.Id) 
+            if (comentarioDTO.UsuarioId != usuario.Id)
+            {
                 return Forbid();
-            
-            var registrosBorrados = await _repositorioComentario.DeleteComentarioAsync(id);
+            }
 
-            if (registrosBorrados <= 0)
+            bool estaBorrado = await _comentarioServicio.Delete(id);
+
+            if (estaBorrado == false)
+            {
                 return NotFound("Comentario no encontrado");
+            }
 
             return NoContent();
         }
