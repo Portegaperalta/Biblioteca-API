@@ -134,16 +134,17 @@ namespace Biblioteca_API.Controllers
         [HttpDelete("{id:guid}")]
         [EndpointSummary("Elimina comentario por ID")]
         [EndpointDescription("Elimina comentario por ID, si el comentario o el usuario no existe, devuelve status 404 (Not Found)")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteComentario([FromRoute] Guid id)
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
             if (usuario is null)
             {
-                return NotFound();
+                return Unauthorized();
             }
 
             var comentarioDTO = await _comentarioServicio.GetById(id);
