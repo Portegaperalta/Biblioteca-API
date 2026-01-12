@@ -30,7 +30,7 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
         {
-            var comentariosDTO = await _comentarioServicio.GetAll(libroId);
+            var comentariosDTO = await _comentarioServicio.GetAllAsync(libroId);
             return Ok(comentariosDTO);
         }
 
@@ -43,7 +43,7 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ComentarioDTO>> GetComentario([FromRoute] Guid id)
         {
-            var comentarioDTO = await _comentarioServicio.GetById(id);
+            var comentarioDTO = await _comentarioServicio.GetByIdAsync(id);
 
             if (comentarioDTO is null)
             {
@@ -67,7 +67,7 @@ namespace Biblioteca_API.Controllers
                return Unauthorized();
             }
 
-            await _comentarioServicio.Create(comentario.LibroId, comentario);
+            await _comentarioServicio.CreateAsync(comentario.LibroId, comentario);
             
             return Created();
         }
@@ -83,7 +83,7 @@ namespace Biblioteca_API.Controllers
             if (id != comentario.Id)
                 return BadRequest("Los ids de comentario deben coincidir");
 
-            await _comentarioServicio.Update(id, comentario);
+            await _comentarioServicio.UpdateAsync(comentario);
             return NoContent();
         }
 
@@ -125,7 +125,7 @@ namespace Biblioteca_API.Controllers
 
             comentario.Cuerpo = comentarioPatchDTO.Cuerpo;
 
-            await _comentarioServicio.Update(id,comentario);
+            await _comentarioServicio.UpdateAsync(comentario);
 
             return NoContent();
         }
@@ -147,7 +147,7 @@ namespace Biblioteca_API.Controllers
                 return Unauthorized();
             }
 
-            var comentarioDTO = await _comentarioServicio.GetById(id);
+            var comentarioDTO = await _comentarioServicio.GetByIdAsync(id);
 
             if (comentarioDTO is null)
             {
@@ -159,7 +159,7 @@ namespace Biblioteca_API.Controllers
                 return Forbid();
             }
 
-            bool estaBorrado = await _comentarioServicio.Delete(id);
+            bool estaBorrado = await _comentarioServicio.DeleteAsync(id);
 
             if (estaBorrado == false)
             {

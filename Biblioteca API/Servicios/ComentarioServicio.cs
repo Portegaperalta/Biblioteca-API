@@ -90,7 +90,7 @@ namespace Biblioteca_API.Servicios
                 throw new InvalidOperationException($"El libro con id: {comentario.LibroId} no existe");
             }
 
-            await _repositorioComentario.UpdateAsync(comentarioId, comentario);
+            await _repositorioComentario.UpdateAsync(comentario);
         }
 
         public async Task<bool> DeleteAsync(Guid comentarioId)
