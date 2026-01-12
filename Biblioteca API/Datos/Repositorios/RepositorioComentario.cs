@@ -43,13 +43,21 @@ namespace Biblioteca_API.Datos.Repositorios
             await _context.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteComentarioAsync(Guid comentarioId)
+        public async Task<bool> DeleteComentarioAsync(Guid comentarioId)
         {
-            var registrosBorrados = await _context.Comentarios
-                                   .Where(x => x.Id == comentarioId)
-                                   .ExecuteDeleteAsync();
+            var comentario = await _context.Comentarios
+                                           .Where(c => c.Id == comentarioId)
+                                           .FirstOrDefaultAsync();
+            
+            if (comentario is null)
+            {
+                return false;
+            }
+            
+            comentario.EstaBorrado = true;
+            await _context.SaveChangesAsync();
 
-            return registrosBorrados;
+            return true;
         }
 
         public async Task<bool> ExisteComentarioAsync(Guid comentarioId)
