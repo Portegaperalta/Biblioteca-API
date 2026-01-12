@@ -56,22 +56,19 @@ namespace Biblioteca_API.Controllers
         //POST comentario
         [HttpPost]
         [EndpointSummary("Crea un comentario")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> PostComentario([FromBody] Comentario comentario)
         {
-            bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
-
-            if (!existeLibro)
-                return NotFound();
-
-
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
-            if (usuario is null) 
-                return NotFound();
+            if (usuario is null)
+            {
+               return Unauthorized();
+            }
 
-            await _repositorioComentario.CreateComentarioAsync(comentario);
+            await _comentarioServicio.Create(comentario.LibroId, comentario);
+            
             return Created();
         }
 
