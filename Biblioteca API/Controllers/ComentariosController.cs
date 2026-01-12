@@ -106,7 +106,7 @@ namespace Biblioteca_API.Controllers
             if (usuario is null) 
                 return NotFound();
 
-            var comentario = await _repositorioComentario.GetComentarioAsync(id);
+            var comentario = await _comentarioServicio.GetEntityByIdAsync(id);
 
             if (comentario is null)
                 return NotFound("Comentario no encontrado");
@@ -125,7 +125,7 @@ namespace Biblioteca_API.Controllers
 
             comentario.Cuerpo = comentarioPatchDTO.Cuerpo;
 
-            await _repositorioComentario.UpdateComentarioAsync(id,comentario);
+            await _comentarioServicio.Update(id,comentario);
 
             return NoContent();
         }
