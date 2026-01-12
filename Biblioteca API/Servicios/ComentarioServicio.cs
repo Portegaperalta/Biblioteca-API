@@ -13,7 +13,7 @@ namespace Biblioteca_API.Servicios
             _repositorioComentario = repositorioComentario;
         }
 
-        public async Task<IEnumerable<ComentarioDTO>> GetAll(int libroId)
+        public async Task<IEnumerable<ComentarioDTO>> GetAllAsync(int libroId)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
 
@@ -35,7 +35,7 @@ namespace Biblioteca_API.Servicios
             return comentariosDTO;
         }
 
-        public async Task<ComentarioDTO?> GetById(Guid comentarioId)
+        public async Task<ComentarioDTO?> GetByIdAsync(Guid comentarioId)
         {
             var comentario = await _repositorioComentario.GetByIdAsync(comentarioId);
             
@@ -69,7 +69,7 @@ namespace Biblioteca_API.Servicios
             return comentario;
         }
 
-        public async Task Create(int libroId,Comentario comentario)
+        public async Task CreateAsync(int libroId,Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(libroId);
 
@@ -81,7 +81,7 @@ namespace Biblioteca_API.Servicios
             await _repositorioComentario.CreateAsync(comentario);
         }
 
-        public async Task Update(Comentario comentario)
+        public async Task UpdateAsync(Comentario comentario)
         {
             bool existeLibro = await _repositorioComentario.ExisteLibroAsync(comentario.LibroId);
 
@@ -93,7 +93,7 @@ namespace Biblioteca_API.Servicios
             await _repositorioComentario.UpdateAsync(comentarioId, comentario);
         }
 
-        public async Task<bool> Delete(Guid comentarioId)
+        public async Task<bool> DeleteAsync(Guid comentarioId)
         {
             bool estaBorrado = await _repositorioComentario.DeleteAsync(comentarioId);
 

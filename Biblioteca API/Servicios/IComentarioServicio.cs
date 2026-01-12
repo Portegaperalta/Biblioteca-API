@@ -5,11 +5,11 @@ namespace Biblioteca_API.Servicios
 {
     public interface IComentarioServicio
     {
-      Task<IEnumerable<ComentarioDTO>> GetAll(int libroId);
-      Task<ComentarioDTO?> GetById(Guid comentarioId);
+      Task<IEnumerable<ComentarioDTO>> GetAllAsync(int libroId);
+      Task<ComentarioDTO?> GetByIdAsync(Guid comentarioId);
       Task<Comentario?> GetEntityByIdAsync(Guid comentarioId);
-      Task Create(int libroId, Comentario comentario);
-      Task Update(Comentario comentario);
-      Task<bool> Delete(Guid comentarioId);
+      Task CreateAsync(int libroId, Comentario comentario);
+      Task UpdateAsync(Comentario comentario);
+      Task<bool> DeleteAsync(Guid comentarioId);
     }
 }
