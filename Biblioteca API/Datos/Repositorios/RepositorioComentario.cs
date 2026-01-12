@@ -12,7 +12,7 @@ namespace Biblioteca_API.Datos.Repositorios
             _context = context;
         }
 
-        public async Task<IEnumerable<Comentario>> GetComentariosDtoAsync(int libroId)
+        public async Task<IEnumerable<Comentario>> GetAllAsync(int libroId)
         {
             var comentarios = await _context.Comentarios
                               .Include(c => c.Usuario)
@@ -23,7 +23,7 @@ namespace Biblioteca_API.Datos.Repositorios
             return comentarios;
         }
 
-        public async Task<Comentario?> GetComentarioDtoByIdAsync(Guid comentarioId)
+        public async Task<Comentario?> GetByIdAsync(Guid comentarioId)
         {
             var comentario = await _context.Comentarios
                                    .Include(c => c.Usuario)
@@ -31,19 +31,19 @@ namespace Biblioteca_API.Datos.Repositorios
             return comentario;
         }
 
-        public async Task CreateComentarioAsync(Comentario comentario)
+        public async Task CreateAsync(Comentario comentario)
         {
             _context.Add(comentario);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateComentarioAsync(Guid comentarioId,Comentario comentario)
+        public async Task UpdateAsync(Guid comentarioId,Comentario comentario)
         {
             _context.Update(comentario);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> DeleteComentarioAsync(Guid comentarioId)
+        public async Task<bool> DeleteAsync(Guid comentarioId)
         {
             var comentario = await _context.Comentarios
                                            .Where(c => c.Id == comentarioId)
