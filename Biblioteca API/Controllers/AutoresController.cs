@@ -71,6 +71,7 @@ namespace Biblioteca_API.Controllers
         {
             await _autorServicio.CreateAutorAsync(autorCreacionDto);
             await _outputCacheStore.EvictByTagAsync(cache, default);
+            
             return Created();
         }
 
@@ -95,6 +96,8 @@ namespace Biblioteca_API.Controllers
             }
 
             await _autorServicio.UpdateAutorAsync(autorPutDto);
+            await _outputCacheStore.EvictByTagAsync(cache, default);
+
             return NoContent();
         }
 
@@ -150,6 +153,8 @@ namespace Biblioteca_API.Controllers
             bool autorEliminado = await _autorServicio.DeleteAutorAsync(id);
             
             if (autorEliminado is false) return NotFound();
+
+            await _outputCacheStore.EvictByTagAsync(cache, default);
 
             return NoContent();
         }
