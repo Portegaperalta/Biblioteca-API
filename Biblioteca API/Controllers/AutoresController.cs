@@ -3,6 +3,7 @@ using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace Biblioteca_API.Controllers
 {
@@ -22,6 +23,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         [HttpGet("/listado-de-autores")]
         [AllowAnonymous]
+        [OutputCache]
         [EndpointSummary("Obtiene listado de autores")]
         public async Task<IEnumerable<AutorDTO>> Get([FromQuery] PaginacionDTO paginacionDTO)
         {
