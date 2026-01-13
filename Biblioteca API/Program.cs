@@ -14,14 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Area de servcios
 
-//builder.Services.AddOutputCache(opciones =>
-//{
-//    opciones.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
-//});
-
-builder.Services.AddStackExchangeRedisOutputCache(opciones =>
+builder.Services.AddOutputCache(opciones =>
 {
-    opciones.Configuration = builder.Configuration.GetConnectionString("Redis");
+    opciones.DefaultExpirationTimeSpan = TimeSpan.FromSeconds(15);
 });
 
 builder.Services.AddDataProtection();
