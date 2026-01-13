@@ -22,7 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddStackExchangeRedisOutputCache(opciones =>
 {
     opciones.Configuration = builder.Configuration.GetConnectionString("Redis");
-})
+});
 
 builder.Services.AddDataProtection();
 
