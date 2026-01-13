@@ -16,11 +16,14 @@ namespace Biblioteca_API.Controllers
     {
         private readonly IComentarioServicio _comentarioServicio;
         private readonly IUsuarioServicio _usuarioServicio;
+        private readonly IOutputCacheStore _outputCacheStore;
 
-        public ComentariosController(IComentarioServicio comentarioServicio,IUsuarioServicio usuarioServicio)
+        public ComentariosController(IComentarioServicio comentarioServicio,
+            IUsuarioServicio usuarioServicio,IOutputCacheStore outputCacheStore)
         {
             _comentarioServicio = comentarioServicio;
             _usuarioServicio = usuarioServicio;
+            _outputCacheStore = outputCacheStore;
         }
 
         //GET Comentarios
