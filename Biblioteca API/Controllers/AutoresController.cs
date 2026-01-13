@@ -13,10 +13,12 @@ namespace Biblioteca_API.Controllers
     public class AutoresController : ControllerBase
     {
         private readonly IAutorServicio _autorServicio;
+        private readonly IOutputCacheStore _outputCacheStore;
 
-        public AutoresController(IAutorServicio autorServicio)
+        public AutoresController(IAutorServicio autorServicio,IOutputCacheStore outputCacheStore)
         {
             _autorServicio = autorServicio;
+            _outputCacheStore = outputCacheStore;
         }
 
         // GET: api/autores
