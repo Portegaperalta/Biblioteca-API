@@ -17,6 +17,7 @@ namespace Biblioteca_API.Controllers
         private readonly IComentarioServicio _comentarioServicio;
         private readonly IUsuarioServicio _usuarioServicio;
         private readonly IOutputCacheStore _outputCacheStore;
+        private const string cache = "comentarios-obtener";
 
         public ComentariosController(IComentarioServicio comentarioServicio,
             IUsuarioServicio usuarioServicio,IOutputCacheStore outputCacheStore)
@@ -29,7 +30,7 @@ namespace Biblioteca_API.Controllers
         //GET Comentarios
         [HttpGet]
         [AllowAnonymous]
-        [OutputCache]
+        [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene todos los comentarios del libro")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -42,7 +43,7 @@ namespace Biblioteca_API.Controllers
         //GET comentario por id
         [HttpGet("{id:guid}", Name = "ObtenerComentario")]
         [AllowAnonymous]
-        [OutputCache]
+        [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene comentario por ID")]
         [EndpointDescription("Obtiene comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
