@@ -14,6 +14,7 @@ namespace Biblioteca_API.Controllers
     {
         private readonly IAutorServicio _autorServicio;
         private readonly IOutputCacheStore _outputCacheStore;
+        private const string cache = "autores-obtener" ;
 
         public AutoresController(IAutorServicio autorServicio,IOutputCacheStore outputCacheStore)
         {
@@ -25,7 +26,7 @@ namespace Biblioteca_API.Controllers
         [HttpGet]
         [HttpGet("/listado-de-autores")]
         [AllowAnonymous]
-        [OutputCache]
+        [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene listado de autores")]
         public async Task<IEnumerable<AutorDTO>> GetAll([FromQuery] PaginacionDTO paginacionDTO)
         {
@@ -35,7 +36,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/autores/id
         [HttpGet("{id:int}",Name ="ObtenerAutor")]
         [AllowAnonymous]
-        [OutputCache]
+        [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene autor por ID")]
         [EndpointDescription("Obtiene autor por ID incluyendo sus libros, si el autor no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType<AutorDTO>(StatusCodes.Status200OK)]
