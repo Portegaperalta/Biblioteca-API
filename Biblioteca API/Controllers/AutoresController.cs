@@ -70,6 +70,7 @@ namespace Biblioteca_API.Controllers
         public async Task<ActionResult> Post([FromForm] AutorCreacionDTO autorCreacionDto)
         {
             await _autorServicio.CreateAutorAsync(autorCreacionDto);
+            await _outputCacheStore.EvictByTagAsync(cache, default);
             return Created();
         }
 
