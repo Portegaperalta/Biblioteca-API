@@ -15,6 +15,7 @@ namespace Biblioteca_API.Controllers
         private readonly ILibroServicio _libroServicio;
         private readonly ITimeLimitedDataProtector _protectorLimitadoPorTiempo;
         private readonly IOutputCacheStore _outputCacheStore;
+        private const string cache = "libros-obtener";
 
         public LibrosController(ILibroServicio libroServicio, 
             IDataProtectionProvider protectionProvider, 
@@ -31,7 +32,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/libros
         [HttpGet]
         [AllowAnonymous]
-        [OutputCache]
+        [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene listado de libros")]
         public async Task<IEnumerable<LibroDTO>> GetAll([FromQuery] PaginacionDTO paginacionDTO)
         {
@@ -41,7 +42,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/libros/id
         [HttpGet("{id:int}",Name ="ObtenerLibro")]
         [AllowAnonymous]
-        [OutputCache]
+        [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene libro por ID")]
         [EndpointDescription("Obtiene libro por ID, si el libro no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -79,6 +80,8 @@ namespace Biblioteca_API.Controllers
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
         {
             await _libroServicio.CreateLibroAsync(libroCreacionDTO);
+            await _outputCacheStore.EvictByTagAsync(cache, default);
+
             return Created();
         }
 
@@ -96,6 +99,8 @@ namespace Biblioteca_API.Controllers
             }
 
             await _libroServicio.UpdateLibroAsync(id,libroPutDto);
+            await _outputCacheStore.EvictByTagAsync(cache, default);
+
             return NoContent();
         }
 
@@ -113,6 +118,8 @@ namespace Biblioteca_API.Controllers
             {
                 return NotFound();
             }
+
+            await _outputCacheStore.EvictByTagAsync(cache, default);
 
             return NoContent();
         }
