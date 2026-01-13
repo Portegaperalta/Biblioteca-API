@@ -75,7 +75,8 @@ namespace Biblioteca_API.Controllers
             }
 
             await _comentarioServicio.CreateAsync(comentario.LibroId, comentario);
-            
+            await _outputCacheStore.EvictByTagAsync(cache, default);
+
             return Created();
         }
 
@@ -91,6 +92,8 @@ namespace Biblioteca_API.Controllers
                 return BadRequest("Los ids de comentario deben coincidir");
 
             await _comentarioServicio.UpdateAsync(comentario);
+            await _outputCacheStore.EvictByTagAsync(cache, default);
+
             return NoContent();
         }
 
@@ -133,6 +136,7 @@ namespace Biblioteca_API.Controllers
             comentario.Cuerpo = comentarioPatchDTO.Cuerpo;
 
             await _comentarioServicio.UpdateAsync(comentario);
+            await _outputCacheStore.EvictByTagAsync(cache, default);
 
             return NoContent();
         }
@@ -172,6 +176,8 @@ namespace Biblioteca_API.Controllers
             {
                 return NotFound("Comentario no encontrado");
             }
+
+            await _outputCacheStore.EvictByTagAsync(cache, default);
 
             return NoContent();
         }
