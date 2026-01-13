@@ -28,7 +28,7 @@ namespace Biblioteca_API.Controllers
         [EndpointSummary("Obtiene todos los comentarios del libro")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetComentarios(int libroId)
+        public async Task<ActionResult<IEnumerable<ComentarioDTO>>> GetAll(int libroId)
         {
             var comentariosDTO = await _comentarioServicio.GetAllAsync(libroId);
             return Ok(comentariosDTO);
@@ -41,7 +41,7 @@ namespace Biblioteca_API.Controllers
         [EndpointDescription("Obtiene comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<ComentarioDTO>> GetComentario([FromRoute] Guid id)
+        public async Task<ActionResult<ComentarioDTO>> Get([FromRoute] Guid id)
         {
             var comentarioDTO = await _comentarioServicio.GetByIdAsync(id);
 
@@ -58,7 +58,7 @@ namespace Biblioteca_API.Controllers
         [EndpointSummary("Crea un comentario")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<ActionResult> PostComentario([FromBody] Comentario comentario)
+        public async Task<ActionResult> Post([FromBody] Comentario comentario)
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
@@ -78,7 +78,7 @@ namespace Biblioteca_API.Controllers
         [EndpointDescription("Actualiza comentario por ID, si el ID del comentario en la ruta no coincide con ID de comentario de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> PutComentario([FromRoute] Guid id, [FromBody] Comentario comentario)
+        public async Task<ActionResult> Put([FromRoute] Guid id, [FromBody] Comentario comentario)
         {
             if (id != comentario.Id)
                 return BadRequest("Los ids de comentario deben coincidir");
@@ -94,7 +94,7 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> PatchComentario([FromRoute] Guid id, [FromBody] JsonPatchDocument<ComentarioPatchDTO> patchDoc)
+        public async Task<ActionResult> Patch([FromRoute] Guid id, [FromBody] JsonPatchDocument<ComentarioPatchDTO> patchDoc)
         {
             if (patchDoc is null)
             {
@@ -138,7 +138,7 @@ namespace Biblioteca_API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> DeleteComentario([FromRoute] Guid id)
+        public async Task<ActionResult> Delete([FromRoute] Guid id)
         {
             var usuario = await _usuarioServicio.ObtenerUsuario();
 
