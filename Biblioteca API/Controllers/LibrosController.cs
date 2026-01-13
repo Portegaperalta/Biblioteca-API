@@ -14,13 +14,18 @@ namespace Biblioteca_API.Controllers
     {
         private readonly ILibroServicio _libroServicio;
         private readonly ITimeLimitedDataProtector _protectorLimitadoPorTiempo;
+        private readonly IOutputCacheStore _outputCacheStore;
 
-        public LibrosController(ILibroServicio libroServicio,IDataProtectionProvider protectionProvider)
+        public LibrosController(ILibroServicio libroServicio, 
+            IDataProtectionProvider protectionProvider, 
+            IOutputCacheStore outputCacheStore)
         {
             _libroServicio = libroServicio;
             _protectorLimitadoPorTiempo = protectionProvider
                                          .CreateProtector("LibrosController")
                                          .ToTimeLimitedDataProtector();
+
+            _outputCacheStore = outputCacheStore;
         }
 
         // GET: api/libros
