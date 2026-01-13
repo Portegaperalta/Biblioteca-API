@@ -3,6 +3,7 @@ using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace Biblioteca_API.Controllers
 {
@@ -25,6 +26,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/libros
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache]
         [EndpointSummary("Obtiene listado de libros")]
         public async Task<IEnumerable<LibroDTO>> GetAll([FromQuery] PaginacionDTO paginacionDTO)
         {
@@ -34,6 +36,7 @@ namespace Biblioteca_API.Controllers
         // GET: api/libros/id
         [HttpGet("{id:int}",Name ="ObtenerLibro")]
         [AllowAnonymous]
+        [OutputCache]
         [EndpointSummary("Obtiene libro por ID")]
         [EndpointDescription("Obtiene libro por ID, si el libro no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status200OK)]
