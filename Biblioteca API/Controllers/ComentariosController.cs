@@ -5,6 +5,7 @@ using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace Biblioteca_API.Controllers
 {
@@ -25,6 +26,7 @@ namespace Biblioteca_API.Controllers
         //GET Comentarios
         [HttpGet]
         [AllowAnonymous]
+        [OutputCache]
         [EndpointSummary("Obtiene todos los comentarios del libro")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -37,6 +39,7 @@ namespace Biblioteca_API.Controllers
         //GET comentario por id
         [HttpGet("{id:guid}", Name = "ObtenerComentario")]
         [AllowAnonymous]
+        [OutputCache]
         [EndpointSummary("Obtiene comentario por ID")]
         [EndpointDescription("Obtiene comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
