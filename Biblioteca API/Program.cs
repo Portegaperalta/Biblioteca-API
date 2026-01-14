@@ -42,7 +42,10 @@ builder.Services.AddCors(opciones =>
     });
 });
 
-builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddControllers(opciones =>
+{
+    opciones.Conventions.Add(new ConvencionAgrupaPorVersion());
+}).AddNewtonsoftJson();
 
 builder.Services.AddScoped<LibroMapper>();
 builder.Services.AddScoped<AutorMapper>();
