@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.OutputCaching;
 namespace Biblioteca_API.Controllers.V1
 {
     [ApiController]
-    [Route("api/libros")]
+    [Route("api/v1/libros")]
     [Authorize(Policy = "esAdmin")]
     public class LibrosController : ControllerBase
     {

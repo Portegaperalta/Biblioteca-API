@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Biblioteca_API.Controllers.V1
 {
-    [Route("api/usuarios")]
+    [Route("api/v1/usuarios")]
     [ApiController]
     public class UsuariosController : ControllerBase
     {

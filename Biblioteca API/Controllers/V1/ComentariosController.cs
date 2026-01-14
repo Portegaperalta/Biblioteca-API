@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.OutputCaching;
 namespace Biblioteca_API.Controllers.V1
 {
     [ApiController]
-    [Route("api/libros/{libroId:int}/comentarios")]
+    [Route("api/v1/libros/{libroId:int}/comentarios")]
     [Authorize]
     public class ComentariosController : ControllerBase
     {
