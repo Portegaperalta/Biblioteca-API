@@ -25,6 +25,7 @@ namespace Biblioteca_API.Servicios
             var comentarios = await _repositorioComentario.GetAllAsync(libroId);
             var comentariosDTO = comentarios.Select(c => new ComentarioDTO
             {
+                Id = c.Id,
                 UsuarioId = c.UsuarioId,
                 Usuario = c.Autor,
                 UsuarioEmail = c.Usuario!.Email!,
