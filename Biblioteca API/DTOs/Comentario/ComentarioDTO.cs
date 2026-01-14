@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Biblioteca_API.DTOs.HATEOAS;
 
 namespace Biblioteca_API.DTOs.Comentario
 {
-    public class ComentarioDTO
+    public class ComentarioDTO : RecursoDTO
     {
         public Guid Id { get; set; }
 
