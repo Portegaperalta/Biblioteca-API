@@ -48,11 +48,6 @@ namespace Biblioteca_API.Controllers.V1
                 Metodo: "GET"));
 
             datosHateoas.Add(new DatosHATEOASDTO(
-                Enlace: Url.Link("CrearComentarioV1", new { })!,
-                Descripcion: "comentario-crear",
-                Metodo: "POST"));
-
-            datosHateoas.Add(new DatosHATEOASDTO(
                 Enlace: Url.Link("RegistrarUsuarioV1", new { })!,
                 Descripcion: "usuario-registrar",
                 Metodo: "POST"));
@@ -62,10 +57,19 @@ namespace Biblioteca_API.Controllers.V1
                 Descripcion: "usuario-login",
                 Metodo: "POST"));
 
-            datosHateoas.Add(new DatosHATEOASDTO(
+            //Acciones que solo usuarios autenticados pueden realizar
+            if (User.Identity!.IsAuthenticated)
+            {
+                datosHateoas.Add(new DatosHATEOASDTO(
+                Enlace: Url.Link("CrearComentarioV1", new { })!,
+                Descripcion: "comentario-crear",
+                Metodo: "POST"));
+
+                datosHateoas.Add(new DatosHATEOASDTO(
                 Enlace: Url.Link("RenovarTokenV1", new { })!,
                 Descripcion: "token-renovar",
                 Metodo: "GET"));
+            }
 
             //Acciones que solo usuarios admin puede realizar
 
@@ -85,12 +89,12 @@ namespace Biblioteca_API.Controllers.V1
                 Enlace: Url.Link("ObtenerUsuariosV1", new { })!,
                 Descripcion: "usuarios-obtener",
                 Metodo: "GET"));
-            }
 
-            datosHateoas.Add(new DatosHATEOASDTO(
+                datosHateoas.Add(new DatosHATEOASDTO(
                 Enlace: Url.Link("HacerAdminV1", new { })!,
                 Descripcion: "admin-hacer",
                 Metodo: "POST"));
+            }
 
             return datosHateoas;
         }
