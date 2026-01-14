@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 
-namespace Biblioteca_API.Controllers
+namespace Biblioteca_API.Controllers.V1
 {
     [ApiController]
     [Route("api/libros")]

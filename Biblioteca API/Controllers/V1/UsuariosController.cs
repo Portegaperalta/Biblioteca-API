@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Biblioteca_API.Controllers
+namespace Biblioteca_API.Controllers.V1
 {
     [Route("api/usuarios")]
     [ApiController]
