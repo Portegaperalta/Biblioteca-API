@@ -46,6 +46,34 @@ namespace Biblioteca_API.Controllers.V1
                 Enlace: Url.Link("CrearComentarioV1", new { })!,
                 Descripcion: "comentario-crear",
                 Metodo: "POST"));
+
+            datosHateoas.Add(new DatosHATEOASDTO(
+                Enlace: Url.Link("ObtenerUsuariosV1", new { })!,
+                Descripcion: "usuarios-obtener",
+                Metodo: "GET"));
+
+            datosHateoas.Add(new DatosHATEOASDTO(
+                Enlace: Url.Link("RegistrarUsuarioV1", new { })!,
+                Descripcion: "usuario-registrar",
+                Metodo: "POST"));
+
+            datosHateoas.Add(new DatosHATEOASDTO(
+                Enlace: Url.Link("LoginUsuarioV1", new { })!,
+                Descripcion: "usuario-login",
+                Metodo: "POST"));
+
+            datosHateoas.Add(new DatosHATEOASDTO(
+                Enlace: Url.Link("RenovarTokenV1", new { })!,
+                Descripcion: "token-renovar",
+                Metodo: "GET"));
+
+            datosHateoas.Add(new DatosHATEOASDTO(
+                Enlace: Url.Link("HacerAdminV1", new { })!,
+                Descripcion: "admin-hacer",
+                Metodo: "POST"));
+
+            return datosHateoas;
+
             return datosHateoas;
         }
     }
