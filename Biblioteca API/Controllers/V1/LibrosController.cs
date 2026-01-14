@@ -1,4 +1,5 @@
 ﻿using Biblioteca_API.DTOs;
+using Biblioteca_API.DTOs.Autor;
 using Biblioteca_API.DTOs.Libro;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
@@ -18,8 +19,8 @@ namespace Biblioteca_API.Controllers.V1
         private readonly IOutputCacheStore _outputCacheStore;
         private const string cache = "libros-obtener";
 
-        public LibrosController(ILibroServicio libroServicio, 
-            IDataProtectionProvider protectionProvider, 
+        public LibrosController(ILibroServicio libroServicio,
+            IDataProtectionProvider protectionProvider,
             IOutputCacheStore outputCacheStore)
         {
             _libroServicio = libroServicio;
@@ -41,14 +42,14 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         // GET: api/v1/libros/id
-        [HttpGet("{id:int}",Name ="ObtenerLibroV1")]
+        [HttpGet("{id:int}", Name = "ObtenerLibroV1")]
         [AllowAnonymous]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene libro por ID")]
         [EndpointDescription("Obtiene libro por ID, si el libro no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<LibroDTO>> Get([FromRoute]int id, [FromQuery]bool incluyeAutor)
+        public async Task<ActionResult<LibroDTO>> Get([FromRoute] int id, [FromQuery] bool incluyeAutor)
         {
             var libro = await _libroServicio.GetLibroAsync(id);
 
@@ -70,8 +71,9 @@ namespace Biblioteca_API.Controllers.V1
             }
 
             var libroDto = await _libroServicio.GetLibroDtoAsync(id);
+            GenerarEnlaces(libroDto!);
 
-            return libroDto;
+            return libroDto!;
         }
 
         // POST: api/v1/libros
@@ -92,7 +94,7 @@ namespace Biblioteca_API.Controllers.V1
         [EndpointDescription("Actualiza libro por ID, si el ID del libro en la ruta no coincide con ID de libro de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> Put([FromRoute]int id,[FromForm] LibroPutDTO libroPutDto)
+        public async Task<ActionResult> Put([FromRoute] int id, [FromForm] LibroPutDTO libroPutDto)
         {
             if (id != libroPutDto.Id)
             {
@@ -111,7 +113,7 @@ namespace Biblioteca_API.Controllers.V1
         [EndpointDescription("Elimina comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult> Delete([FromRoute]int id)
+        public async Task<ActionResult> Delete([FromRoute] int id)
         {
             int registrosBorrados = await _libroServicio.DeleteLibroAsync(id);
 
@@ -124,5 +126,29 @@ namespace Biblioteca_API.Controllers.V1
 
             return NoContent();
         }
-    }
+
+    private void GenerarEnlaces(LibroDTO libroDTO)
+        {
+            libroDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("ObtenerLibroV1",
+                                          new { id = libroDTO.Id })!,
+                                          Descripcion: "self",
+                                          Metodo: "GET"));
+
+            libroDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("ActualizarLibroV1",
+                                          new { id = libroDTO.Id })!,
+                                          Descripcion: "libro-actualizar",
+                                          Metodo: "PUT"));
+
+            libroDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("BorrarLibroV1",
+                                          new { id = libroDTO.Id })!,
+                                          Descripcion: "libro-borrar",
+                                          Metodo: "DELETE"));
+        }
+    } 
 }
