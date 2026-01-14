@@ -1,4 +1,5 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
+using Biblioteca_API.DTOs.Autor;
 using Biblioteca_API.DTOs.Comentario;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Servicios;
@@ -56,7 +57,9 @@ namespace Biblioteca_API.Controllers.V1
             {
                 return NotFound("El comentario no existe");
             }
-                
+
+            GenerarEnlaces(comentarioDTO);
+
             return comentarioDTO;
         }
 
@@ -180,6 +183,30 @@ namespace Biblioteca_API.Controllers.V1
             await _outputCacheStore.EvictByTagAsync(cache, default);
 
             return NoContent();
+        }
+
+        private void GenerarEnlaces(ComentarioDTO comentarioDTO)
+        {
+            comentarioDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("ObtenerComentariosV1",
+                                          new { id = comentarioDTO.Id })!,
+                                          Descripcion: "self",
+                                          Metodo: "GET"));
+
+            comentarioDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("ActualizarComentarioV1",
+                                          new { id = comentarioDTO.Id })!,
+                                          Descripcion: "comentario-actualizar",
+                                          Metodo: "PUT"));
+
+            comentarioDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("BorrarComentarioV1",
+                                          new { id = comentarioDTO.Id })!,
+                                          Descripcion: "comentario-borrar",
+                                          Metodo: "DELETE"));
         }
     }
 }
