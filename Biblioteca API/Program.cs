@@ -5,6 +5,7 @@ using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 using Biblioteca_API.Servicios;
 using Biblioteca_API.Swagger;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -122,6 +123,19 @@ builder.Services.AddSwaggerGen(opciones =>
 var app = builder.Build();
 
 //Area de middlewares
+
+app.UseExceptionHandler(exceptionHandlerApp => exceptionHandlerApp.Run(async context =>
+{
+    var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+    var excepcion = exceptionHandlerFeature?.Error!;
+
+    var error = new Error()
+    {
+        MensajeError = excepcion.Message,
+        StrackTrace = excepcion.StackTrace,
+        Fecha = DateTime.UtcNow
+    };
+}));
 
 app.UseSwagger();
 app.UseSwaggerUI();
