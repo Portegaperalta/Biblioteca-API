@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Biblioteca_API.Validaciones;
 
-namespace Biblioteca_API.DTOs
+namespace Biblioteca_API.DTOs.Autor
 {
-    public class AutorPutDTO
+    public class AutorPatchDTO
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [StringLength(150, ErrorMessage = "El campo {0} debe tener {1} caracteres o menos")]
         [PrimeraLetraMayuscula]
@@ -20,6 +17,6 @@ namespace Biblioteca_API.DTOs
 
         [StringLength(20, ErrorMessage = "El campo {0} debe tener {1} caracteres o menos")]
         public string? Identificacion { get; set; }
-        public IFormFile? Foto { get; set; }
+        public string? Foto { get; set; }
     }
 }

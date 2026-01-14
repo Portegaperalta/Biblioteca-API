@@ -1,5 +1,5 @@
 ﻿using Biblioteca_API.Datos.Repositorios;
-using Biblioteca_API.DTOs;
+using Biblioteca_API.DTOs.Comentario;
 using Biblioteca_API.Entidades;
 
 namespace Biblioteca_API.Servicios

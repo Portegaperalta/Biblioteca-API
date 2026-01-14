@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 using Biblioteca_API.DTOs;
+using Biblioteca_API.DTOs.Usuario;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;

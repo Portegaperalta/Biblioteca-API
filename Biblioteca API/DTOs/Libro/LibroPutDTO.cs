@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Biblioteca_API.Entidades;
 
-namespace Biblioteca_API.DTOs
+namespace Biblioteca_API.DTOs.Libro
 {
     public class LibroPutDTO
     {

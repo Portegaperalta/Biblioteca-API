@@ -1,4 +1,4 @@
-﻿namespace Biblioteca_API.DTOs
+﻿namespace Biblioteca_API.DTOs.Autor
 {
     public class AutorFiltroDTO
     {

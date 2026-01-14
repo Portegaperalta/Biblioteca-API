@@ -1,6 +1,7 @@
-﻿using Biblioteca_API.Entidades;
+﻿using Biblioteca_API.DTOs.Libro;
+using Biblioteca_API.Entidades;
 
-namespace Biblioteca_API.DTOs
+namespace Biblioteca_API.DTOs.Autor
 {
     public class AutorDTO
     {

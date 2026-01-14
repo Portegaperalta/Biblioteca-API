@@ -1,5 +1,5 @@
 ﻿using Biblioteca_API.Datos;
-using Biblioteca_API.DTOs;
+using Biblioteca_API.DTOs.Usuario;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 using Microsoft.AspNetCore.Identity;

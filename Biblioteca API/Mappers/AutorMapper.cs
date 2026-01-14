@@ -1,4 +1,5 @@
-﻿using Biblioteca_API.DTOs;
+﻿using Biblioteca_API.DTOs.Autor;
+using Biblioteca_API.DTOs.Libro;
 using Biblioteca_API.Entidades;
 
 namespace Biblioteca_API.Mappers

@@ -1,4 +1,4 @@
-﻿namespace Biblioteca_API.DTOs
+﻿namespace Biblioteca_API.DTOs.Usuario
 {
     public class UsuarioActualizarDTO
     {

@@ -1,4 +1,5 @@
 ﻿using Biblioteca_API.DTOs;
+using Biblioteca_API.DTOs.Libro;
 using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;

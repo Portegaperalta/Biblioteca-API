@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.DTOs;
+using Biblioteca_API.DTOs.Libro;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 
