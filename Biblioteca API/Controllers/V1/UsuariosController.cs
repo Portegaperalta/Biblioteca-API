@@ -35,7 +35,7 @@ namespace Biblioteca_API.Controllers.V1
             _usuarioServicio = usuarioServicio;
         }
 
-        [HttpGet]
+        [HttpGet(Name = "ObtenerUsuariosV1")]
         [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Obtiene lista de usuarios")]
         public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetAll()
@@ -44,7 +44,7 @@ namespace Biblioteca_API.Controllers.V1
             return Ok(usuarios);
         }
 
-        [HttpPost("registro")]
+        [HttpPost("registro", Name = "RegistrarUsuarioV1")]
         [EndpointSummary("Crea un usuario")]
         public async Task<ActionResult<RespuestaAutenticacionDto>> Registrar
             (CredencialesUsuarioDTO credencialesUsuario)
@@ -72,7 +72,7 @@ namespace Biblioteca_API.Controllers.V1
             }
         }
 
-        [HttpPost("login")]
+        [HttpPost("login", Name = "LoginUsuarioV1")]
         [EndpointSummary("Permite login de usuario")]
         public async Task<ActionResult<RespuestaAutenticacionDto>> Login
             (CredencialesUsuarioDTO credencialesUsuario)
@@ -113,7 +113,7 @@ namespace Biblioteca_API.Controllers.V1
             return NoContent();
         }
 
-        [HttpGet("renovar-token")]
+        [HttpGet("renovar-token", Name = "RenovarTokenV1")]
         [Authorize]
         [EndpointSummary("Renueva Token")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -134,7 +134,7 @@ namespace Biblioteca_API.Controllers.V1
             return respuestaAutenticacion;
         }
 
-        [HttpPost("hacer-admin")]
+        [HttpPost("hacer-admin", Name = "HacerAdminV1")]
         [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Accede permisos de admin a usuario")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
