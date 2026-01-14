@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Biblioteca_API.DTOs.HATEOAS;
 
 namespace Biblioteca_API.DTOs.Libro
 {
-    public class LibroDTO
+    public class LibroDTO : RecursoDTO
     {
         public int Id { get; set; }
 
