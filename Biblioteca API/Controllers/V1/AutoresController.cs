@@ -51,6 +51,8 @@ namespace Biblioteca_API.Controllers.V1
                 return NotFound();
             }
 
+            GenerarEnlaces(autorDto);
+
             return autorDto;
         }
 
@@ -158,6 +160,30 @@ namespace Biblioteca_API.Controllers.V1
             await _outputCacheStore.EvictByTagAsync(cache, default);
 
             return NoContent();
+        }
+
+        private void GenerarEnlaces(AutorDTO autorDTO)
+        {
+            autorDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("ObtenerAutorV1",
+                                          new { id = autorDTO.Id })!,
+                                          Descripcion: "self",
+                                          Metodo: "GET"));
+
+            autorDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("ActualizarAutorV1",
+                                          new { id = autorDTO.Id })!,
+                                          Descripcion: "autor-actualizar",
+                                          Metodo: "PUT"));
+
+            autorDTO.Enlaces.Add(new DTOs.HATEOAS.DatosHATEOASDTO
+                                         (
+                                          Enlace: Url.Link("BorrarAutorV1",
+                                          new { id = autorDTO.Id })!,
+                                          Descripcion: "autor-borrar",
+                                          Metodo: "DELETE"));
         }
     }
 }
