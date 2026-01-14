@@ -28,7 +28,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         //GET Comentarios
-        [HttpGet]
+        [HttpGet(Name = "ObtenerComentariosV1")]
         [AllowAnonymous]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene todos los comentarios del libro")]
@@ -61,7 +61,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         //POST comentario
-        [HttpPost]
+        [HttpPost(Name = "CrearComentarioV1")]
         [EndpointSummary("Crea un comentario")]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -81,7 +81,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         //PUT comentario
-        [HttpPut("{id:guid}")]
+        [HttpPut("{id:guid}", Name = "ActualizarComentarioV1")]
         [EndpointSummary("Actualiza un comentario por ID")]
         [EndpointDescription("Actualiza comentario por ID, si el ID del comentario en la ruta no coincide con ID de comentario de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -98,7 +98,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         //PATCH comentario
-        [HttpPatch("{id:guid}")]
+        [HttpPatch("{id:guid}", Name = "PatchComentarioV1")]
         [EndpointSummary("Actualiza parcialmente comentario por ID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -142,7 +142,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         //DELETE comentario
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("{id:guid}", Name = "BorrarComentarioV1")]
         [EndpointSummary("Elimina comentario por ID")]
         [EndpointDescription("Elimina comentario por ID, si el comentario o el usuario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

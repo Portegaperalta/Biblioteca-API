@@ -31,7 +31,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         // GET: api/v1/libros
-        [HttpGet]
+        [HttpGet(Name = "ObtenerLibrosV1")]
         [AllowAnonymous]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene listado de libros")]
@@ -75,7 +75,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         // POST: api/v1/libros
-        [HttpPost]
+        [HttpPost(Name = "CrearLibroV1")]
         [EndpointSummary("Crea un libro")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
@@ -87,7 +87,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         // PUT: api/v1/libros/id
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}", Name = "ActualizarLibroV1")]
         [EndpointSummary("Actualiza libro por ID")]
         [EndpointDescription("Actualiza libro por ID, si el ID del libro en la ruta no coincide con ID de libro de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -106,7 +106,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         // DELETE: api/v1/libros/id
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int}", Name = "BorrarLibroV1")]
         [EndpointSummary("Elimina libro por ID")]
         [EndpointDescription("Elimina comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
