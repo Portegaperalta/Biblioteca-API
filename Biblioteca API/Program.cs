@@ -135,6 +135,17 @@ app.UseExceptionHandler(exceptionHandlerApp => exceptionHandlerApp.Run(async con
         StrackTrace = excepcion.StackTrace,
         Fecha = DateTime.UtcNow
     };
+
+    var dbContext = context.RequestServices.GetRequiredService<ApplicationDbContext>();
+    dbContext.Add(error);
+    await dbContext.SaveChangesAsync();
+    await Results.InternalServerError(new 
+    { 
+        tipo = "error",
+        mensaje = "Ha ocurrido un error inesperado",
+        estatus = 500 
+    }).ExecuteAsync(context);
+
 }));
 
 app.UseSwagger();
