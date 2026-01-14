@@ -41,7 +41,7 @@ namespace Biblioteca_API.Controllers.V1
         }
 
         //GET comentario por id
-        [HttpGet("{id:guid}", Name = "ObtenerComentario")]
+        [HttpGet("{id:guid}", Name = "ObtenerComentarioV1")]
         [AllowAnonymous]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene comentario por ID")]
