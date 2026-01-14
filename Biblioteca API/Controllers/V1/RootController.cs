@@ -7,7 +7,7 @@ namespace Biblioteca_API.Controllers.V1
     [Route("api/v1")]
     public class RootController : ControllerBase
     {
-        [HttpGet("ObtenerRootV1")]
+        [HttpGet("ObtenerRootV1",Name = "ObtenerRootV1")]
         public IEnumerable<DatosHATEOASDTO> Get()
         {
             var datosHateoas = new List<DatosHATEOASDTO>();
@@ -38,7 +38,7 @@ namespace Biblioteca_API.Controllers.V1
                 Metodo: "POST"));
 
             datosHateoas.Add(new DatosHATEOASDTO(
-                Enlace: Url.Link("ObtenerComentariosV1", new { })!,
+                Enlace: Url.Link("ObtenerComentariosV1", new {libroId = 1 })!,
                 Descripcion: "comentarios-obtener",
                 Metodo: "GET"));
 
