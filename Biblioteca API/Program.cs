@@ -149,7 +149,10 @@ app.UseExceptionHandler(exceptionHandlerApp => exceptionHandlerApp.Run(async con
 }));
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(opciones =>
+{
+    opciones.SwaggerEndpoint("/swagger/v1/swagger.json", "Biblioteca API V1");
+});
 
 app.UseStaticFiles();
 
