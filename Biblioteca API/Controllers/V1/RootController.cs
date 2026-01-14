@@ -73,8 +73,6 @@ namespace Biblioteca_API.Controllers.V1
                 Metodo: "POST"));
 
             return datosHateoas;
-
-            return datosHateoas;
         }
     }
 }
