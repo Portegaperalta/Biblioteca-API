@@ -26,7 +26,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Validaciones
 
         [TestMethod]
         [DataRow("texto")]
-        public void IsValid_RetornaValidationResult_siPrimeraLetraNoMayuscula(string value)
+        public void IsValid_RetornaValidationResult_siValueTienePrimeraLetraMinuscula(string value)
         {
             //Preparacion
             var primeraLetraMayusculaAttribute = new PrimeraLetraMayusculaAttribute();
