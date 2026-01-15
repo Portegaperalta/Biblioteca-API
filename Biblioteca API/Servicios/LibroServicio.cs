@@ -21,6 +21,12 @@ namespace Biblioteca_API.Servicios
         public async Task<Libro?> GetLibroAsync(int libroId)
         {
             var libro = await _repositorioLibro.GetLibroAsync(libroId);
+
+            if (libro is null)
+            {
+                return null;
+            }
+            
             return libro;
         }
 
