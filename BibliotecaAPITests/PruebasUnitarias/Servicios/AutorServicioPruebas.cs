@@ -19,12 +19,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Servicios
             return new RepositorioAutor(context);
         }
 
-        protected AutorServicio ConstruirAutorServicio(IRepositorioAutor repositorioAutor, AutorMapper autorMapper,
-                             IAlmacenadorArchivos almacenadorArchivos, ILogger<AutorServicio> logger)
-        {
-            return new AutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
-        }
-
         protected AutorMapper ConstruirMapper()
         {
             return new AutorMapper();
