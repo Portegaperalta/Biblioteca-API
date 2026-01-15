@@ -12,10 +12,10 @@ namespace BibliotecaAPITests.Utilidades
     {
         protected ApplicationDbContext ConstruirContext(string nombreBD)
         {
-            var opcioones = new DbContextOptionsBuilder<ApplicationDbContext>()
+            var opciones = new DbContextOptionsBuilder<ApplicationDbContext>()
                                 .UseInMemoryDatabase(nombreBD).Options;
 
-            var dbContext = new ApplicationDbContext(opcioones);
+            var dbContext = new ApplicationDbContext(opciones);
             return dbContext;
         }
     }
