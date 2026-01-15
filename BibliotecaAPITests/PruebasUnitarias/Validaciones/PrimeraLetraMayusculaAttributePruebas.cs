@@ -10,6 +10,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Validaciones
         [DataRow("")]
         [DataRow("  ")]
         [DataRow(null)]
+        [DataRow("Texto")]
         public void IsValid_RetornaExitoso_siValueEsVacioONull(string value)
         {
             //Preparacion
@@ -36,21 +37,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Validaciones
 
             //Verificacion
             Assert.AreEqual(expected: "La primera letra debe ser Mayuscula", resultado!.ErrorMessage);
-        }
-
-        [TestMethod]
-        [DataRow("Texto")]
-        public void IsValid_RetornaExitoso_siPrimeraLetraMayuscula(string value)
-        {
-            //Preparacion
-            var primeraLetraMayusculaAttribute = new PrimeraLetraMayusculaAttribute();
-            var validationContext = new ValidationContext(new object { });
-
-            //Prueba
-            var resultado = primeraLetraMayusculaAttribute.GetValidationResult(value, validationContext);
-
-            //Verificacion
-            Assert.AreEqual(expected: ValidationResult.Success, actual: resultado);
         }
     }
 }
