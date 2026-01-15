@@ -11,7 +11,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Validaciones
         [DataRow("  ")]
         [DataRow(null)]
         [DataRow("Texto")]
-        public void IsValid_RetornaExitoso_siValueEsVacioONull(string value)
+        public void IsValid_RetornaExitoso_siValueNoTienePrimeraLetraMinuscula(string value)
         {
             //Preparacion
             var primeraLetraMayusculaAttribute = new PrimeraLetraMayusculaAttribute();
