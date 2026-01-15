@@ -169,5 +169,54 @@ namespace BibliotecaAPITests.PruebasUnitarias.Servicios
             //Validacion
             Assert.AreEqual(expected: 1, actual: resultado!.Id);
         }
+
+        [TestMethod]
+        [DataRow(1)]
+        public async Task DeleteAutorAsync_RetornaFalso_CuandoAutorNoExiste(int autorId)
+        {
+            
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+
+            var autorServicio = new AutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+
+            //Prueba
+            var resultado = await autorServicio.DeleteAutorAsync(autorId);
+
+            //Validacion
+            Assert.AreEqual(expected: false, actual: resultado);
+        }
+
+        [TestMethod]
+        [DataRow(1)]
+        public async Task DeleteAutorAsync_RetornaTrue_CuandoAutorExisteYEsEliminado(int autorId)
+        {
+            
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+
+            context.Add(new Autor{Nombres = "Ernest",Apellidos = "Hemingway",});
+            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
+
+            await context.SaveChangesAsync();
+
+            var autorServicio = new AutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+
+            //Prueba
+            var resultado = await autorServicio.DeleteAutorAsync(autorId);
+
+            //Validacion
+            Assert.AreEqual(expected: true, actual: resultado);
+        }
     }
 }
