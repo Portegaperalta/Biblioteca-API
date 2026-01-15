@@ -24,13 +24,12 @@ namespace BibliotecaAPITests.PruebasUnitarias.Validaciones
         }
 
         [TestMethod]
-        public void IsValid_RetornaValidationResult_siPrimeraLetraNoMayuscula()
+        [DataRow("texto")]
+        public void IsValid_RetornaValidationResult_siPrimeraLetraNoMayuscula(string value)
         {
             //Preparacion
             var primeraLetraMayusculaAttribute = new PrimeraLetraMayusculaAttribute();
             var validationContext = new ValidationContext(new object { });
-            var text = "text";
-            var value = text[0];
 
             //Prueba
             var resultado = primeraLetraMayusculaAttribute.GetValidationResult(value, validationContext);
@@ -40,13 +39,12 @@ namespace BibliotecaAPITests.PruebasUnitarias.Validaciones
         }
 
         [TestMethod]
-        public void IsValid_RetornaExitoso_siPrimeraLetraMayuscula()
+        [DataRow("Texto")]
+        public void IsValid_RetornaExitoso_siPrimeraLetraMayuscula(string value)
         {
             //Preparacion
             var primeraLetraMayusculaAttribute = new PrimeraLetraMayusculaAttribute();
             var validationContext = new ValidationContext(new object { });
-            var text = "Text";
-            var value = text[0];
 
             //Prueba
             var resultado = primeraLetraMayusculaAttribute.GetValidationResult(value, validationContext);
