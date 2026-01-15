@@ -22,24 +22,5 @@ namespace BibliotecaAPITests.Utilidades
             var dbContext = new ApplicationDbContext(opciones);
             return dbContext;
         }
-
-        protected RepositorioAutor ConstruirRepositorioAutor(ApplicationDbContext context)
-        {
-            var repositorioAutor = new RepositorioAutor(context);
-            return repositorioAutor;
-        }
-
-        protected AutorServicio ConstruirAutorServicio(IRepositorioAutor repositorioAutor, AutorMapper autorMapper,
-                             IAlmacenadorArchivos almacenadorArchivos, ILogger<AutorServicio> logger)
-        {
-            var autorServicio = new AutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
-            return autorServicio;
-        }
-
-        protected AutorMapper ConstruirMapper()
-        {
-            var autorMapper = new AutorMapper();
-            return autorMapper;
-        }
     }
 }
