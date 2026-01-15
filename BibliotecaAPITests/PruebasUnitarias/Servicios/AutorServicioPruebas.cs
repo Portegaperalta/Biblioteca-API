@@ -1,5 +1,6 @@
 ﻿using Biblioteca_API.Datos;
 using Biblioteca_API.Datos.Repositorios;
+using Biblioteca_API.DTOs;
 using Biblioteca_API.DTOs.Autor;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
@@ -29,6 +30,39 @@ namespace BibliotecaAPITests.PruebasUnitarias.Servicios
             return new AutorMapper();
         }
 
+        [TestMethod]
+        public async Task  GetAutoresDtoAsync_RetornaIenumerableAutorDTO()
+        {
+             //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+
+            context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
+            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
+
+            await context.SaveChangesAsync();
+
+            var autorServicio = new AutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+            var autor1 = await autorServicio.GetAutorDtoAsync(1);
+            var autor2 = await autorServicio.GetAutorDtoAsync(2);
+            var lista = new List<AutorDTO>();
+
+            lista.Add(autor1!);
+            lista.Add(autor2!);
+
+            var paginacionDTO = new PaginacionDTO();
+
+            //Prueba
+            var resultado = await autorServicio.GetAutoresDtoAsync(paginacionDTO);
+
+            //Validacion
+            Assert.IsInstanceOfType<IEnumerable<AutorDTO>>(resultado);
+        }
+        
         [TestMethod]
         [DataRow(1)]
         public async Task GetAutorDtoAsync_RetornarNull_CuandoAutorDesdeBDEsNull(int autorId)
