@@ -100,19 +100,8 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Get_DebeLlamarGetDelServicioAutores(int autorId)
         {
             //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
             IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
             IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
-
-            context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
-            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
-
-            await context.SaveChangesAsync();
 
             var autoresController = new AutoresController(autorServicio, outputCacheStore);
 
