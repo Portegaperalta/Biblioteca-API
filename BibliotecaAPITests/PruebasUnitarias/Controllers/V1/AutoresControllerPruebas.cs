@@ -322,5 +322,36 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.IsNotNull(resultado);
             Assert.AreEqual(expected: 404,actual: resultado.StatusCode);
         }
+
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Delete_Retorna204_CuandoAutorExiste(int autorId)
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
+            
+            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
+            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
+
+            await context.SaveChangesAsync();
+
+            //Prueba
+            var respuesta = await autoresController.Delete(autorId);
+
+            //Validacion
+            var resultado = respuesta as NoContentResult;
+
+            Assert.IsNotNull(resultado);
+            Assert.AreEqual(expected: 204, actual: resultado.StatusCode);
+        }
     }
 }
