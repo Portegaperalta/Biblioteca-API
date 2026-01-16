@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
+using NSubstitute.Extensions;
 
 namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
 {
@@ -254,5 +255,46 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.AreEqual(expected: 404, actual: resultado!.StatusCode);
         }
 
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Put_Retorna204_CuandoAutorSeActualiza(int autorIdFromRoute)
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
+            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
+
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            var autorPutDTO = new AutorPutDTO
+            {
+                Id = 1,
+                Nombres = "William",
+                Apellidos = "Shakespeare",
+                Identificacion = "456"
+            };
+
+            autorServicio.GetAutorAsNoTrackingAsync(autorIdFromRoute)
+                         .Returns(new Autor
+                         {
+                             Id = autorIdFromRoute,
+                             Nombres = "William",
+                             Apellidos = "Shakespeare",
+                             Identificacion = "123"
+                         });
+
+            //Prueba
+            var respuesta = await autoresController.Put(autorIdFromRoute, autorPutDTO);
+
+            //Validacion
+            var resultado = respuesta as NoContentResult;
+            Assert.IsNotNull(resultado);
+            Assert.AreEqual(expected: 204, actual: resultado.StatusCode);
+        }
     }
 }
