@@ -165,12 +165,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Post_DebeLlamarCreateAutorAsyncDelServicioAutores()
         {
             //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
             IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
             IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
 
