@@ -57,9 +57,7 @@ namespace Biblioteca_API.Controllers.V1
                 return NotFound();
             }
 
-            GenerarEnlaces(autorDto);
-
-            return autorDto;
+            return Ok(autorDto);
         }
 
         //GET api/v1/autores/filtrar

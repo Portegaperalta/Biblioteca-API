@@ -1,0 +1,99 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Biblioteca_API.Controllers.V1;
+using Biblioteca_API.Datos;
+using Biblioteca_API.Datos.Repositorios;
+using Biblioteca_API.DTOs;
+using Biblioteca_API.DTOs.Autor;
+using Biblioteca_API.Entidades;
+using Biblioteca_API.Mappers;
+using Biblioteca_API.Servicios;
+using BibliotecaAPITests.Utilidades;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.Extensions.Logging;
+
+namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
+{
+    [TestClass]
+    public class AutoresControllerPruebas : BasePruebas
+    {
+        //Helpers de construccion
+        protected AutorServicio ConstruirAutorServicio
+            (RepositorioAutor repositorioAutor,AutorMapper autorMapper,
+            IAlmacenadorArchivos almacenadorArchivos,ILogger<AutorServicio> logger)
+        {
+            return new AutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+        }
+
+        protected RepositorioAutor ConstruirRepositorioAutor(ApplicationDbContext context)
+        {
+            return new RepositorioAutor(context);
+        }
+
+        protected AutorMapper ConstruirMapper()
+        {
+            return new AutorMapper();
+        }
+
+        //GET
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Get_Retorna404_CuandoAutorNoExiste(int autorId)
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+            IOutputCacheStore outputCacheStore = null!;
+
+            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+
+            var autoresController = new AutoresController(autorServicio,outputCacheStore);
+            //Prueba
+            var respuesta = await autoresController.Get(autorId,true);
+
+            //Validacion
+            var resultado = respuesta.Result as StatusCodeResult;
+            Assert.AreEqual(expected: 404,actual:resultado!.StatusCode);
+        }
+
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Get_RetornaAutorDTO_CuandoAutorExiste(int autorId)
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+            IOutputCacheStore outputCacheStore = null!;
+
+            context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
+            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
+
+            await context.SaveChangesAsync();
+
+            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            //Prueba
+            var respuesta = await autoresController.Get(autorId, true);
+
+            //Validacion
+            var resultado = respuesta.Result as OkObjectResult;
+            var autorDto = resultado!.Value as AutorDTO;
+
+            Assert.AreEqual(expected: autorId, actual: autorDto!.Id);
+        }
+    }
+}
