@@ -297,6 +297,45 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.AreEqual(expected: 204, actual: resultado.StatusCode);
         }
 
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Put_DebeLlamarUpdateAutorAsyncDelServicioAutores(int autorIdFromRoute)
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
+            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
+
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            var autorPutDTO = new AutorPutDTO
+            {
+                Id = 1,
+                Nombres = "William",
+                Apellidos = "Shakespeare",
+                Identificacion = "456"
+            };
+
+            autorServicio.GetAutorAsNoTrackingAsync(autorIdFromRoute)
+                         .Returns(new Autor
+                         {
+                             Id = autorIdFromRoute,
+                             Nombres = "William",
+                             Apellidos = "Shakespeare",
+                             Identificacion = "123"
+                         });
+
+            //Prueba
+            await autoresController.Put(autorIdFromRoute, autorPutDTO);
+
+            //Validacion
+            await autorServicio.Received(1).UpdateAutorAsync(autorPutDTO);
+        }
         //DELETE
         [TestMethod]
         [DataRow(1)]
