@@ -46,9 +46,9 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = null!;
-            ILogger<AutorServicio> logger = null!;
-            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
 
             var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
 
@@ -71,9 +71,9 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = null!;
-            ILogger<AutorServicio> logger = null!;
-            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
 
             context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
             context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
@@ -103,9 +103,9 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = null!;
-            ILogger<AutorServicio> logger = null!;
-            IOutputCacheStore outputCacheStore = null!;
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
             IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
 
             context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
@@ -131,9 +131,9 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = null!;
-            ILogger<AutorServicio> logger = null!;
-            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
 
             var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
 
@@ -168,9 +168,9 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = null!;
-            ILogger<AutorServicio> logger = null!;
-            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
+            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
             IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
 
             var autorCreacionDTO = new AutorCreacionDTO
