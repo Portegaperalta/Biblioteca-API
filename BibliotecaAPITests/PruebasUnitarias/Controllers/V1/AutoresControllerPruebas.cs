@@ -299,7 +299,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
 
         [TestMethod]
         [DataRow(1)]
-        public async Task Put_DebeLlamarUpdateAutorAsyncDelServicioAutores(int autorIdFromRoute)
+        public async Task Put_DebeLlamarUpdateAutorAsyncDelServicioAutor(int autorIdFromRoute)
         {
             //Preparacion
             var nombreDB = Guid.NewGuid().ToString();
@@ -379,7 +379,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var autoresController = new AutoresController(autorServicio, outputCacheStore);
 
             context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
-            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
 
             await context.SaveChangesAsync();
 
@@ -391,6 +390,23 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
 
             Assert.IsNotNull(resultado);
             Assert.AreEqual(expected: 204, actual: resultado.StatusCode);
+        }
+
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Delete_DebeLlamarDeleteAutorAsyncDelServicioAutor(int autorId)
+        {
+            //Preparacion
+            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
+            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
+
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            //Prueba
+            await autoresController.Delete(autorId);
+
+            //Validacion
+            await autorServicio.Received(1).DeleteAutorAsync(autorId);
         }
     }
 }
