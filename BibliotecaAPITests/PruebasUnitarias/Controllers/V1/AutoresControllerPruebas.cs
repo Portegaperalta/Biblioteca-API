@@ -159,5 +159,34 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
 
             Assert.AreEqual(expected: 1, actual: cantidad);
         }
+
+        [TestMethod]
+        public async Task Post_DebeLlamarCreateAutorAsyncDelServicioAutores()
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
+            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
+
+            var autorCreacionDTO = new AutorCreacionDTO
+            {
+                Nombres = "William",
+                Apellidos = "Shakespeare",
+                Identificacion = "123"
+            };
+
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            //Prueba
+            await autoresController.Post(autorCreacionDTO);
+
+            //Validacion
+            await autorServicio.Received(1).CreateAutorAsync(autorCreacionDTO);
+        }
     }
 }
