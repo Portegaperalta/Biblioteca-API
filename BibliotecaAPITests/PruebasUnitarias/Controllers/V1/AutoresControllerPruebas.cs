@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Biblioteca_API.Controllers.V1;
+﻿using Biblioteca_API.Controllers.V1;
 using Biblioteca_API.Datos;
 using Biblioteca_API.Datos.Repositorios;
-using Biblioteca_API.DTOs;
 using Biblioteca_API.DTOs.Autor;
 using Biblioteca_API.Entidades;
 using Biblioteca_API.Mappers;
 using Biblioteca_API.Servicios;
 using BibliotecaAPITests.Utilidades;
+using BibliotecaAPITests.Utilidades.Dobles;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Logging;
@@ -51,7 +46,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var autorMapper = ConstruirMapper();
             IAlmacenadorArchivos almacenadorArchivos = null!;
             ILogger<AutorServicio> logger = null!;
-            IOutputCacheStore outputCacheStore = null!;
+            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
 
             var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
 
@@ -75,7 +70,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var autorMapper = ConstruirMapper();
             IAlmacenadorArchivos almacenadorArchivos = null!;
             ILogger<AutorServicio> logger = null!;
-            IOutputCacheStore outputCacheStore = null!;
+            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
 
             context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
             context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
