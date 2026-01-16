@@ -9,6 +9,7 @@ using BibliotecaAPITests.Utilidades;
 using BibliotecaAPITests.Utilidades.Dobles;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
@@ -51,6 +52,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
 
             var autoresController = new AutoresController(autorServicio,outputCacheStore);
+
             //Prueba
             var respuesta = await autoresController.Get(autorId,true);
 
@@ -89,6 +91,45 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var autorDto = resultado!.Value as AutorDTO;
 
             Assert.AreEqual(expected: autorId, actual: autorDto!.Id);
+        }
+
+
+        //POST
+        [TestMethod]
+        public async Task Post_Retorna201_CuandoAutorEsCreado()
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+            IOutputCacheStore outputCacheStore = new OutputCacheStoreFalso();
+
+            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+
+            var autorCreacionDTO = new AutorCreacionDTO
+            {
+                Nombres = "William",
+                Apellidos = "Shakespeare",
+                Identificacion = "123"
+            };
+
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            //Prueba
+            var respuesta = await autoresController.Post(autorCreacionDTO);
+
+            //Validacion
+            var resultado = respuesta as CreatedResult;
+            Assert.AreEqual(expected: 201, actual: resultado!.StatusCode);
+
+            //valida que autor realmente fue creado en tabla
+            var contexto2 = ConstruirContext(nombreDB);
+            var cantidad = await contexto2.Autores.CountAsync();
+
+            Assert.AreEqual(expected: 1, actual: cantidad);
         }
     }
 }
