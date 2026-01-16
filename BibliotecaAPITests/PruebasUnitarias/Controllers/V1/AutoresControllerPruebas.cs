@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using NSubstitute;
 
 namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
 {
@@ -93,6 +94,33 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.AreEqual(expected: autorId, actual: autorDto!.Id);
         }
 
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Get_DebeLlamarGetDelServicioAutores(int autorId)
+        {
+            //Preparacion
+            var nombreDB = Guid.NewGuid().ToString();
+            var context = ConstruirContext(nombreDB);
+            var repositorioAutor = ConstruirRepositorioAutor(context);
+            var autorMapper = ConstruirMapper();
+            IAlmacenadorArchivos almacenadorArchivos = null!;
+            ILogger<AutorServicio> logger = null!;
+            IOutputCacheStore outputCacheStore = null!;
+            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
+
+            context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
+            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
+
+            await context.SaveChangesAsync();
+
+            var autoresController = new AutoresController(autorServicio, outputCacheStore);
+
+            //Prueba
+            await autoresController.Get(autorId,true);
+
+            //Verificacion
+            await autorServicio.Received(1).GetAutorDtoAsync(autorId);
+        }
 
         //POST
         [TestMethod]
