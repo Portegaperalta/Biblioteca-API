@@ -70,7 +70,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             //Preparacion
             var nombreDB = Guid.NewGuid().ToString();
             var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
             IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
             ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
@@ -78,11 +77,13 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
 
             context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
             context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
-
+            
             await context.SaveChangesAsync();
 
-            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+            var context2 = ConstruirContext(nombreDB);
 
+            var repositorioAutor = ConstruirRepositorioAutor(context2);
+            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
             var autoresController = new AutoresController(autorServicio, outputCacheStore);
 
             //Prueba
