@@ -37,13 +37,16 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             return new AutorMapper();
         }
 
-        //GET
-        [TestMethod]
-        [DataRow(1)]
-        public async Task Get_Retorna404_CuandoAutorNoExiste(int autorId)
+        IAlmacenadorArchivos almacenadorArchivos = null!;
+        ILogger<AutorServicio> logger = null!;
+        IOutputCacheStore outputCacheStore = null!;
+        IAutorServicio autorServicio = null!;
+        private string nombreDB = Guid.NewGuid().ToString();
+        private AutoresController autoresController = null!;
+
+        [TestInitialize]
+        public void Setup()
         {
-            //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
@@ -52,9 +55,14 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
 
             var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
+            autoresController = new AutoresController(autorServicio, outputCacheStore);
+        }
 
-            var autoresController = new AutoresController(autorServicio,outputCacheStore);
-
+        //GET
+        [TestMethod]
+        [DataRow(1)]
+        public async Task Get_Retorna404_CuandoAutorNoExiste(int autorId)
+        {
             //Prueba
             var respuesta = await autoresController.Get(autorId,true);
 
