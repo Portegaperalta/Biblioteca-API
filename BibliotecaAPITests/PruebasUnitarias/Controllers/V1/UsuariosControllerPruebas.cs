@@ -83,5 +83,26 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.AreEqual(expected: 1, actual: problemDetails.Errors.Keys.Count);
             Assert.AreEqual(expected: mensajeDeError, actual: problemDetails.Errors.Values.First().First());
         }
+
+        [TestMethod]
+        public async Task Registrar_RetornaToken_CuandoEsExitoso()
+        {
+            //Preparacion
+            var credencialesUsuarioDTO = new CredencialesUsuarioDTO
+            {
+                Email = "example@hotmail.com",
+                Password = "@Example123"
+            };
+
+            userManager.CreateAsync(Arg.Any<Usuario>(), Arg.Any<string>())
+                       .Returns(IdentityResult.Success);
+
+            //Prueba 
+            var respuesta = await usuariosController.Registrar(credencialesUsuarioDTO);
+
+            //Validacion
+            Assert.IsNotNull(respuesta.Value);
+            Assert.IsNotNull(respuesta.Value.Token);
+        }
     }
 }
