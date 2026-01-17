@@ -37,9 +37,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             return new AutorMapper();
         }
 
-        IAlmacenadorArchivos almacenadorArchivos = null!;
-        ILogger<AutorServicio> logger = null!;
-        IOutputCacheStore outputCacheStore = null!;
         IAutorServicio autorServicio = null!;
         private string nombreDB = Guid.NewGuid().ToString();
         private AutoresController autoresController = null!;
@@ -50,10 +47,11 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-
+            var almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
+            var logger = Substitute.For<ILogger<AutorServicio>>();
+            var outputCacheStore = Substitute.For<IOutputCacheStore>();
+            
+            autorServicio = ConstruirAutorServicio(repositorioAutor,autorMapper, almacenadorArchivos, logger);
             autoresController = new AutoresController(autorServicio, outputCacheStore);
         }
 
@@ -112,22 +110,12 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Post_Retorna201_CuandoAutorEsCreado()
         {
             //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-
-            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
-
             var autorCreacionDTO = new AutorCreacionDTO
             {
                 Nombres = "William",
                 Apellidos = "Shakespeare",
                 Identificacion = "123"
             };
-
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
 
             //Prueba
             var respuesta = await autoresController.Post(autorCreacionDTO);
