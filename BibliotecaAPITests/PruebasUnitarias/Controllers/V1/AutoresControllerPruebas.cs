@@ -188,17 +188,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Put_Retorna204_CuandoAutorSeActualiza(int autorIdFromRoute)
         {
             //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
-
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
-
             var autorPutDTO = new AutorPutDTO
             {
                 Id = 1,
@@ -230,11 +219,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Put_DebeLlamarUpdateAutorAsyncDelServicioAutor(int autorIdFromRoute)
         {
             //Preparacion
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
-
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
-
             var autorPutDTO = new AutorPutDTO
             {
                 Id = 1,
@@ -263,18 +247,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         [DataRow(1)]
         public async Task Delete_Retorna404_CuandoAutorNoExiste(int autorId)
         {
-            //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
-
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
-
             //Prueba
             var respuesta = await autoresController.Delete(autorId);
 
@@ -288,25 +260,11 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         [DataRow(1)]
         public async Task Delete_Retorna204_CuandoAutorExiste(int autorId)
         {
-            //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-            
-            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
-
-            context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
-
-            await context.SaveChangesAsync();
-
             //Prueba
-            var respuesta = await autoresController.Delete(autorId);
+             autorServicio.DeleteAutorAsync(autorId)
+                          .Returns(Task.FromResult(true));
 
+            var respuesta = await autoresController.Delete(autorId);
             //Validacion
             var resultado = respuesta as NoContentResult;
 
