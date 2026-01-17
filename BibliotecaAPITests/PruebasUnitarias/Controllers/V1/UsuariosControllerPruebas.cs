@@ -104,5 +104,30 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.IsNotNull(respuesta.Value);
             Assert.IsNotNull(respuesta.Value.Token);
         }
+
+        [TestMethod]
+        public async Task Login_RetornaValidationProblem_CuandoUsuarioNoExiste()
+        {
+            //Preparacion
+            var credencialesUsuarioDTO = new CredencialesUsuarioDTO
+            {
+                Email = "example@hotmail.com",
+                Password = "@Example123"
+            };
+
+            userManager.FindByEmailAsync(credencialesUsuarioDTO.Email)!
+                       .Returns(Task.FromResult<Usuario>(null!));
+
+            //Prueba
+            var respuesta = await usuariosController.Login(credencialesUsuarioDTO);
+
+            //Validacion
+            var resultado = respuesta.Result as ObjectResult;
+            var problemDetails = resultado!.Value as ValidationProblemDetails;
+            Assert.IsNotNull(problemDetails);
+            Assert.AreEqual(expected: 1, actual: problemDetails.Errors.Keys.Count);
+            Assert.AreEqual(expected: "Login incorrecto", 
+                            actual: problemDetails.Errors.Values.First().First());
+        }
     }
 }
