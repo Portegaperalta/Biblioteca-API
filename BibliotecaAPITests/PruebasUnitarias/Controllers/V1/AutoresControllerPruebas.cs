@@ -51,7 +51,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var logger = Substitute.For<ILogger<AutorServicio>>();
             var outputCacheStore = Substitute.For<IOutputCacheStore>();
             
-            autorServicio = ConstruirAutorServicio(repositorioAutor,autorMapper, almacenadorArchivos, logger);
+            autorServicio = Substitute.For<IAutorServicio>();
             autoresController = new AutoresController(autorServicio, outputCacheStore);
         }
 
@@ -135,17 +135,12 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Post_DebeLlamarCreateAutorAsyncDelServicioAutores()
         {
             //Preparacion
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
-
             var autorCreacionDTO = new AutorCreacionDTO
             {
                 Nombres = "William",
                 Apellidos = "Shakespeare",
                 Identificacion = "123"
             };
-
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
 
             //Prueba
             await autoresController.Post(autorCreacionDTO);
