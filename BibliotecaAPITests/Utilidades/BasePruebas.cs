@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Biblioteca_API.Datos;
-using Biblioteca_API.Datos.Repositorios;
-using Biblioteca_API.Mappers;
-using Biblioteca_API.Servicios;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace BibliotecaAPITests.Utilidades
 {
@@ -21,6 +17,40 @@ namespace BibliotecaAPITests.Utilidades
 
             var dbContext = new ApplicationDbContext(opciones);
             return dbContext;
+        }
+
+        protected WebApplicationFactory<Program> ConstruirWebApplicationFactory(string nombreDB,bool ignorarSeguridad = true)
+        {
+            var factory = new WebApplicationFactory<Program>();
+
+            factory = factory.WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    ServiceDescriptor descriptorDBContext = services.SingleOrDefault(
+                        d => d.ServiceType == typeof(IDbContextOptionsConfiguration<ApplicationDbContext>))!;
+                
+                     if (descriptorDBContext is not null)
+                     {
+                        services.Remove(descriptorDBContext);
+                     }
+
+                    services.AddDbContext<ApplicationDbContext>(opciones =>
+                    opciones.UseInMemoryDatabase(nombreDB));
+
+                    if (ignorarSeguridad)
+                    {
+                        services.AddSingleton<IAuthorizationHandler, AllowAnonymusHandler>();
+
+                        services.AddControllers(opciones =>
+                        {
+                            opciones.Filters.Add(new UsuarioFalsoFiltro());
+                        });
+                    }
+                });
+            });
+
+            return factory;
         }
     }
 }
