@@ -37,20 +37,14 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             return new AutorMapper();
         }
 
-        IAutorServicio autorServicio = null!;
-        private string nombreDB = Guid.NewGuid().ToString();
+        private IAutorServicio autorServicio = null!;
+        private IOutputCacheStore outputCacheStore = null!;
         private AutoresController autoresController = null!;
 
         [TestInitialize]
         public void Setup()
         {
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            var almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            var logger = Substitute.For<ILogger<AutorServicio>>();
-            var outputCacheStore = Substitute.For<IOutputCacheStore>();
-            
+            outputCacheStore = Substitute.For<IOutputCacheStore>();
             autorServicio = Substitute.For<IAutorServicio>();
             autoresController = new AutoresController(autorServicio, outputCacheStore);
         }
@@ -73,10 +67,13 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Get_RetornaAutorDTO_CuandoAutorExiste(int autorId)
         {
             //Preparacion
-            var context = ConstruirContext(nombreDB);
-            context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
-            context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
-            await context.SaveChangesAsync();
+            autorServicio.GetAutorDtoAsync(1)
+                         .Returns(new AutorDTO
+                         {
+                             Id = 1,
+                             NombreCompleto = "Ernest Hemingway",
+                             Foto = null
+                         });
 
             //Prueba
             var respuesta = await autoresController.Get(autorId, true);
@@ -110,6 +107,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Post_Retorna201_CuandoAutorEsCreado()
         {
             //Preparacion
+            var nombreDB = new Guid();
             var autorCreacionDTO = new AutorCreacionDTO
             {
                 Nombres = "William",
@@ -125,7 +123,7 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.AreEqual(expected: 201, actual: resultado!.StatusCode);
 
             //valida que autor realmente fue creado en tabla
-            var contexto2 = ConstruirContext(nombreDB);
+            var contexto2 = ConstruirContext(nombreDB.ToString());
             var cantidad = await contexto2.Autores.CountAsync();
 
             Assert.AreEqual(expected: 1, actual: cantidad);
