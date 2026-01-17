@@ -143,7 +143,9 @@ namespace Biblioteca_API.Controllers.V1
             autor.Apellidos = autorPatchDTO.Apellidos;
 
             var autorPutDto = _autorServicio.HandleAutorPutDtoMapping(id, autorPatchDTO);
+            
             await _autorServicio.UpdateAutorAsync(autorPutDto);
+            await _outputCacheStore.EvictByTagAsync(cache, default);
 
             return NoContent();
         }
