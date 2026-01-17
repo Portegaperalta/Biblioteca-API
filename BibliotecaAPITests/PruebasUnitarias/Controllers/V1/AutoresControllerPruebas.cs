@@ -76,23 +76,10 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Get_RetornaAutorDTO_CuandoAutorExiste(int autorId)
         {
             //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
             var context = ConstruirContext(nombreDB);
-            var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-
             context.Add(new Autor { Nombres = "Ernest", Apellidos = "Hemingway", });
             context.Add(new Autor { Nombres = "Pablo", Apellidos = "Neruda", });
-            
             await context.SaveChangesAsync();
-
-            var context2 = ConstruirContext(nombreDB);
-
-            var repositorioAutor = ConstruirRepositorioAutor(context2);
-            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
 
             //Prueba
             var respuesta = await autoresController.Get(autorId, true);
