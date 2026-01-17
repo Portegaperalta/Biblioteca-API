@@ -176,11 +176,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Put_Retorna404_CuandoAutorNoExiste(int autorIdFromRoute)
         {
             //Preparacion
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
-
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
-
             var autorPutDTO = new AutorPutDTO
             {
                 Id = 1,
