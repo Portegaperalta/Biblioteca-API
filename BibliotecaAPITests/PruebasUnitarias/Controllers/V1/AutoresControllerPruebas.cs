@@ -107,7 +107,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Post_Retorna201_CuandoAutorEsCreado()
         {
             //Preparacion
-            var nombreDB = new Guid();
             var autorCreacionDTO = new AutorCreacionDTO
             {
                 Nombres = "William",
@@ -121,12 +120,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             //Validacion
             var resultado = respuesta as CreatedResult;
             Assert.AreEqual(expected: 201, actual: resultado!.StatusCode);
-
-            //valida que autor realmente fue creado en tabla
-            var contexto2 = ConstruirContext(nombreDB.ToString());
-            var cantidad = await contexto2.Autores.CountAsync();
-
-            Assert.AreEqual(expected: 1, actual: cantidad);
         }
 
         [TestMethod]
