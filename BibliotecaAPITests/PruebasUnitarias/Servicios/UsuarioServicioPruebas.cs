@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Biblioteca_API.Datos;
@@ -47,6 +48,30 @@ namespace BibliotecaAPITests.PruebasUnitarias.Servicios
 
             //Validacion
             Assert.IsNull(respuesta);
+        }
+
+        [TestMethod]
+        public async Task ObtenerUsuario_RetornaUsuario_CuandoEmailClaimExiste()
+        {
+            //Preparacion
+            var email = "prueba@hotmail.com";
+            var usuarioEsperado = new Usuario { Email = email };
+
+            userManager.FindByEmailAsync(email)!.Returns(Task.FromResult(usuarioEsperado));
+
+            var claims = new ClaimsPrincipal(new ClaimsIdentity(new Claim[]
+            {
+                new Claim("email",email)
+            }));
+
+            var httpContext = new DefaultHttpContext() { User = claims};
+            httpContextAccessor.HttpContext.Returns(httpContext);
+            //Prueba
+            var usuario = await usuarioServicio.ObtenerUsuario();
+
+            //Validacion
+            Assert.IsNotNull(usuario);
+            Assert.AreEqual(expected: email, actual: usuario.Email);
         }
     }
 }
