@@ -54,7 +54,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
             IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
 
-            var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
             autoresController = new AutoresController(autorServicio, outputCacheStore);
         }
 
@@ -117,8 +116,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             var context = ConstruirContext(nombreDB);
             var repositorioAutor = ConstruirRepositorioAutor(context);
             var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
             IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
 
             var autorServicio = ConstruirAutorServicio(repositorioAutor, autorMapper, almacenadorArchivos, logger);
@@ -175,17 +172,6 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
         public async Task Put_Retorna400_CuandoAutorIdDeRutaNoEsIgualAIdDeAutorPutDTO(int autorIdFromRoute)
         {
             //Preparacion
-            var nombreDB = Guid.NewGuid().ToString();
-            var context = ConstruirContext(nombreDB);
-            var repositorioAutor = ConstruirRepositorioAutor(context);
-            var autorMapper = ConstruirMapper();
-            IAlmacenadorArchivos almacenadorArchivos = Substitute.For<IAlmacenadorArchivos>();
-            ILogger<AutorServicio> logger = Substitute.For<ILogger<AutorServicio>>();
-            IOutputCacheStore outputCacheStore = Substitute.For<IOutputCacheStore>();
-            IAutorServicio autorServicio = Substitute.For<IAutorServicio>();
-
-            var autoresController = new AutoresController(autorServicio, outputCacheStore);
-
             var autorPutDTO = new AutorPutDTO
             {
              Id = 2,
