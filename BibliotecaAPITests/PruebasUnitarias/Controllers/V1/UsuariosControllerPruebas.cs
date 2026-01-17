@@ -161,5 +161,33 @@ namespace BibliotecaAPITests.PruebasUnitarias.Controllers.V1
             Assert.AreEqual(expected: "Login incorrecto",
                             actual: problemDetails.Errors.Values.First().First());
         }
+
+        [TestMethod]
+        public async Task Login_RetornaValidationProblem_CuandoLoginEsCorrecto()
+        {
+            //Preparacion
+            var credencialesUsuarioDTO = new CredencialesUsuarioDTO
+            {
+                Email = "example@hotmail.com",
+                Password = "@Example123"
+            };
+
+            var usuario = new Usuario { Email = credencialesUsuarioDTO.Email };
+
+            userManager.FindByEmailAsync(credencialesUsuarioDTO.Email)!
+                       .Returns(Task.FromResult<Usuario>(null!));
+
+            signInManager.CheckPasswordSignInAsync(usuario, credencialesUsuarioDTO.Password, false)
+                         .Returns(Microsoft.AspNetCore.Identity.SignInResult.Success);
+
+
+
+            //Prueba
+            var respuesta = await usuariosController.Login(credencialesUsuarioDTO);
+
+            //Validacion
+            Assert.IsNotNull(respuesta.Value);
+            Assert.IsNotNull(respuesta.Value.Token);
+        }
     }
 }
