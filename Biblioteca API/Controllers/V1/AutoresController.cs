@@ -12,6 +12,7 @@ namespace Biblioteca_API.Controllers.V1
     [ApiController]
     [Route("api/v1/autores")]
     [Authorize(Policy = "esAdmin")]
+    [EnableRateLimiting("general")]
     public class AutoresController : ControllerBase
     {
         private readonly IAutorServicio _autorServicio;
