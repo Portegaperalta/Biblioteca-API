@@ -8,6 +8,7 @@ using Biblioteca_API.Servicios;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Biblioteca_API.Controllers.V1
@@ -74,6 +75,7 @@ namespace Biblioteca_API.Controllers.V1
 
         [HttpPost("login", Name = "LoginUsuarioV1")]
         [EndpointSummary("Permite login de usuario")]
+        [EnableRateLimiting("estricta")]
         public async Task<ActionResult<RespuestaAutenticacionDto>> Login
             (CredencialesUsuarioDTO credencialesUsuario)
         {

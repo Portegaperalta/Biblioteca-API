@@ -28,6 +28,17 @@ builder.Services.AddRateLimiter(opciones =>
                 Window = TimeSpan.FromSeconds(10)
             });
     });
+
+    opciones.AddPolicy("estricta", context =>
+    {
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "desconocido",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 2,
+                Window = TimeSpan.FromSeconds(5)
+            });
+    });
 });
 
 //builder.Services.AddOutputCache(opciones =>
