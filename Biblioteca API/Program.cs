@@ -183,6 +183,8 @@ app.UseSwaggerUI(opciones =>
 
 app.UseStaticFiles();
 
+app.UseRateLimiter();
+
 app.UseCors();
 
 app.UseOutputCache();
