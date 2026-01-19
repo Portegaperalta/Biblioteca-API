@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.RateLimiting;
 using Biblioteca_API.Datos;
 using Biblioteca_API.Datos.Repositorios;
 using Biblioteca_API.Entidades;
@@ -14,6 +15,20 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Area de servcios
+
+builder.Services.AddRateLimiter(opciones =>
+{
+    opciones.GlobalLimiter = 
+    PartitionedRateLimiter.Create<HttpContext, string>(context =>
+      RateLimitPartition.GetFixedWindowLimiter(
+          partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "desconocido",
+          factory: _ => new FixedWindowRateLimiterOptions
+          {
+              PermitLimit = 5,
+              Window = TimeSpan.FromSeconds(10)
+          }
+          ));
+});
 
 //builder.Services.AddOutputCache(opciones =>
 //{
