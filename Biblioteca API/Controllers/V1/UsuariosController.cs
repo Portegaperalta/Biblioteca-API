@@ -47,6 +47,7 @@ namespace Biblioteca_API.Controllers.V1
 
         [HttpPost("registro", Name = "RegistrarUsuarioV1")]
         [EndpointSummary("Crea un usuario")]
+        [EnableRateLimiting("estricta")]
         public async Task<ActionResult<RespuestaAutenticacionDto>> Registrar
             (CredencialesUsuarioDTO credencialesUsuario)
         {
