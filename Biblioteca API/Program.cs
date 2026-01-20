@@ -40,6 +40,8 @@ builder.Services.AddRateLimiter(opciones =>
                 Window = TimeSpan.FromSeconds(5)
             });
     });
+
+    opciones.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
 
 //builder.Services.AddOutputCache(opciones =>
