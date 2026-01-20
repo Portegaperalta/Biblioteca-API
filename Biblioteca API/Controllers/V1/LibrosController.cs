@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Biblioteca_API.Controllers.V1
 {
     [ApiController]
     [Route("api/v1/libros")]
     [Authorize(Policy = "esAdmin")]
+    [EnableRateLimiting("general")]
     public class LibrosController : ControllerBase
     {
         private readonly ILibroServicio _libroServicio;

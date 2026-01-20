@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Biblioteca_API.Controllers.V1
 {
     [ApiController]
     [Route("api/v1/libros/{libroId:int}/comentarios")]
     [Authorize]
+    [EnableRateLimiting("general")]
     public class ComentariosController : ControllerBase
     {
         private readonly IComentarioServicio _comentarioServicio;
