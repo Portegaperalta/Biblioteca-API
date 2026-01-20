@@ -39,6 +39,7 @@ namespace Biblioteca_API.Controllers.V1
         [HttpGet(Name = "ObtenerUsuariosV1")]
         [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Obtiene lista de usuarios")]
+        [EnableRateLimiting("general")]
         public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetAll()
         {
             var usuarios = await _usuarioServicio.GetAll();
@@ -100,6 +101,7 @@ namespace Biblioteca_API.Controllers.V1
 
         [HttpPut("actualizar-usuario")]
         [Authorize]
+        [EnableRateLimiting("general")]
         [EndpointSummary("Actualiza usuario")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -139,6 +141,7 @@ namespace Biblioteca_API.Controllers.V1
 
         [HttpPost("hacer-admin", Name = "HacerAdminV1")]
         [Authorize(Policy = "esAdmin")]
+        [EnableRateLimiting("general")]
         [EndpointSummary("Accede permisos de admin a usuario")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -155,6 +158,7 @@ namespace Biblioteca_API.Controllers.V1
 
         [HttpDelete("remover-admin")]
         [Authorize(Policy = "esAdmin")]
+        [EnableRateLimiting("general")]
         [EndpointSummary("Quita permisos de admin a usuario")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
