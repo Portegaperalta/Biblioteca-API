@@ -42,6 +42,11 @@ builder.Services.AddRateLimiter(opciones =>
     });
 
     opciones.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    opciones.OnRejected = async (context, cancellationToken) =>
+    {
+        await context.HttpContext.Response.WriteAsync("Limite excedido. Itente mas tarde");
+    };
 });
 
 //builder.Services.AddOutputCache(opciones =>
