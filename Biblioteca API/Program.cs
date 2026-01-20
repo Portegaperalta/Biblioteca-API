@@ -20,12 +20,13 @@ builder.Services.AddRateLimiter(opciones =>
 {
     opciones.AddPolicy("general", context =>
     {
-        return RateLimitPartition.GetFixedWindowLimiter(
+        return RateLimitPartition.GetSlidingWindowLimiter(
             partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "desconocido",
-            factory: _ => new FixedWindowRateLimiterOptions
+            factory: _ => new SlidingWindowRateLimiterOptions
             {
-                PermitLimit = 10,
-                Window = TimeSpan.FromSeconds(10)
+                PermitLimit = 5,
+                Window = TimeSpan.FromSeconds(10),
+                SegmentsPerWindow = 2
             });
     });
 
