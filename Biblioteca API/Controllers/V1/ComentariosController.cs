@@ -32,7 +32,6 @@ namespace Biblioteca_API.Controllers.V1
 
         //GET Comentarios
         [HttpGet(Name = "ObtenerComentariosV1")]
-        [AllowAnonymous]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene todos los comentarios del libro")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -45,7 +44,6 @@ namespace Biblioteca_API.Controllers.V1
 
         //GET comentario por id
         [HttpGet("{id:guid}", Name = "ObtenerComentarioV1")]
-        [AllowAnonymous]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene comentario por ID")]
         [EndpointDescription("Obtiene comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
