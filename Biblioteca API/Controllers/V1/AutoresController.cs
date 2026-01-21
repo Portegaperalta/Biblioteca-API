@@ -11,7 +11,6 @@ namespace Biblioteca_API.Controllers.V1
 {
     [ApiController]
     [Route("api/v1/autores")]
-    [Authorize(Policy = "esAdmin")]
     [EnableRateLimiting("general")]
     public class AutoresController : ControllerBase
     {
@@ -28,7 +27,7 @@ namespace Biblioteca_API.Controllers.V1
         // GET: api/v1/autores
         [HttpGet(Name = "ObtenerAutoresV1")]
         [HttpGet("listado-de-autores")]
-        [AllowAnonymous]
+        [Authorize]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene listado de autores")]
         public async Task<IEnumerable<AutorDTO>> GetAll([FromQuery] PaginacionDTO paginacionDTO)
@@ -44,7 +43,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // GET: api/v1/autores/id
         [HttpGet("{id:int}",Name ="ObtenerAutorV1")]
-        [AllowAnonymous]
+        [Authorize]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene autor por ID")]
         [EndpointDescription("Obtiene autor por ID incluyendo sus libros, si el autor no existe, devuelve status 404 (Not Found)")]
@@ -64,7 +63,7 @@ namespace Biblioteca_API.Controllers.V1
 
         //GET api/v1/autores/filtrar
         [HttpGet("filtrar",Name = "FiltrarAutoresV1")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<ActionResult> Filtrar([FromQuery] AutorFiltroDTO autorFiltroDTO)
         {
             var autoresFiltrados = await _autorServicio.GetAutoresFiltro(autorFiltroDTO);
@@ -74,6 +73,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // POST: api/v1/autores
         [HttpPost(Name = "CrearAutorV1")]
+        [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Crea un autor")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromForm] AutorCreacionDTO autorCreacionDto)
@@ -86,6 +86,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // PUT: api/v1/autores/id
         [HttpPut("{id:int}",Name = "ActualizarAutorV1")]
+        [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Actualiza autor por ID")]
         [EndpointDescription("Actualiza autor por ID, si el ID del autor en la ruta no coincide con ID de autor de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -112,6 +113,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // PATCH: api/v1/autores/id
         [HttpPatch("{id:int}")]
+        [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Actualiza parcialmente un autor por ID")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -155,6 +157,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // DELETE: api/v1/autores/id
         [HttpDelete("{id:int}",Name = "BorrarAutorV1")]
+        [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Elimina un autor por ID")]
         [EndpointDescription("Elimina un autor por ID, si el autor no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
