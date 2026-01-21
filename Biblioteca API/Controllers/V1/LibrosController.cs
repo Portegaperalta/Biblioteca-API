@@ -12,7 +12,6 @@ namespace Biblioteca_API.Controllers.V1
 {
     [ApiController]
     [Route("api/v1/libros")]
-    [Authorize(Policy = "esAdmin")]
     [EnableRateLimiting("general")]
     public class LibrosController : ControllerBase
     {
@@ -35,7 +34,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // GET: api/v1/libros
         [HttpGet(Name = "ObtenerLibrosV1")]
-        [AllowAnonymous]
+        [Authorize]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene listado de libros")]
         public async Task<IEnumerable<LibroDTO>> GetAll([FromQuery] PaginacionDTO paginacionDTO)
@@ -45,7 +44,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // GET: api/v1/libros/id
         [HttpGet("{id:int}", Name = "ObtenerLibroV1")]
-        [AllowAnonymous]
+        [Authorize]
         [OutputCache(Tags = [cache])]
         [EndpointSummary("Obtiene libro por ID")]
         [EndpointDescription("Obtiene libro por ID, si el libro no existe, devuelve status 404 (Not Found)")]
@@ -80,6 +79,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // POST: api/v1/libros
         [HttpPost(Name = "CrearLibroV1")]
+        [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Crea un libro")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult> Post([FromBody] LibroCreacionDTO libroCreacionDTO)
@@ -92,6 +92,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // PUT: api/v1/libros/id
         [HttpPut("{id:int}", Name = "ActualizarLibroV1")]
+        [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Actualiza libro por ID")]
         [EndpointDescription("Actualiza libro por ID, si el ID del libro en la ruta no coincide con ID de libro de peticion, devuelve status 400 (Bad Request)")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -111,6 +112,7 @@ namespace Biblioteca_API.Controllers.V1
 
         // DELETE: api/v1/libros/id
         [HttpDelete("{id:int}", Name = "BorrarLibroV1")]
+        [Authorize(Policy = "esAdmin")]
         [EndpointSummary("Elimina libro por ID")]
         [EndpointDescription("Elimina comentario por ID, si el comentario no existe, devuelve status 404 (Not Found)")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
