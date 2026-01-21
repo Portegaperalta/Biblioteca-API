@@ -50,6 +50,20 @@ builder.Services.AddRateLimiter(opciones =>
             });
     });
 
+    opciones.AddPolicy("porEndpoint", context =>
+    {
+        var endpoint = context.Request.Path.ToString();
+
+        return RateLimitPartition.GetSlidingWindowLimiter(
+            partitionKey: endpoint,
+            factory: _ => new SlidingWindowRateLimiterOptions
+            {
+                PermitLimit = 100,
+                Window = TimeSpan.FromMinutes(1),
+                SegmentsPerWindow = 4
+            });
+    });
+
     opciones.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
     opciones.OnRejected = async (context, cancellationToken) =>
