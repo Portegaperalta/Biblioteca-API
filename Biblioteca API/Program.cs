@@ -22,9 +22,10 @@ builder.Services.AddRateLimiter(opciones =>
     {
         var emailClaim = context.User.Claims.Where(x => x.Type == "email").FirstOrDefault()!;
         var email = emailClaim.Value;
+        bool isEmailNull = email == null;
 
         return RateLimitPartition.GetSlidingWindowLimiter(
-            partitionKey: email,
+            partitionKey: isEmailNull ? email : context.Connection.RemoteIpAddress?.ToString(),
             factory: _ => new SlidingWindowRateLimiterOptions
             {
                 PermitLimit = 5,
