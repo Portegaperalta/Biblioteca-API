@@ -40,12 +40,13 @@ builder.Services.AddRateLimiter(opciones =>
         var emailClaim = context.User.Claims.Where(x => x.Type == "email").FirstOrDefault()!;
         var email = emailClaim.Value;
 
-        return RateLimitPartition.GetFixedWindowLimiter(
+        return RateLimitPartition.GetSlidingWindowLimiter(
             partitionKey: email,
-            factory: _ => new FixedWindowRateLimiterOptions
+            factory: _ => new SlidingWindowRateLimiterOptions
             {
                 PermitLimit = 2,
-                Window = TimeSpan.FromSeconds(5)
+                Window = TimeSpan.FromSeconds(5),
+                SegmentsPerWindow = 2
             });
     });
 
