@@ -20,8 +20,11 @@ builder.Services.AddRateLimiter(opciones =>
 {
     opciones.AddPolicy("general", context =>
     {
+        var emailClaim = context.User.Claims.Where(x => x.Type == "email").FirstOrDefault()!;
+        var email = emailClaim.Value;
+
         return RateLimitPartition.GetSlidingWindowLimiter(
-            partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "desconocido",
+            partitionKey: email,
             factory: _ => new SlidingWindowRateLimiterOptions
             {
                 PermitLimit = 5,
@@ -34,8 +37,11 @@ builder.Services.AddRateLimiter(opciones =>
 
     opciones.AddPolicy("estricta", context =>
     {
+        var emailClaim = context.User.Claims.Where(x => x.Type == "email").FirstOrDefault()!;
+        var email = emailClaim.Value;
+
         return RateLimitPartition.GetFixedWindowLimiter(
-            partitionKey: context.Connection.RemoteIpAddress?.ToString() ?? "desconocido",
+            partitionKey: email,
             factory: _ => new FixedWindowRateLimiterOptions
             {
                 PermitLimit = 2,
